@@ -2,6 +2,7 @@ package de.flix29.notionApiClient;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.flix29.NotionApiClient;
 import de.flix29.notionApiClient.customDeserializer.*;
 import de.flix29.notionApiClient.model.User;
 import de.flix29.notionApiClient.model.block.Block;
@@ -39,7 +40,7 @@ public class NotionClient {
     private final String NOTION_USERS_URL = NOTION_API_URL + "/users";
 
     private final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
-            .header("Authorization", "")
+            .header("Authorization", NotionApiClient.getSecrets().get("notionKey"))
             .header("Notion-Version", NOTION_VERSION)
             .header("Content-Type", "application/json")
             .method("GET", HttpRequest.BodyPublishers.noBody());
