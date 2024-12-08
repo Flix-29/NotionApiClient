@@ -1,6 +1,6 @@
 # NotionApiClient
 
-This is a simple API client for <a href="notion.so">Notion.so</a>. It is based on the official <a href="developers.notion.com/reference/intro">Notion API documentation</a>.
+This is a simple API client for <a href="https://www.notion.so">Notion.so</a>. It is based on the official <a href="https://developers.notion.com/reference/intro">Notion API documentation</a>.
 
 ## How to use
 Just add a file called 'application.properties' in the resources folder with the following content:
