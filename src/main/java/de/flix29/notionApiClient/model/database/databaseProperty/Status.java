@@ -12,6 +12,7 @@ import java.util.List;
 public final class Status extends Property {
     private List<StatusItem> options;
     private List<StatusItem> groups;
+    private StatusItem selectedOption;
 
     public Status options(List<StatusItem> options) {
         this.options = options;
@@ -20,6 +21,11 @@ public final class Status extends Property {
 
     public Status groups(List<StatusItem> groups) {
         this.groups = groups;
+        return this;
+    }
+
+    public Status selectedOption(StatusItem selectedOption) {
+        this.selectedOption = selectedOption;
         return this;
     }
 

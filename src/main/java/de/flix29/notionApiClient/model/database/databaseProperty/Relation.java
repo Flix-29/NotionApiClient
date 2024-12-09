@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @ToString(callSuper = true)
@@ -13,6 +15,7 @@ public final class Relation extends Property {
     private String databaseId;
     private String syncedPropertyId;
     private String syncedPropertyName;
+    private List<String> relatedPageIds;
 
     public Relation databaseId(String databaseId) {
         this.databaseId = databaseId;
@@ -26,6 +29,11 @@ public final class Relation extends Property {
 
     public Relation syncedPropertyName(String relationPropertyName) {
         this.syncedPropertyName = relationPropertyName;
+        return this;
+    }
+
+    public Relation relatedPageIds(List<String> relatedPageIds) {
+        this.relatedPageIds = relatedPageIds;
         return this;
     }
 

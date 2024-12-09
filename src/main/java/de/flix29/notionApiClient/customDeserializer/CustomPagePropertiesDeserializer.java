@@ -9,7 +9,6 @@ import de.flix29.notionApiClient.model.database.databaseProperty.Number;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<Property>> {
@@ -41,7 +40,18 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                                 .map(file -> new CustomFileDeserializer().deserialize(file, File.class, jsonDeserializationContext))
                                 .toList()
                         );
-                case FORMULA -> new Formula(); //TODO
+                case FORMULA -> {
+                    var formulaObject = jsonObject.getAsJsonObject("formula");
+                    var valueType = formulaObject.get("type").getAsString();
+                    yield switch (valueType) {
+                        case "string" -> new Formula().stringValue(formulaObject.get("string").getAsString());
+                        case "number" -> new Formula().numberValue(formulaObject.get("number").getAsDouble());
+                        case "boolean" -> new Formula().booleanValue(formulaObject.get("boolean").getAsBoolean());
+                        case "date" ->
+                                new Formula().dateValue(new CustomOffsetDateTimeDeserializer().deserialize(formulaObject.get("date"), OffsetDateTime.class, jsonDeserializationContext));
+                        default -> throw new IllegalStateException("Unexpected value: " + valueType);
+                    };
+                }
                 case LAST_EDITED_BY -> new LastEditedBy()
                         .user(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext));
                 case LAST_EDITED_TIME -> new LastEditedTime()
@@ -56,12 +66,18 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                                 .toList()
                         );
                 case PHONE_NUMBER -> new PhoneNumber().phoneNumber(jsonObject.get("phone_number").getAsString());
-                case RELATION -> new Relation(); //TODO
+                case RELATION -> new Relation()
+                        .relatedPageIds(
+                                jsonObject.getAsJsonArray("relation").asList().stream()
+                                        .map(relation -> relation.getAsJsonObject().get("id").getAsString())
+                                        .toList()
+                        );
                 case RICH_TEXT -> new RichText(); //TODO
                 case ROLLUP -> new Rollup(); //TODO
                 case SELECT -> new Select()
                         .selected(extractSelectItem(jsonObject.getAsJsonObject("select")));
-                case STATUS -> new Status(); //TODO
+                case STATUS -> new Status()
+                        .selectedOption(extractStatusItem(jsonObject.getAsJsonObject("status")));
                 case TITLE -> new Title(); //TODO
                 case URL -> new Url().url(jsonObject.get("url").getAsString());
             };
@@ -87,27 +103,10 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                 .color(Color.fromString(jsonObject.get("color").getAsString()));
     }
 
-    private List<StatusItem> extractStatusItems(JsonObject jsonObject, String type, boolean isGroup) {
-        return jsonObject.get(type)
-                .getAsJsonArray()
-                .asList().stream()
-                .map(option -> {
-                    var optionObject = option.getAsJsonObject();
-                    return new StatusItem(isGroup)
-                            .id(optionObject.get("id").getAsString())
-                            .name(optionObject.get("name").getAsString())
-                            .color(Color.fromString(optionObject.get("color").getAsString()))
-                            .optionIds(isGroup ? getOptionIds(optionObject) : Collections.emptyList());
-                }).toList();
-    }
-
-    private static List<String> getOptionIds(JsonObject optionObject) {
-        return optionObject
-                .get("option_ids")
-                .getAsJsonArray()
-                .asList()
-                .stream()
-                .map(JsonElement::getAsString)
-                .toList();
+    private StatusItem extractStatusItem(JsonObject jsonObject) {
+        return new StatusItem(false)
+                .id(jsonObject.get("id").getAsString())
+                .name(jsonObject.get("name").getAsString())
+                .color(Color.fromString(jsonObject.get("color").getAsString()));
     }
 }
