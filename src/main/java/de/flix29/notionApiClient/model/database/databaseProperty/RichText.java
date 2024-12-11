@@ -1,15 +1,20 @@
 package de.flix29.notionApiClient.model.database.databaseProperty;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.List;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public final class RichText extends Property {
+    private List<de.flix29.notionApiClient.model.RichText> content;
+
+    public RichText content(List<de.flix29.notionApiClient.model.RichText> content) {
+        this.content = content;
+        return this;
+    }
 
     @Override
     public PropertyType getType() {
