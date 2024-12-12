@@ -83,7 +83,7 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                         .selectedOption(extractStatusItem(jsonObject.getAsJsonObject("status")));
                 case TITLE -> new Title().title(
                         new CustomRichTextDeserializer()
-                                .deserialize(jsonObject.getAsJsonObject("results"), de.flix29.notionApiClient.model.RichText.class, jsonDeserializationContext)
+                                .deserialize(jsonObject.getAsJsonArray(propertyType.getType()), de.flix29.notionApiClient.model.RichText.class, jsonDeserializationContext)
                 );
                 case URL -> new Url().url(jsonObject.get("url").getAsString());
             };
