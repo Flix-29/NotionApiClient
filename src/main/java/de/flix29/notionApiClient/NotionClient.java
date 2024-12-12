@@ -20,6 +20,7 @@ import java.util.List;
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.BLOCK_LIST_TYPE;
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.USER_LIST_TYPE;
 
+@SuppressWarnings("unused")
 public class NotionClient {
 
     private final Gson gson = new GsonBuilder()
