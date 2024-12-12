@@ -8,6 +8,7 @@ import de.flix29.notionApiClient.model.User;
 import de.flix29.notionApiClient.model.block.Block;
 import de.flix29.notionApiClient.model.database.Database;
 import de.flix29.notionApiClient.model.page.Page;
+import de.flix29.notionApiClient.model.database.databaseProperty.Property;
 
 import java.io.IOException;
 import java.net.URI;
@@ -86,12 +87,20 @@ public class NotionClient {
         return blocks;
     }
 
-    public Page getPage(String pageId) throws IOException, InterruptedException {
+    public Page getPageProperties(String pageId) throws IOException, InterruptedException {
         var pageUri = buildUri(NOTION_PAGE_URL, pageId);
         var builder = requestBuilder.uri(URI.create(pageUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         return gson.fromJson(response.body(), Page.class);
+    }
+
+    public Property getPageProperty(String pageId, String propertyId) throws IOException, InterruptedException {
+        var page = getPageProperties(pageId);
+        return page.getProperties().stream()
+                .filter(property -> property.getId().equals(propertyId))
+                .findFirst()
+                .orElse(null);
     }
 
     public List<User> listAllUsers() throws IOException, InterruptedException {
