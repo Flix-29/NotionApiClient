@@ -17,7 +17,12 @@ public class CustomBlockListDeserializer implements JsonDeserializer<List<Block>
         }
 
         var jsonArray = jsonElement.getAsJsonObject().getAsJsonArray("results");
+        if (jsonArray == null || jsonArray.isJsonNull()) {
+            return null;
+        }
+
         return jsonArray.asList().stream()
+                .filter(item -> item != null && !item.isJsonNull())
                 .map(block -> new CustomBlockDeserializer().deserialize(block, Block.class, jsonDeserializationContext))
                 .toList();
     }

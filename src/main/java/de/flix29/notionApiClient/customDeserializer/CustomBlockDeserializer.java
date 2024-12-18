@@ -12,7 +12,11 @@ import de.flix29.notionApiClient.model.block.blockContent.BlockContent;
 
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.UUID;
+
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsBooleanIfPresentAndNotNull;
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsStringIfPresentAndNotNull;
 
 public class CustomBlockDeserializer implements JsonDeserializer<Block> {
     @Override
@@ -22,18 +26,18 @@ public class CustomBlockDeserializer implements JsonDeserializer<Block> {
         }
 
         var jsonObject = jsonElement.getAsJsonObject();
-        var blockType = BlockType.fromString(jsonObject.get("type").getAsString());
+        var blockType = BlockType.fromString(getAsStringIfPresentAndNotNull(jsonObject, "type"));
 
         return new Block()
-                .id(UUID.fromString(jsonObject.get("id").getAsString()))
+                .id(UUID.fromString(Objects.requireNonNull(getAsStringIfPresentAndNotNull(jsonObject, "id"))))
                 .parent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
-                .createdTime(OffsetDateTime.parse(jsonObject.get("created_time").getAsString()))
-                .lastEditedTime(OffsetDateTime.parse(jsonObject.get("last_edited_time").getAsString()))
+                .createdTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
+                .lastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
                 .createdBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
                 .lastEditedBy(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext))
-                .hasChildren(jsonObject.get("has_children").getAsBoolean())
-                .archived(jsonObject.get("archived").getAsBoolean())
-                .deleted(jsonObject.get("in_trash").getAsBoolean())
+                .hasChildren(getAsBooleanIfPresentAndNotNull(jsonObject, "has_children"))
+                .archived(getAsBooleanIfPresentAndNotNull(jsonObject, "archived"))
+                .deleted(getAsBooleanIfPresentAndNotNull(jsonObject, "in_trash"))
                 .type(blockType)
                 .blockContent(
                         new CustomBlockContentDeserializer()
