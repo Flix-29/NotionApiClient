@@ -4,23 +4,24 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import de.flix29.notionApiClient.model.Color;
 import de.flix29.notionApiClient.model.FileType;
 import de.flix29.notionApiClient.model.Icon;
-import de.flix29.notionApiClient.model.RichText;
 import de.flix29.notionApiClient.model.block.BlockType;
 import de.flix29.notionApiClient.model.block.blockContent.*;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
-import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.RICH_TEXT_LIST_TYPE;
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.*;
 
 public class CustomBlockContentDeserializer implements JsonDeserializer<BlockContent> {
 
     private BlockType blockType = BlockType.UNSUPPORTED;
 
     public BlockContent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext, BlockType blockType) {
+        if (jsonElement == null || jsonElement.isJsonNull()) {
+            return null;
+        }
+
         this.blockType = blockType;
         return deserialize(jsonElement, type, jsonDeserializationContext);
     }
@@ -72,22 +73,22 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
                     .color(getColorFromJsonElement(jsonElement));
             case PDF -> new Pdf()
                     .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
-                    .type(FileType.fromString(jsonElement.getAsJsonObject().get("type").getAsString()))
+                    .type(FileType.fromString(getAsStringIfPresentAndNotNull(jsonElement.getAsJsonObject(), "type")))
                     .file(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
             case QUOTE -> new Quote()
                     .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
                     .color(getColorFromJsonElement(jsonElement));
             case SYNCED_BLOCK -> buildSyncedBlock(jsonElement);
             case TABLE -> new Table()
-                    .tableWidth(jsonElement.getAsJsonObject().get("table_width").getAsInt())
-                    .hasColumnHeader(jsonElement.getAsJsonObject().get("has_column_header").getAsBoolean())
-                    .hasRowHeader(jsonElement.getAsJsonObject().get("has_row_header").getAsBoolean());
+                    .tableWidth(getAsIntegerIfPresentAndNotNull(jsonElement.getAsJsonObject(), "table_width"))
+                    .hasColumnHeader(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "has_column_header"))
+                    .hasRowHeader(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "has_row_header"));
             case TABLE_OF_CONTENTS -> new TableOfContents()
                     .color(getColorFromJsonElement(jsonElement));
             case TABLE_ROW -> new TableRow(); //only accessible using child endpoint
             case TO_DO -> new ToDo()
                     .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                    .checked(jsonElement.getAsJsonObject().get("checked").getAsBoolean())
+                    .checked(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "checked"))
                     .color(getColorFromJsonElement(jsonElement));
             case TOGGLE -> new Toggle()
                     .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
@@ -95,44 +96,16 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
             case UNSUPPORTED -> throw new UnsupportedOperationException("Unsupported block type");
             case VIDEO -> new Video()
                     .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
-                    .type(FileType.fromString(jsonElement.getAsJsonObject().get("type").getAsString()))
+                    .type(FileType.fromString(getAsStringIfPresentAndNotNull(jsonElement.getAsJsonObject(), "type")))
                     .file(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
         };
-    }
-
-    private List<RichText> getRichTextFromJsonElement(JsonElement jsonElement, String rich_text, JsonDeserializationContext jsonDeserializationContext) {
-        if (jsonElement == null || rich_text == null || jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has(rich_text)) {
-            return null;
-        }
-        return new CustomRichTextDeserializer().deserialize(jsonElement.getAsJsonObject().get(rich_text), RICH_TEXT_LIST_TYPE, jsonDeserializationContext);
-    }
-
-    private String getStringFromJsonElement(JsonElement jsonElement, String key) {
-        if (jsonElement == null || key == null || jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has(key)) {
-            return null;
-        }
-        return jsonElement.getAsJsonObject().get(key).getAsString();
-    }
-
-    private Color getColorFromJsonElement(JsonElement jsonElement) {
-        if (jsonElement == null || jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has("color")) {
-            return null;
-        }
-        return Color.fromString(jsonElement.getAsJsonObject().get("color").getAsString());
-    }
-
-    private de.flix29.notionApiClient.model.File getFileFromJsonElement(JsonElement jsonElement, JsonDeserializationContext jsonDeserializationContext) {
-        if (jsonElement == null || jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has("file")) {
-            return null;
-        }
-        return new CustomFileDeserializer().deserialize(jsonElement, de.flix29.notionApiClient.model.File.class, jsonDeserializationContext);
     }
 
     private Heading createHeading(JsonElement jsonElement, int level, JsonDeserializationContext jsonDeserializationContext) {
         return new Heading(level)
                 .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
                 .color(getColorFromJsonElement(jsonElement))
-                .isToggleable(jsonElement.getAsJsonObject().get("is_toggleable").getAsBoolean());
+                .isToggleable(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "is_toggleable"));
     }
 
     private SyncedBlock buildSyncedBlock(JsonElement jsonElement) {

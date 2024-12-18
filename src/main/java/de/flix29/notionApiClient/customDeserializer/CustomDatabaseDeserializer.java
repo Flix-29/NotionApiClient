@@ -18,6 +18,10 @@ import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.RICH
 public class CustomDatabaseDeserializer implements JsonDeserializer<Database> {
     @Override
     public Database deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        if (jsonElement == null || jsonElement.isJsonNull()) {
+            return null;
+        }
+
         var jsonObject = jsonElement.getAsJsonObject();
         return new Database()
                 .id(UUID.fromString(jsonObject.get("id").getAsString()))

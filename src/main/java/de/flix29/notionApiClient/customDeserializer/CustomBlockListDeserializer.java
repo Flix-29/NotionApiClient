@@ -12,6 +12,10 @@ import java.util.List;
 public class CustomBlockListDeserializer implements JsonDeserializer<List<Block>> {
     @Override
     public List<Block> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        if (jsonElement == null || jsonElement.isJsonNull()) {
+            return null;
+        }
+
         var jsonArray = jsonElement.getAsJsonObject().getAsJsonArray("results");
         return jsonArray.asList().stream()
                 .map(block -> new CustomBlockDeserializer().deserialize(block, Block.class, jsonDeserializationContext))

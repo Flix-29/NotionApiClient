@@ -19,8 +19,11 @@ import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.PROP
 public class CustomPageDeserializer implements JsonDeserializer<Page> {
     @Override
     public Page deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        var jsonObject = jsonElement.getAsJsonObject();
+        if (jsonElement == null || jsonElement.isJsonNull()) {
+            return null;
+        }
 
+        var jsonObject = jsonElement.getAsJsonObject();
         return new Page()
                 .id(jsonObject.get("id").getAsString())
                 .createdTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))

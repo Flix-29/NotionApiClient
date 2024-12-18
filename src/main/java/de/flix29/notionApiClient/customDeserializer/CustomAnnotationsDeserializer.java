@@ -8,16 +8,23 @@ import de.flix29.notionApiClient.model.Annotations;
 
 import java.lang.reflect.Type;
 
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsBooleanIfPresentAndNotNull;
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsStringIfPresentAndNotNull;
+
 public class CustomAnnotationsDeserializer implements JsonDeserializer<Annotations> {
     @Override
     public Annotations deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        if (jsonElement == null || jsonElement.isJsonNull()) {
+            return null;
+        }
+
         var jsonObject = jsonElement.getAsJsonObject();
         return new Annotations()
-                .bold(jsonObject.get("bold").getAsBoolean())
-                .italic(jsonObject.get("italic").getAsBoolean())
-                .strikethrough(jsonObject.get("strikethrough").getAsBoolean())
-                .underline(jsonObject.get("underline").getAsBoolean())
-                .code(jsonObject.get("code").getAsBoolean())
-                .color(jsonObject.get("color").getAsString());
+                .bold(getAsBooleanIfPresentAndNotNull(jsonObject, "bold"))
+                .italic(getAsBooleanIfPresentAndNotNull(jsonObject, "italic"))
+                .strikethrough(getAsBooleanIfPresentAndNotNull(jsonObject, "strikethrough"))
+                .underline(getAsBooleanIfPresentAndNotNull(jsonObject, "underline"))
+                .code(getAsBooleanIfPresentAndNotNull(jsonObject, "code"))
+                .color(getAsStringIfPresentAndNotNull(jsonObject, "color"));
     }
 }

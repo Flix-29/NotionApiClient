@@ -14,6 +14,10 @@ import java.util.List;
 public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<List<Property>> {
     @Override
     public List<Property> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        if (jsonElement == null || jsonElement.isJsonNull()) {
+            return null;
+        }
+
         //TODO: check description
         var output = new ArrayList<Property>();
         var entries = jsonElement.getAsJsonObject().entrySet();

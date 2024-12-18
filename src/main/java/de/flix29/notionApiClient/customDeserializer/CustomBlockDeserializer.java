@@ -17,6 +17,10 @@ import java.util.UUID;
 public class CustomBlockDeserializer implements JsonDeserializer<Block> {
     @Override
     public Block deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        if (jsonElement == null || jsonElement.isJsonNull()) {
+            return null;
+        }
+
         var jsonObject = jsonElement.getAsJsonObject();
         var blockType = BlockType.fromString(jsonObject.get("type").getAsString());
 
