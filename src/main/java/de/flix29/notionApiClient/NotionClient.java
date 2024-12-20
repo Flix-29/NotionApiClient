@@ -20,7 +20,7 @@ import java.util.List;
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.BLOCK_LIST_TYPE;
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.USER_LIST_TYPE;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FieldCanBeLocal", "Duplicates"})
 public class NotionClient {
 
     private final Gson gson = new GsonBuilder()
@@ -52,6 +52,9 @@ public class NotionClient {
         var builder = requestBuilder.uri(URI.create(databaseUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
         return gson.fromJson(response.body(), Database.class);
     }
 
@@ -60,6 +63,9 @@ public class NotionClient {
         var builder = requestBuilder.uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
         return gson.fromJson(response.body(), Block.class);
     }
 
@@ -68,6 +74,9 @@ public class NotionClient {
         var builder = requestBuilder.uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
         return gson.fromJson(response.body(), BLOCK_LIST_TYPE);
     }
 
@@ -76,6 +85,9 @@ public class NotionClient {
         var builder = requestBuilder.uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
         List<Block> blocks = gson.fromJson(response.body(), BLOCK_LIST_TYPE);
         blocks.forEach(block -> {
             if (block.isHasChildren()) {
@@ -93,6 +105,9 @@ public class NotionClient {
         var builder = requestBuilder.uri(URI.create(pageUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
         return gson.fromJson(response.body(), Page.class);
     }
 
@@ -108,6 +123,9 @@ public class NotionClient {
         var builder = requestBuilder.uri(URI.create(NOTION_USERS_URL)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
         return gson.fromJson(response.body(), USER_LIST_TYPE);
     }
 
@@ -116,6 +134,9 @@ public class NotionClient {
         var builder = requestBuilder.uri(URI.create(userUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
         return gson.fromJson(response.body(), User.class);
     }
 
@@ -124,6 +145,9 @@ public class NotionClient {
         var builder = requestBuilder.uri(URI.create(userUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
         return gson.fromJson(response.body(), User.class);
     }
 
