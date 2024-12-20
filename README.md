@@ -5,7 +5,7 @@ official <a href="https://developers.notion.com/reference/intro">Notion API docu
 
 ## How to use
 
-Just add a file called 'application.properties' in the resources folder with the following content:
+Just change the file called 'application.template' to 'application.properties' in the resources folder and add your API key.
 
 ```properties
 notion.apikey={your_api-key}
@@ -17,24 +17,24 @@ the <a href="https://developers.notion.com/docs/authorization">official document
 Then you can use the NotionApiClient and the methods provided in the NotionClient class to interact with the Notion API.
 
 ## Supported Endpoints
-Currently, the following endpoints are supported:
+Currently, only the `Get` endpoints are supported. These are the following:
 
 ### Database
 
-- <a href="https://developers.notion.com/reference/retrieve-a-database">Retrieve a Database</a>
+- `GET` <a href="https://developers.notion.com/reference/retrieve-a-database">Retrieve a Database</a>
 
 ### Pages
 
-- <a href="https://developers.notion.com/reference/retrieve-a-page">Retrieve a Page</a>
-- <a href="https://developers.notion.com/reference/retrieve-a-page-property">Retrieve a Page property item</a>
+- `GET` <a href="https://developers.notion.com/reference/retrieve-a-page">Retrieve a Page</a>
+- `GET` <a href="https://developers.notion.com/reference/retrieve-a-page-property">Retrieve a Page property item</a>
 
 ### Blocks
 
-- <a href="https://developers.notion.com/reference/retrieve-a-block">Retrieve a Block</a>
-- <a href="https://developers.notion.com/reference/get-block-children">Retrieve a Block children</a>
+- `GET` <a href="https://developers.notion.com/reference/retrieve-a-block">Retrieve a Block</a>
+- `GET` <a href="https://developers.notion.com/reference/get-block-children">Retrieve a Block children</a>
 
 ### Users
 
-- <a href="https://developers.notion.com/reference/get-users">List all Users</a>
-- <a href="https://developers.notion.com/reference/get-user">Retrieve a User</a>
-- <a href="https://developers.notion.com/reference/get-self">Retrieve your token's bot user</a>
+- `GET` <a href="https://developers.notion.com/reference/get-users">List all Users</a>
+- `GET` <a href="https://developers.notion.com/reference/get-user">Retrieve a User</a>
+- `GET` <a href="https://developers.notion.com/reference/get-self">Retrieve your token's bot user</a>
