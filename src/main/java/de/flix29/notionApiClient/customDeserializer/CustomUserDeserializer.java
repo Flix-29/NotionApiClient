@@ -11,7 +11,15 @@ import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUti
 public class CustomUserDeserializer implements JsonDeserializer<User> {
     @Override
     public User deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        if (jsonElement == null || jsonElement.isJsonNull()) {
+            return null;
+        }
+
         var jsonObject = jsonElement.getAsJsonObject();
+
+        if (jsonObject == null || jsonObject.isJsonNull() || jsonObject.isJsonPrimitive()) {
+            return null;
+        }
         var userType = UserType.fromString(getAsStringIfPresentAndNotNull(jsonObject, "type"));
 
         var user = new User()
@@ -29,7 +37,7 @@ public class CustomUserDeserializer implements JsonDeserializer<User> {
 
     private People buildPerson(User user, JsonObject jsonObject) {
         return new People(user)
-                .email(jsonObject.getAsJsonObject("person").get("email").getAsString());
+                .email(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("person"), "email"));
     }
 
     private Bot buildBot(User user, JsonObject jsonObject) {

@@ -10,19 +10,28 @@ import de.flix29.notionApiClient.model.Icon;
 
 import java.lang.reflect.Type;
 
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsStringIfPresentAndNotNull;
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getStringFromJsonElement;
+
 public class CustomIconDeserializer implements JsonDeserializer<Icon> {
     @Override
     public Icon deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        if (jsonElement.isJsonNull()) {
+        if (jsonElement == null || jsonElement.isJsonNull()) {
             return null;
         }
+
         var jsonObject = jsonElement.getAsJsonObject();
-        var iconType = jsonObject.get("type").getAsString();
+        var iconType = getAsStringIfPresentAndNotNull(jsonObject, "type");
+
+        if (iconType == null) {
+            throw new JsonParseException("Icon type is missing");
+        }
+
         return switch (iconType) {
             case "file", "external":
                 yield new CustomFileDeserializer().deserialize(jsonElement, File.class, jsonDeserializationContext);
             case "emoji":
-                yield new Emoji(jsonObject.get("emoji").getAsString());
+                yield new Emoji(getStringFromJsonElement(jsonElement, "emoji"));
             default:
                 throw new JsonParseException("Unknown icon type: " + iconType);
         };

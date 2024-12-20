@@ -10,18 +10,21 @@ import de.flix29.notionApiClient.model.FileType;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsStringIfPresentAndNotNull;
+
 public class CustomFileDeserializer implements JsonDeserializer<File> {
     @Override
     public File deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         if (jsonElement == null || jsonElement.isJsonNull()) {
             return null;
         }
+
         var jsonObject = jsonElement.getAsJsonObject();
-        var fileType = jsonObject.get("type").getAsString();
-        var fileObject = jsonObject.get(fileType).getAsJsonObject();
+        var fileType = getAsStringIfPresentAndNotNull(jsonObject, "type");
+        var fileObject = jsonObject.getAsJsonObject(fileType);
         return new File()
                 .type(FileType.fromString(fileType))
-                .url(fileObject.get("url").getAsString())
+                .url(getAsStringIfPresentAndNotNull(fileObject, "url"))
                 .expirationTime(new CustomOffsetDateTimeDeserializer().deserialize(fileObject.get("expiry_time"), OffsetDateTime.class, jsonDeserializationContext));
     }
 }
