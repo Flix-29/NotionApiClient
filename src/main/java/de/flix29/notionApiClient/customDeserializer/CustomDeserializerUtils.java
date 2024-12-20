@@ -25,6 +25,10 @@ public class CustomDeserializerUtils {
         return jsonObject.has(key) && !(jsonObject.get(key).isJsonNull()) ? jsonObject.get(key).getAsInt() : 0;
     }
 
+    protected static double getAsDoubleIfPresentAndNotNull(@NotNull JsonObject jsonObject, @NotNull String key) {
+        return jsonObject.has(key) && !(jsonObject.get(key).isJsonNull()) ? jsonObject.get(key).getAsDouble() : 0.0;
+    }
+
     protected static String getAsStringIfPresentAndNotNull(@NotNull JsonObject jsonObject, @NotNull String key) {
         return jsonObject.has(key) && !(jsonObject.get(key).isJsonNull()) ? jsonObject.get(key).getAsString() : null;
     }
