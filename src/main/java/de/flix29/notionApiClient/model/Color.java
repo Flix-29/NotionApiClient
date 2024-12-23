@@ -35,6 +35,6 @@ public enum Color {
                 return c;
             }
         }
-        throw new IllegalArgumentException("No constant with color " + color + " found");
+        return DEFAULT;
     }
 }

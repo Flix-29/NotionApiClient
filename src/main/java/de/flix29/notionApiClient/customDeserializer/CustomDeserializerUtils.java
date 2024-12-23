@@ -9,6 +9,7 @@ import de.flix29.notionApiClient.model.RichText;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.RICH_TEXT_LIST_TYPE;
 
@@ -38,6 +39,14 @@ public class CustomDeserializerUtils {
             return null;
         }
         return jsonElement.getAsJsonObject().get(key).getAsString();
+    }
+
+    protected static UUID getUUIDFromJsonElement(@NotNull JsonElement jsonElement, @NotNull String key) {
+        if (jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has(key) ||
+                jsonElement.getAsJsonObject().get(key) == null || jsonElement.getAsJsonObject().get(key).isJsonNull()) {
+            return null;
+        }
+        return UUID.fromString(jsonElement.getAsJsonObject().get(key).getAsString());
     }
 
     protected static Color getColorFromJsonElement(@NotNull JsonElement jsonElement) {

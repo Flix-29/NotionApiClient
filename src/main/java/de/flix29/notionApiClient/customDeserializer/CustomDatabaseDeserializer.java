@@ -9,11 +9,8 @@ import de.flix29.notionApiClient.model.database.*;
 
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
-import java.util.Objects;
-import java.util.UUID;
 
-import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsBooleanIfPresentAndNotNull;
-import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsStringIfPresentAndNotNull;
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.*;
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.PROPERTY_LIST_TYPE;
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.RICH_TEXT_LIST_TYPE;
 
@@ -29,7 +26,7 @@ public class CustomDatabaseDeserializer implements JsonDeserializer<Database> {
             return null;
         }
         return new Database()
-                .id(UUID.fromString(Objects.requireNonNull(getAsStringIfPresentAndNotNull(jsonObject, "id"))))
+                .id(getUUIDFromJsonElement(jsonObject, "id"))
                 .createdTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
                 .createdBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
                 .lastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
