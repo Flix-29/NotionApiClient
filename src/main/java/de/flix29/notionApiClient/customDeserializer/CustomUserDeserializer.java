@@ -4,9 +4,8 @@ import com.google.gson.*;
 import de.flix29.notionApiClient.model.*;
 
 import java.lang.reflect.Type;
-import java.util.UUID;
 
-import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsStringIfPresentAndNotNull;
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.*;
 
 public class CustomUserDeserializer implements JsonDeserializer<User> {
     @Override
@@ -23,7 +22,7 @@ public class CustomUserDeserializer implements JsonDeserializer<User> {
         var userType = UserType.fromString(getAsStringIfPresentAndNotNull(jsonObject, "type"));
 
         var user = new User()
-                .id(UUID.fromString(jsonObject.get("id").getAsString()))
+                .id(getUUIDFromJsonElement(jsonObject, "id"))
                 .type(userType)
                 .name(getAsStringIfPresentAndNotNull(jsonObject, "name"))
                 .avatarUrl(getAsStringIfPresentAndNotNull(jsonObject, "avatar_url"));
@@ -48,9 +47,9 @@ public class CustomUserDeserializer implements JsonDeserializer<User> {
         var owner = bot.getAsJsonObject("owner");
         return new Bot(user)
                 .owner(new BotOwner()
-                        .type(BotOwnerType.fromString(owner.get("type").getAsString()))
-                        .workspaces(owner.get("workspace").getAsBoolean())
+                        .type(BotOwnerType.fromString(getAsStringIfPresentAndNotNull(owner, "type")))
+                        .workspaces(getAsBooleanIfPresentAndNotNull(owner, "workspace"))
                 )
-                .workspaceName(bot.get("workspace_name").getAsString());
+                .workspaceName(getAsStringIfPresentAndNotNull(bot, "workspace_name"));
     }
 }
