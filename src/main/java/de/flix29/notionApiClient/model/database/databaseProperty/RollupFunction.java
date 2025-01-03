@@ -33,4 +33,13 @@ public enum RollupFunction {
     SUM("sum");
 
     private final String function;
+
+    public static RollupFunction fromString(String function) {
+        for (RollupFunction f : RollupFunction.values()) {
+            if (f.function.equals(function)) {
+                return f;
+            }
+        }
+        return null;
+    }
 }
