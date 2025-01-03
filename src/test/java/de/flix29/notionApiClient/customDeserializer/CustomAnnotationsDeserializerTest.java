@@ -41,7 +41,7 @@ class CustomAnnotationsDeserializerTest {
 
     @Test
     void map_isEmpty() throws FileNotFoundException {
-        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/Annotations_Empty.json"));
+        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/annotations/Annotations_Empty.json"));
         var annotations = customAnnotationsDeserializer.deserialize(jsonElement, Annotations.class, null);
 
         assertThat(annotations)
@@ -56,7 +56,7 @@ class CustomAnnotationsDeserializerTest {
 
     @Test
     void map_isOk() throws FileNotFoundException {
-        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/Annotations_AllSet.json"));
+        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/annotations/Annotations_AllSet.json"));
         var annotations = customAnnotationsDeserializer.deserialize(jsonElement, Annotations.class, null);
 
         assertThat(annotations)

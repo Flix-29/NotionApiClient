@@ -42,8 +42,8 @@ class CustomUserDeserializerTest {
 
     private static Stream<Arguments> map_isEmpty() {
         return Stream.of(
-                Arguments.of("src/test/resources/testdataJson/User_Person_Empty.json", UserType.PERSON),
-                Arguments.of("src/test/resources/testdataJson/User_Bot_Empty.json", UserType.BOT)
+                Arguments.of("src/test/resources/testdataJson/user/User_Person_Empty.json", UserType.PERSON),
+                Arguments.of("src/test/resources/testdataJson/user/User_Bot_Empty.json", UserType.BOT)
         );
     }
 
@@ -73,8 +73,8 @@ class CustomUserDeserializerTest {
 
     private static Stream<Arguments> map_isOk() {
         return Stream.of(
-                Arguments.of("src/test/resources/testdataJson/User_Person_AllSet.json", UserType.PERSON),
-                Arguments.of("src/test/resources/testdataJson/User_Bot_AllSet.json", UserType.BOT)
+                Arguments.of("src/test/resources/testdataJson/user/User_Person_AllSet.json", UserType.PERSON),
+                Arguments.of("src/test/resources/testdataJson/user/User_Bot_AllSet.json", UserType.BOT)
         );
     }
 
