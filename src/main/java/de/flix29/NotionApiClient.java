@@ -1,9 +1,7 @@
 package de.flix29;
 
-import de.flix29.notionApiClient.NotionClient;
 import lombok.Getter;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -24,12 +22,5 @@ public class NotionApiClient {
 
             secrets.put("notionKey", getProperty("notion.apikey"));
         } catch (Exception ignored) { }
-
-        NotionClient notionClient = new NotionClient();
-        try {
-            notionClient.getDatabase("11c595002da880309cbee45484897d43");
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
