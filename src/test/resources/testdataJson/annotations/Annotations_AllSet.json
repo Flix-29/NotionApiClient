@@ -1,0 +1,8 @@
+{
+  "bold": true,
+  "italic": true,
+  "strikethrough": true,
+  "underline": true,
+  "code": true,
+  "color": "red"
+}

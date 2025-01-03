@@ -79,7 +79,7 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                                     .rollupPropertyName(getAsStringIfPresentAndNotNull(rollup, "rollup_property_name"))
                                     .relationPropertyId(getAsStringIfPresentAndNotNull(rollup, "relation_property_id"))
                                     .rollupPropertyId(getAsStringIfPresentAndNotNull(rollup, "rollup_property_id"))
-                                    .function(RollupFunction.valueOf(getAsStringIfPresentAndNotNull(rollup, "function")));
+                                    .function(RollupFunction.fromString(getAsStringIfPresentAndNotNull(rollup, "function")));
                         }
                         case SELECT -> new Select()
                                 .options(extractSelectItems(jsonObject.getAsJsonObject("select")));
