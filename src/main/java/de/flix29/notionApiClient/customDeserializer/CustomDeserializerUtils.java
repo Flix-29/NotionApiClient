@@ -35,7 +35,8 @@ public class CustomDeserializerUtils {
     }
 
     protected static String getStringFromJsonElement(@NotNull JsonElement jsonElement, @NotNull String key) {
-        if (jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has(key)) {
+        if (jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has(key) ||
+                jsonElement.getAsJsonObject().get(key) == null || jsonElement.getAsJsonObject().get(key).isJsonNull()) {
             return null;
         }
         return jsonElement.getAsJsonObject().get(key).getAsString();
