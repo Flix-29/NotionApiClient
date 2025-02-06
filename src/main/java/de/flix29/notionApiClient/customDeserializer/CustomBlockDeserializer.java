@@ -12,11 +12,8 @@ import de.flix29.notionApiClient.model.block.blockContent.BlockContent;
 
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
-import java.util.Objects;
-import java.util.UUID;
 
-import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsBooleanIfPresentAndNotNull;
-import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsStringIfPresentAndNotNull;
+import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.*;
 
 public class CustomBlockDeserializer implements JsonDeserializer<Block> {
     @Override
@@ -29,7 +26,7 @@ public class CustomBlockDeserializer implements JsonDeserializer<Block> {
         var blockType = BlockType.fromString(getAsStringIfPresentAndNotNull(jsonObject, "type"));
 
         return new Block()
-                .id(UUID.fromString(Objects.requireNonNull(getAsStringIfPresentAndNotNull(jsonObject, "id"))))
+                .id(getUUIDFromJsonElement(jsonObject, "id"))
                 .parent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
                 .createdTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
                 .lastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))

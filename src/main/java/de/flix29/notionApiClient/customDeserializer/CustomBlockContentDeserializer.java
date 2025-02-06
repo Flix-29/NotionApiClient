@@ -18,7 +18,7 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
     private BlockType blockType = BlockType.UNSUPPORTED;
 
     public BlockContent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext, BlockType blockType) {
-        if (jsonElement == null || jsonElement.isJsonNull()) {
+        if (jsonElement == null || jsonElement.isJsonNull() || blockType == null) {
             return null;
         }
 
@@ -51,7 +51,7 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
                     .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
                     .url(getStringFromJsonElement(jsonElement, "url"));
             case EQUATION -> new Equation()
-                    .expression(getStringFromJsonElement(jsonElement, "expression"));
+                    .expression(getStringFromJsonElement(jsonElement.getAsJsonObject().get("equation"), "expression"));
             case FILE -> new File()
                     .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
                     .file(getFileFromJsonElement(jsonElement, jsonDeserializationContext))

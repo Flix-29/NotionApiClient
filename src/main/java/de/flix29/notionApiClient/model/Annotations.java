@@ -42,14 +42,11 @@ public class Annotations {
     }
 
     public Annotations color(String color) {
-        if (color != null) {
-            if (color.contains("background")) {
-                this.backgroundColor = Color.fromString(color);
-            } else {
-                this.color = Color.fromString(color);
-            }
+        if (color != null && color.contains("background")) {
+            this.backgroundColor = Color.fromString(color);
+        } else {
+            this.color = Color.fromString(color);
         }
-
         return this;
     }
 }
