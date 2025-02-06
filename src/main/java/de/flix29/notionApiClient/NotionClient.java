@@ -2,7 +2,6 @@ package de.flix29.notionApiClient;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.flix29.NotionApiClient;
 import de.flix29.notionApiClient.customDeserializer.*;
 import de.flix29.notionApiClient.model.User;
 import de.flix29.notionApiClient.model.block.Block;
@@ -41,11 +40,19 @@ public class NotionClient {
     private final String NOTION_BLOCK_CHILDREN_URL = NOTION_BLOCK_URL + "/children";
     private final String NOTION_USERS_URL = NOTION_API_URL + "/users";
 
-    private final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
-            .header("Authorization", NotionApiClient.getSecrets().get("notionKey"))
-            .header("Notion-Version", NOTION_VERSION)
-            .header("Content-Type", "application/json")
-            .method("GET", HttpRequest.BodyPublishers.noBody());
+    private final HttpRequest.Builder requestBuilder;
+
+    public NotionClient(String apikey) {
+        if (apikey == null || apikey.isEmpty()) {
+            throw new IllegalArgumentException("API key must not be null or empty");
+        }
+
+        this.requestBuilder = HttpRequest.newBuilder()
+                .header("Authorization", apikey)
+                .header("Notion-Version", NOTION_VERSION)
+                .header("Content-Type", "application/json")
+                .method("GET", HttpRequest.BodyPublishers.noBody());
+    }
 
     public Database getDatabase(String databaseId) throws IOException, InterruptedException {
         var databaseUri = buildUri(NOTION_DATABASE_URL, databaseId);
@@ -93,7 +100,8 @@ public class NotionClient {
             if (block.isHasChildren()) {
                 try {
                     block.getBlockContent().setChildren(getBlockChildrenRecursive(String.valueOf(block.getId())));
-                } catch (IOException | InterruptedException ignored) {}
+                } catch (IOException | InterruptedException ignored) {
+                }
             }
         });
 

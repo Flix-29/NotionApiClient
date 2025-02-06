@@ -5,16 +5,15 @@ official <a href="https://developers.notion.com/reference/intro">Notion API docu
 
 ## How to use
 
-Just change the file called 'application.template' to 'application.properties' in the resources folder and add your API key.
+First, you need to create a Notion integration.
 
-```properties
-notion.apikey={your_api-key}
-```
+1. Go to the <a href="https://www.notion.so/my-integrations">Notion integrations page</a>.
+2. Click on the `+ New integration` button.
+3. Fill in the required fields and click on the `Submit` button.
+4. Copy the `Internal Integration Token` and save it in a safe place.
+5. Share the integration with your workspace and add it to the Sites or Databases you want the Api to have access to.
 
-You can get your API key from the Notion integrations page. For more details, check
-the <a href="https://developers.notion.com/docs/authorization">official documentation</a>.
-
-Then you can use the NotionApiClient and the methods provided in the NotionClient class to interact with the Notion API.
+Then, you can use the `NotionApiClient` and the methods provided in the `NotionClient` class to interact with the Notion API.
 
 ## Supported Endpoints
 Currently, only the `Get` endpoints are supported. These are the following:
