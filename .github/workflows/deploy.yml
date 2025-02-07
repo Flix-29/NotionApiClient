@@ -1,6 +1,9 @@
 name: Deploy to Sonatype
 
 on:
+  push:
+    branches:
+      - main
   release:
     types: [published]
 
