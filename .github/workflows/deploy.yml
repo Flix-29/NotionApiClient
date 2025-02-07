@@ -21,8 +21,11 @@ jobs:
       - name: Import GPG Key
         run: |
           mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg  # Fix permissions
           echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
-          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          echo "use-agent" >> ~/.gnupg/gpg.conf
           gpgconf --reload gpg-agent
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -30,7 +33,6 @@ jobs:
       - name: Set up GPG passphrase
         run: |
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-          echo "use-agent" >> ~/.gnupg/gpg.conf
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
