@@ -7,7 +7,7 @@ official <a href="https://developers.notion.com/reference/intro">Notion API docu
 
 First, you need to create a Notion integration.
 
-1. Go to the <a href="https://www.notion.so/my-integrations">Notion integrations page</a>.
+1. Go to the <a href="https://www.notion.so/my-integrations" target="_blank">Notion integrations page</a>.
 2. Click on the `+ New integration` button.
 3. Fill in the required fields and click on the `Submit` button.
 4. Copy the `Internal Integration Token` and save it in a safe place.
