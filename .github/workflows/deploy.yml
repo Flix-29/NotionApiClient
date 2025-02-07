@@ -41,7 +41,7 @@ jobs:
           gpg --list-keys
 
       - name: Build and Deploy
-        run: mvn clean deploy -s ~/.m2/settings.xml -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} --batch-mode
+        run: mvn clean deploy -s ~/.m2/settings.xml -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -X --batch-mode
         env:
           GPG_TTY: $(tty)
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
