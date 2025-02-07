@@ -32,7 +32,7 @@
         <url>https://github.com/Flix-29/NotionApiClient</url>
     </scm>
 
-    <version>0.1.10</version>
+    <version>0.1.11</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -162,7 +162,6 @@
                 <configuration>
                     <gpgArguments>
                         <arg>--batch</arg>
-                        <arg>--no-tty</arg>
                     </gpgArguments>
                 </configuration>
             </plugin>
