@@ -32,7 +32,7 @@ public class NotionClient {
             .registerTypeAdapter(Page.class, new CustomPageDeserializer())
             .create();
 
-    private final String NOTION_VERSION = "2022-06-28";
+    private final String NOTION_VERSION = "2022-06-28"; // latest version, see https://developers.notion.com/reference/versioning
     private final String NOTION_API_URL = "https://api.notion.com/v1";
     private final String NOTION_DATABASE_URL = NOTION_API_URL + "/databases/$id$";
     private final String NOTION_BLOCK_URL = NOTION_API_URL + "/blocks/$id$";
