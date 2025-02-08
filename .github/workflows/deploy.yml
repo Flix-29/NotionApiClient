@@ -43,6 +43,9 @@ jobs:
           gpg --fingerprint
           gpg --list-keys
 
+      - name: Debug Environment Variables
+        run: env | grep SONATYPE
+
       - name: Build and Deploy
         run: mvn clean deploy -s ~/.m2/settings.xml -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -X --batch-mode
         env:
