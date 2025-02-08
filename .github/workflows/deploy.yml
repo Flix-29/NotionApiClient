@@ -15,43 +15,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: "temurin"
-          java-version: "21"
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+          server-id: 'central'
+          server-username: SONATYPE_USERNAME
+          server-password: SONATYPE_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
 
       - name: Import GPG Key
         run: |
-          mkdir -p ~/.gnupg
-          chmod 700 ~/.gnupg  # Secure permissions
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | base64 --decode > private-key.asc
-          gpg --batch --import private-key.asc
-          rm private-key.asc
-          echo "use-agent" > ~/.gnupg/gpg.conf
-          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-          chmod 600 ~/.gnupg/gpg.conf
-          echo "allow-loopback-pinentry" > ~/.gnupg/gpg-agent.conf
-          chmod 600 ~/.gnupg/gpg-agent.conf
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | base64 --decode | gpg --batch --import
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
           gpgconf --reload gpg-agent
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
-      - name: Verify GPG key
-        run: |
-          gpg --list-secret-keys --keyid-format LONG
-          gpg --fingerprint
-          gpg --list-keys
-
-      - name: Debug Environment Variables
-        run: env | grep SONATYPE
-        env:
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-
-      - name: Build and Deploy
-        run: mvn clean deploy -s ~/.m2/settings.xml -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -X --batch-mode
-        env:
-          GPG_TTY: $(tty)
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+      - name: Deploy to Maven Central
+        run: mvn clean deploy -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
