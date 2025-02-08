@@ -1,9 +1,6 @@
 name: Deploy to Sonatype
 
 on:
-  push:
-    branches:
-      - main
   release:
     types: [published]
 
@@ -49,6 +46,13 @@ jobs:
             </servers>
           </settings>
           EOF
+
+      - name: Cache the Maven packages to speed up build
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
       - name: Deploy to Maven Central
         run: mvn clean deploy -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
