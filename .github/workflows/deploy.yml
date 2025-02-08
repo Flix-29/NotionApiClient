@@ -45,6 +45,9 @@ jobs:
 
       - name: Debug Environment Variables
         run: env | grep SONATYPE
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
 
       - name: Build and Deploy
         run: mvn clean deploy -s ~/.m2/settings.xml -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -X --batch-mode
