@@ -2,12 +2,15 @@ package de.flix29.notionApiClient;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import de.flix29.notionApiClient.customDeserializer.*;
 import de.flix29.notionApiClient.model.User;
 import de.flix29.notionApiClient.model.block.Block;
 import de.flix29.notionApiClient.model.database.Database;
 import de.flix29.notionApiClient.model.page.Page;
 import de.flix29.notionApiClient.model.database.databaseProperty.Property;
+import lombok.extern.java.Log;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,7 +22,8 @@ import java.util.List;
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.BLOCK_LIST_TYPE;
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.USER_LIST_TYPE;
 
-@SuppressWarnings({"unused", "FieldCanBeLocal", "Duplicates"})
+@SuppressWarnings({"unused", "FieldCanBeLocal", "Duplicates", "unchecked"})
+@Log
 public class NotionClient {
 
     private final Gson gson = new GsonBuilder()
@@ -55,6 +59,7 @@ public class NotionClient {
     }
 
     public Database getDatabase(String databaseId) throws IOException, InterruptedException {
+        log.info("Requesting database with id: " + databaseId);
         var databaseUri = buildUri(NOTION_DATABASE_URL, databaseId);
         var builder = requestBuilder.uri(URI.create(databaseUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
@@ -62,10 +67,12 @@ public class NotionClient {
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        return gson.fromJson(response.body(), Database.class);
+
+        return parseFromJson(response.body(), TypeToken.get(Database.class));
     }
 
     public Block getBlock(String blockId) throws IOException, InterruptedException {
+        log.info("Requesting block with id: " + blockId);
         var blockUri = buildUri(NOTION_BLOCK_URL, blockId);
         var builder = requestBuilder.uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
@@ -73,10 +80,12 @@ public class NotionClient {
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        return gson.fromJson(response.body(), Block.class);
+
+        return parseFromJson(response.body(), TypeToken.get(Block.class));
     }
 
     public List<Block> getBlockChildren(String blockId) throws IOException, InterruptedException {
+        log.info("Requesting block children of block with id: " + blockId);
         var blockUri = buildUri(NOTION_BLOCK_CHILDREN_URL, blockId);
         var builder = requestBuilder.uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
@@ -84,10 +93,12 @@ public class NotionClient {
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        return gson.fromJson(response.body(), BLOCK_LIST_TYPE);
+
+        return (List<Block>) parseFromJson(response.body(), TypeToken.get(BLOCK_LIST_TYPE));
     }
 
     public List<Block> getBlockChildrenRecursive(String blockId) throws IOException, InterruptedException {
+        log.info("Requesting block children recursively of block with id: " + blockId);
         var blockUri = buildUri(NOTION_BLOCK_CHILDREN_URL, blockId);
         var builder = requestBuilder.uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
@@ -95,7 +106,7 @@ public class NotionClient {
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        List<Block> blocks = gson.fromJson(response.body(), BLOCK_LIST_TYPE);
+        List<Block> blocks = (List<Block>) parseFromJson(response.body(), TypeToken.get(BLOCK_LIST_TYPE));
         blocks.forEach(block -> {
             if (block.isHasChildren()) {
                 try {
@@ -104,11 +115,12 @@ public class NotionClient {
                 }
             }
         });
-
+        log.info("Returning block children recursively");
         return blocks;
     }
 
     public Page getPageProperties(String pageId) throws IOException, InterruptedException {
+        log.info("Requesting page properties of page with id: " + pageId);
         var pageUri = buildUri(NOTION_PAGE_URL, pageId);
         var builder = requestBuilder.uri(URI.create(pageUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
@@ -116,28 +128,34 @@ public class NotionClient {
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        return gson.fromJson(response.body(), Page.class);
+        log.info("Returning page properties");
+        return parseFromJson(response.body(), TypeToken.get(Page.class));
     }
 
     public Property getPageProperty(String pageId, String propertyId) throws IOException, InterruptedException {
+        log.info("Requesting page property with id: " + propertyId + " of page with id: " + pageId);
         var page = getPageProperties(pageId);
-        return page.getProperties().stream()
-                .filter(property -> property.getId().equals(propertyId))
+        var property = page.getProperties().stream()
+                .filter(currentProperty -> currentProperty.getId().equals(propertyId))
                 .findFirst()
                 .orElse(null);
+        log.info("Returning page property");
+        return property;
     }
 
     public List<User> listAllUsers() throws IOException, InterruptedException {
+        log.info("Requesting all users");
         var builder = requestBuilder.uri(URI.create(NOTION_USERS_URL)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        return gson.fromJson(response.body(), USER_LIST_TYPE);
+        return (List<User>) parseFromJson(response.body(), TypeToken.get(USER_LIST_TYPE));
     }
 
     public User getUser(String userId) throws IOException, InterruptedException {
+        log.info("Requesting user with id: " + userId);
         var userUri = NOTION_USERS_URL + "/" + userId;
         var builder = requestBuilder.uri(URI.create(userUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
@@ -145,10 +163,11 @@ public class NotionClient {
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        return gson.fromJson(response.body(), User.class);
+        return parseFromJson(response.body(), TypeToken.get(User.class));
     }
 
     public User getCurrentUser() throws IOException, InterruptedException {
+        log.info("Requesting current user");
         var userUri = NOTION_USERS_URL + "/me";
         var builder = requestBuilder.uri(URI.create(userUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
@@ -156,10 +175,17 @@ public class NotionClient {
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        return gson.fromJson(response.body(), User.class);
+        return parseFromJson(response.body(), TypeToken.get(User.class));
     }
 
-    private String buildUri(String url, String id) {
+    private String buildUri(@NotNull String url, @NotNull String id) {
         return url.replace("$id$", id);
+    }
+
+    private <T> T parseFromJson(@NotNull String json, @NotNull TypeToken<T> targetClass) {
+        log.info("Trying to parse json to " + targetClass.getRawType().getSimpleName());
+        var output = gson.fromJson(json, targetClass);
+        log.info("Returning " + targetClass.getRawType().getSimpleName());
+        return output;
     }
 }

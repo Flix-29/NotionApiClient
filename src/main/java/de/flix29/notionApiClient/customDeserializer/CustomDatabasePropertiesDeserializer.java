@@ -55,7 +55,7 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                                 new MultiSelect().options(extractSelectItems(jsonObject.getAsJsonObject("multi_select")));
                         case NUMBER -> {
                             var format = getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("number"), "format");
-                            yield new Number().format(NumberFormat.valueOf(format));
+                            yield new Number().format(NumberFormat.fromString(format));
                         }
                         case PEOPLE -> new People();
                         case PHONE_NUMBER -> new PhoneNumber();

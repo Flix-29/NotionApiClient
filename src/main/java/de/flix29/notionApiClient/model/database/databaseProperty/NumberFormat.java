@@ -50,4 +50,13 @@ public enum NumberFormat {
     ZLOTY("zloty");
 
     private final String format;
+
+    public static NumberFormat fromString(String format) {
+        for (NumberFormat numberFormat : values()) {
+            if (numberFormat.format.equals(format)) {
+                return numberFormat;
+            }
+        }
+        throw new IllegalArgumentException("Unknown NumberFormat: " + format);
+    }
 }
