@@ -115,7 +115,6 @@ public class NotionClient {
                 }
             }
         });
-        log.info("Returning block children recursively");
         return blocks;
     }
 
@@ -128,7 +127,7 @@ public class NotionClient {
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
-        log.info("Returning page properties");
+
         return parseFromJson(response.body(), TypeToken.get(Page.class));
     }
 
