@@ -38,19 +38,20 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
 
                     var property = switch (propertyType) {
                         case BUTTON -> new Button(); //TODO
-                        case CHECKBOX ->
-                                new Checkbox().checked(getAsBooleanIfPresentAndNotNull(jsonObject, "checkbox"));
+                        case CHECKBOX -> new Checkbox()
+                                .setChecked(getAsBooleanIfPresentAndNotNull(jsonObject, "checkbox"));
                         case CREATED_BY -> new CreatedBy()
-                                .user(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext));
+                                .setUser(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext));
                         case CREATED_TIME -> new CreatedTime()
-                                .createdTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext));
+                                .setCreatedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext));
                         case DATE -> new Date()
-                                .start(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.getAsJsonObject("date").get("start"), OffsetDateTime.class, jsonDeserializationContext))
-                                .end(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.getAsJsonObject("date").get("end"), OffsetDateTime.class, jsonDeserializationContext))
-                                .timezone(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("date"), "timezone"));
-                        case EMAIL -> new Email().email(getAsStringIfPresentAndNotNull(jsonObject, "email"));
+                                .setStart(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.getAsJsonObject("date").get("start"), OffsetDateTime.class, jsonDeserializationContext))
+                                .setEnd(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.getAsJsonObject("date").get("end"), OffsetDateTime.class, jsonDeserializationContext))
+                                .setTimezone(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("date"), "timezone"));
+                        case EMAIL -> new Email()
+                                .setEmail(getAsStringIfPresentAndNotNull(jsonObject, "email"));
                         case FILE -> new File()
-                                .files(jsonObject.getAsJsonArray("files")
+                                .setFiles(jsonObject.getAsJsonArray("files")
                                         .asList().stream()
                                         .filter(Objects::nonNull)
                                         .map(file -> new CustomFileDeserializer().deserialize(file, File.class, jsonDeserializationContext))
@@ -64,66 +65,68 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                             }
                             yield switch (valueType) {
                                 case "string" ->
-                                        new Formula().stringValue(getAsStringIfPresentAndNotNull(formulaObject, "string"));
+                                        new Formula().setStringValue(getAsStringIfPresentAndNotNull(formulaObject, "string"));
                                 case "number" ->
-                                        new Formula().numberValue(getAsDoubleIfPresentAndNotNull(formulaObject, "number"));
+                                        new Formula().setNumberValue(getAsDoubleIfPresentAndNotNull(formulaObject, "number"));
                                 case "boolean" ->
-                                        new Formula().booleanValue(getAsBooleanIfPresentAndNotNull(formulaObject, "boolean"));
+                                        new Formula().setBooleanValue(getAsBooleanIfPresentAndNotNull(formulaObject, "boolean"));
                                 case "date" ->
-                                        new Formula().dateValue(new CustomOffsetDateTimeDeserializer().deserialize(formulaObject.get("date"), OffsetDateTime.class, jsonDeserializationContext));
+                                        new Formula().setDateValue(new CustomOffsetDateTimeDeserializer().deserialize(formulaObject.get("date"), OffsetDateTime.class, jsonDeserializationContext));
                                 default -> throw new IllegalStateException("Unexpected value: " + valueType);
                             };
                         }
                         case LAST_EDITED_BY -> new LastEditedBy()
-                                .user(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext));
+                                .setUser(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext));
                         case LAST_EDITED_TIME -> new LastEditedTime()
-                                .lastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext));
+                                .setLastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext));
                         case MULTI_SELECT -> new MultiSelect()
-                                .selected(extractSelectItems(jsonObject));
-                        case NUMBER -> new Number().number(getAsDoubleIfPresentAndNotNull(jsonObject, "number"));
+                                .setSelected(extractSelectItems(jsonObject));
+                        case NUMBER -> new Number()
+                                .setNumber(getAsDoubleIfPresentAndNotNull(jsonObject, "number"));
                         case PEOPLE -> {
                             if (jsonObject.getAsJsonArray("people") == null || jsonObject.getAsJsonArray("people").isJsonNull()) {
                                 yield null;
                             }
                             yield new People()
-                                    .people(jsonObject.getAsJsonArray("people")
+                                    .setPeople(jsonObject.getAsJsonArray("people")
                                             .asList().stream()
                                             .map(person -> new CustomUserDeserializer().deserialize(person, User.class, jsonDeserializationContext))
                                             .toList()
                                     );
                         }
                         case PHONE_NUMBER ->
-                                new PhoneNumber().phoneNumber(getAsStringIfPresentAndNotNull(jsonObject, "phone_number"));
+                                new PhoneNumber().setPhoneNumber(getAsStringIfPresentAndNotNull(jsonObject, "phone_number"));
                         case RELATION -> {
                             if (jsonObject.getAsJsonObject("relation") == null || jsonObject.getAsJsonObject("relation").isJsonNull()) {
                                 yield null;
                             }
                             yield new Relation()
-                                    .relatedPageIds(
+                                    .setRelatedPageIds(
                                             jsonObject.getAsJsonArray("relation").asList().stream()
                                                     .map(relation -> getAsStringIfPresentAndNotNull(relation.getAsJsonObject(), "id"))
                                                     .toList()
                                     );
                         }
-                        case RICH_TEXT -> new RichText().content(
+                        case RICH_TEXT -> new RichText().setContent(
                                 new CustomRichTextDeserializer()
                                         .deserialize(jsonObject.getAsJsonObject("results"), de.flix29.notionApiClient.model.RichText.class, jsonDeserializationContext)
                         );
                         case ROLLUP -> new Rollup(); //TODO
                         case SELECT -> new Select()
-                                .selected(extractSelectItem(jsonObject.getAsJsonObject("select")));
+                                .setSelected(extractSelectItem(jsonObject.getAsJsonObject("select")));
                         case STATUS -> new Status()
-                                .selectedOption(extractStatusItem(jsonObject.getAsJsonObject("status")));
-                        case TITLE -> new Title().title(
+                                .setSelectedOption(extractStatusItem(jsonObject.getAsJsonObject("status")));
+                        case TITLE -> new Title().setTitle(
                                 new CustomRichTextDeserializer()
                                         .deserialize(jsonObject.getAsJsonArray(propertyType.getType()), de.flix29.notionApiClient.model.RichText.class, jsonDeserializationContext)
                         );
-                        case URL -> new Url().url(getAsStringIfPresentAndNotNull(jsonObject, "url"));
+                        case URL -> new Url()
+                                .setUrl(getAsStringIfPresentAndNotNull(jsonObject, "url"));
                     };
                     if (property == null) {
                         return null;
                     }
-                    return property.id(id).name(name);
+                    return property.setId(id).setName(name);
                 }).toList();
     }
 
@@ -131,6 +134,7 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
         if (jsonObject == null || jsonObject.isJsonNull() || !jsonObject.has("multi_select") || jsonObject.get("multi_select").isJsonNull()) {
             return null;
         }
+
         return jsonObject.getAsJsonArray("multi_select")
                 .asList().stream()
                 .filter(Objects::nonNull)
@@ -141,15 +145,15 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
     private SelectItem extractSelectItem(JsonElement jsonElement) {
         var jsonObject = jsonElement.getAsJsonObject();
         return new SelectItem()
-                .id(getAsStringIfPresentAndNotNull(jsonObject, "id"))
-                .name(getAsStringIfPresentAndNotNull(jsonObject, "name"))
-                .color(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")));
+                .setId(getAsStringIfPresentAndNotNull(jsonObject, "id"))
+                .setName(getAsStringIfPresentAndNotNull(jsonObject, "name"))
+                .setColor(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")));
     }
 
     private StatusItem extractStatusItem(JsonObject jsonObject) {
         return new StatusItem(false)
-                .id(getAsStringIfPresentAndNotNull(jsonObject, "id"))
-                .name(getAsStringIfPresentAndNotNull(jsonObject, "name"))
-                .color(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")));
+                .setId(getAsStringIfPresentAndNotNull(jsonObject, "id"))
+                .setName(getAsStringIfPresentAndNotNull(jsonObject, "name"))
+                .setColor(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")));
     }
 }

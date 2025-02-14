@@ -30,89 +30,89 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
     public BlockContent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         return switch (blockType) {
             case BOOKMARK -> new Bookmark()
-                    .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
-                    .url(getStringFromJsonElement(jsonElement, "url"));
+                    .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
+                    .setUrl(getStringFromJsonElement(jsonElement, "url"));
             case BREADCRUMB -> new Breadcrumb();
             case BULLETED_LIST_ITEM -> new BulletListItem()
-                    .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                    .color(getColorFromJsonElement(jsonElement));
+                    .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
+                    .setColor(getColorFromJsonElement(jsonElement));
             case CALLOUT -> new Callout()
-                    .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                    .icon(new CustomIconDeserializer().deserialize(jsonElement.getAsJsonObject().get("icon"), Icon.class, jsonDeserializationContext))
-                    .color(getColorFromJsonElement(jsonElement));
+                    .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
+                    .setIcon(new CustomIconDeserializer().deserialize(jsonElement.getAsJsonObject().get("icon"), Icon.class, jsonDeserializationContext))
+                    .setColor(getColorFromJsonElement(jsonElement));
             case CHILD_DATABASE -> new ChildDatabase()
-                    .title(getStringFromJsonElement(jsonElement, "title"));
+                    .setTitle(getStringFromJsonElement(jsonElement, "title"));
             case CHILD_PAGE -> new ChildPage()
-                    .title(getStringFromJsonElement(jsonElement, "title"));
+                    .setTitle(getStringFromJsonElement(jsonElement, "title"));
             case COLUMN -> new Column(); //only accessible using child endpoint
             case COLUMN_LIST -> new ColumnList();
             case DIVIDER -> new Divider();
             case EMBED -> new Embed()
-                    .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
-                    .url(getStringFromJsonElement(jsonElement, "url"));
+                    .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
+                    .setUrl(getStringFromJsonElement(jsonElement, "url"));
             case EQUATION -> new Equation()
-                    .expression(getStringFromJsonElement(jsonElement.getAsJsonObject().get("equation"), "expression"));
+                    .setExpression(getStringFromJsonElement(jsonElement.getAsJsonObject().get("equation"), "expression"));
             case FILE -> new File()
-                    .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
-                    .file(getFileFromJsonElement(jsonElement, jsonDeserializationContext))
-                    .name(getStringFromJsonElement(jsonElement, "name"));
+                    .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
+                    .setFile(getFileFromJsonElement(jsonElement, jsonDeserializationContext))
+                    .setName(getStringFromJsonElement(jsonElement, "name"));
             case HEADING_1 -> createHeading(jsonElement, 1, jsonDeserializationContext);
             case HEADING_2 -> createHeading(jsonElement, 2, jsonDeserializationContext);
             case HEADING_3 -> createHeading(jsonElement, 3, jsonDeserializationContext);
             case IMAGE -> new Image()
-                    .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
-                    .file(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
+                    .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
+                    .setFile(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
             case LINK_PREVIEW -> new LinkPreview()
-                    .url(getStringFromJsonElement(jsonElement, "url"));
+                    .setUrl(getStringFromJsonElement(jsonElement, "url"));
             case LINK_TO_PAGE, TEMPLATE -> null; //not accessible using api
             case NUMBERED_LIST_ITEM -> new NumberedListItem()
-                    .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                    .color(getColorFromJsonElement(jsonElement));
+                    .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
+                    .setColor(getColorFromJsonElement(jsonElement));
             case PARAGRAPH -> new Paragraph()
-                    .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                    .color(getColorFromJsonElement(jsonElement));
+                    .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
+                    .setColor(getColorFromJsonElement(jsonElement));
             case PDF -> new Pdf()
-                    .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
-                    .type(FileType.fromString(getAsStringIfPresentAndNotNull(jsonElement.getAsJsonObject(), "type")))
-                    .file(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
+                    .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
+                    .setType(FileType.fromString(getAsStringIfPresentAndNotNull(jsonElement.getAsJsonObject(), "type")))
+                    .setFile(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
             case QUOTE -> new Quote()
-                    .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                    .color(getColorFromJsonElement(jsonElement));
+                    .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
+                    .setColor(getColorFromJsonElement(jsonElement));
             case SYNCED_BLOCK -> buildSyncedBlock(jsonElement);
             case TABLE -> new Table()
-                    .tableWidth(getAsIntegerIfPresentAndNotNull(jsonElement.getAsJsonObject(), "table_width"))
-                    .hasColumnHeader(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "has_column_header"))
-                    .hasRowHeader(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "has_row_header"));
+                    .setTableWidth(getAsIntegerIfPresentAndNotNull(jsonElement.getAsJsonObject(), "table_width"))
+                    .setHasColumnHeader(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "has_column_header"))
+                    .setHasRowHeader(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "has_row_header"));
             case TABLE_OF_CONTENTS -> new TableOfContents()
-                    .color(getColorFromJsonElement(jsonElement));
+                    .setColor(getColorFromJsonElement(jsonElement));
             case TABLE_ROW -> new TableRow(); //only accessible using child endpoint
             case TO_DO -> new ToDo()
-                    .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                    .checked(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "checked"))
-                    .color(getColorFromJsonElement(jsonElement));
+                    .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
+                    .setChecked(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "checked"))
+                    .setColor(getColorFromJsonElement(jsonElement));
             case TOGGLE -> new Toggle()
-                    .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                    .color(getColorFromJsonElement(jsonElement));
+                    .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
+                    .setColor(getColorFromJsonElement(jsonElement));
             case UNSUPPORTED -> throw new UnsupportedOperationException("Unsupported block type");
             case VIDEO -> new Video()
-                    .caption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
-                    .type(FileType.fromString(getAsStringIfPresentAndNotNull(jsonElement.getAsJsonObject(), "type")))
-                    .file(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
+                    .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
+                    .setType(FileType.fromString(getAsStringIfPresentAndNotNull(jsonElement.getAsJsonObject(), "type")))
+                    .setFile(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
         };
     }
 
     private Heading createHeading(JsonElement jsonElement, int level, JsonDeserializationContext jsonDeserializationContext) {
         return new Heading(level)
-                .content(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
-                .color(getColorFromJsonElement(jsonElement))
-                .isToggleable(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "is_toggleable"));
+                .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
+                .setColor(getColorFromJsonElement(jsonElement))
+                .setToggleable(getAsBooleanIfPresentAndNotNull(jsonElement.getAsJsonObject(), "is_toggleable"));
     }
 
     private SyncedBlock buildSyncedBlock(JsonElement jsonElement) {
         var syncedBlock = new SyncedBlock();
         var jsonObject = jsonElement.getAsJsonObject();
         if (jsonObject.get("synced_from") != null && !jsonObject.get("synced_from").isJsonNull()) {
-            return syncedBlock.syncedFrom(jsonObject.get("synced_from").getAsJsonObject().get("block_id").getAsString());
+            return syncedBlock.setSyncedFrom(jsonObject.get("synced_from").getAsJsonObject().get("block_id").getAsString());
         }
 
         return syncedBlock;

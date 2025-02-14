@@ -5,6 +5,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import de.flix29.notionApiClient.model.Annotations;
+import de.flix29.notionApiClient.model.Color;
 
 import java.lang.reflect.Type;
 
@@ -20,11 +21,12 @@ public class CustomAnnotationsDeserializer implements JsonDeserializer<Annotatio
 
         var jsonObject = jsonElement.getAsJsonObject();
         return new Annotations()
-                .bold(getAsBooleanIfPresentAndNotNull(jsonObject, "bold"))
-                .italic(getAsBooleanIfPresentAndNotNull(jsonObject, "italic"))
-                .strikethrough(getAsBooleanIfPresentAndNotNull(jsonObject, "strikethrough"))
-                .underline(getAsBooleanIfPresentAndNotNull(jsonObject, "underline"))
-                .code(getAsBooleanIfPresentAndNotNull(jsonObject, "code"))
-                .color(getAsStringIfPresentAndNotNull(jsonObject, "color"));
+                .setBold(getAsBooleanIfPresentAndNotNull(jsonObject, "bold"))
+                .setItalic(getAsBooleanIfPresentAndNotNull(jsonObject, "italic"))
+                .setStrikethrough(getAsBooleanIfPresentAndNotNull(jsonObject, "strikethrough"))
+                .setUnderline(getAsBooleanIfPresentAndNotNull(jsonObject, "underline"))
+                .setCode(getAsBooleanIfPresentAndNotNull(jsonObject, "code"))
+                .setColor(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")))
+                .setBackgroundColor(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")));
     }
 }

@@ -22,10 +22,10 @@ public class CustomUserDeserializer implements JsonDeserializer<User> {
         var userType = UserType.fromString(getAsStringIfPresentAndNotNull(jsonObject, "type"));
 
         var user = new User()
-                .id(getUUIDFromJsonElement(jsonObject, "id"))
-                .type(userType)
-                .name(getAsStringIfPresentAndNotNull(jsonObject, "name"))
-                .avatarUrl(getAsStringIfPresentAndNotNull(jsonObject, "avatar_url"));
+                .setId(getUUIDFromJsonElement(jsonObject, "id"))
+                .setType(userType)
+                .setName(getAsStringIfPresentAndNotNull(jsonObject, "name"))
+                .setAvatarUrl(getAsStringIfPresentAndNotNull(jsonObject, "avatar_url"));
 
         return switch (userType) {
             case PERSON -> buildPerson(user, jsonObject);
@@ -36,7 +36,7 @@ public class CustomUserDeserializer implements JsonDeserializer<User> {
 
     private People buildPerson(User user, JsonObject jsonObject) {
         return new People(user)
-                .email(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("person"), "email"));
+                .setEmail(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("person"), "email"));
     }
 
     private Bot buildBot(User user, JsonObject jsonObject) {
@@ -46,10 +46,10 @@ public class CustomUserDeserializer implements JsonDeserializer<User> {
         var bot = jsonObject.getAsJsonObject("bot");
         var owner = bot.getAsJsonObject("owner");
         return new Bot(user)
-                .owner(new BotOwner()
-                        .type(BotOwnerType.fromString(getAsStringIfPresentAndNotNull(owner, "type")))
-                        .workspaces(getAsBooleanIfPresentAndNotNull(owner, "workspace"))
+                .setOwner(new BotOwner()
+                        .setType(BotOwnerType.fromString(getAsStringIfPresentAndNotNull(owner, "type")))
+                        .setWorkspaces(getAsBooleanIfPresentAndNotNull(owner, "workspace"))
                 )
-                .workspaceName(getAsStringIfPresentAndNotNull(bot, "workspace_name"));
+                .setWorkspaceName(getAsStringIfPresentAndNotNull(bot, "workspace_name"));
     }
 }

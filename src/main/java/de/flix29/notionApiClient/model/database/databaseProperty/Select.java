@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -11,19 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public final class Select extends Property {
     private List<SelectItem> options;
     private SelectItem selected;
-
-    public Select options(List<SelectItem> options) {
-        this.options = options;
-        return this;
-    }
-
-    public Select selected(SelectItem selected) {
-        this.selected = selected;
-        return this;
-    }
 
     @Override
     public PropertyType getType() {

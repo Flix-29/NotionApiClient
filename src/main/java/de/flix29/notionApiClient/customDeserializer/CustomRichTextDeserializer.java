@@ -31,9 +31,9 @@ public class CustomRichTextDeserializer implements JsonDeserializer<List<RichTex
                     var textType = getAsStringIfPresentAndNotNull(jsonObject, "type");
 
                     var richText = new RichText()
-                            .plainText(getAsStringIfPresentAndNotNull(jsonObject, "plain_text"))
-                            .href(getAsStringIfPresentAndNotNull(jsonObject, "href"))
-                            .annotations(new CustomAnnotationsDeserializer().deserialize(jsonObject.get("annotations"), Annotations.class, jsonDeserializationContext));
+                            .setPlainText(getAsStringIfPresentAndNotNull(jsonObject, "plain_text"))
+                            .setHref(getAsStringIfPresentAndNotNull(jsonObject, "href"))
+                            .setAnnotations(new CustomAnnotationsDeserializer().deserialize(jsonObject.get("annotations"), Annotations.class, jsonDeserializationContext));
 
                     if (textType == null) {
                         throw new JsonParseException("No text type found in rich text object");
@@ -43,8 +43,8 @@ public class CustomRichTextDeserializer implements JsonDeserializer<List<RichTex
                         case "text" -> {
                             var text = item.getAsJsonObject().get("text").getAsJsonObject();
                             yield new Text(richText)
-                                    .content(getAsStringIfPresentAndNotNull(text, "content"))
-                                    .link(text.get("link").isJsonNull() ? null : getAsStringIfPresentAndNotNull(text.getAsJsonObject("link"), "url"));
+                                    .setContent(getAsStringIfPresentAndNotNull(text, "content"))
+                                    .setLink(text.get("link").isJsonNull() ? null : getAsStringIfPresentAndNotNull(text.getAsJsonObject("link"), "url"));
                         }
                         case "mention" -> {
                             var mentionType = MentionType.fromString(jsonObject.getAsJsonObject("mention").get("type").getAsString());
@@ -52,29 +52,29 @@ public class CustomRichTextDeserializer implements JsonDeserializer<List<RichTex
 
                             yield switch (mentionType) {
                                 case DATABASE -> new MentionDatabase(richText)
-                                        .id(mention.get("id").getAsString());
+                                        .setId(mention.get("id").getAsString());
                                 case DATE -> new MentionDate(richText)
-                                        .start(OffsetDateTime.parse(mention.get("start").getAsString()))
-                                        .end(OffsetDateTime.parse(mention.get("end").getAsString()))
-                                        .timeZone(mention.get("time_zone").getAsString());
+                                        .setStart(OffsetDateTime.parse(mention.get("start").getAsString()))
+                                        .setEnd(OffsetDateTime.parse(mention.get("end").getAsString()))
+                                        .setTimeZone(mention.get("time_zone").getAsString());
                                 case LINK_PREVIEW -> new MentionLinkPreview(richText)
-                                        .href(getAsStringIfPresentAndNotNull(mention, "href"))
-                                        .title(getAsStringIfPresentAndNotNull(mention, "title"))
-                                        .iconUrl(getAsStringIfPresentAndNotNull(mention, "icon_url"))
-                                        .description(getAsStringIfPresentAndNotNull(mention, "description"))
-                                        .linkProvider(getAsStringIfPresentAndNotNull(mention, "link_provider"))
-                                        .thumbnailUrl(getAsStringIfPresentAndNotNull(mention, "thumbnail_url"));
+                                        .setHref(getAsStringIfPresentAndNotNull(mention, "href"))
+                                        .setTitle(getAsStringIfPresentAndNotNull(mention, "title"))
+                                        .setIconUrl(getAsStringIfPresentAndNotNull(mention, "icon_url"))
+                                        .setDescription(getAsStringIfPresentAndNotNull(mention, "description"))
+                                        .setLinkProvider(getAsStringIfPresentAndNotNull(mention, "link_provider"))
+                                        .setThumbnailUrl(getAsStringIfPresentAndNotNull(mention, "thumbnail_url"));
                                 case PAGE -> new MentionPage(richText).
-                                        id(mention.get("id").getAsString());
+                                        setId(mention.get("id").getAsString());
                                 case TEMPLATE_MENTION -> new MentionTemplate(richText)
-                                        .date(mention.get("date").getAsString())
-                                        .user(mention.get("user").getAsString());
+                                        .setDate(mention.get("date").getAsString())
+                                        .setUser(mention.get("user").getAsString());
                                 case USER -> new MentionUser(richText)
-                                        .id(mention.get("id").getAsString());
+                                        .setId(mention.get("id").getAsString());
                             };
                         }
                         case "equation" -> new Equation(richText)
-                                .equation(getAsStringIfPresentAndNotNull(jsonObject, "equation"));
+                                .setEquation(getAsStringIfPresentAndNotNull(jsonObject, "equation"));
                         default -> throw new IllegalStateException("Unexpected texttype value: " + textType);
                     };
                 }).toList();

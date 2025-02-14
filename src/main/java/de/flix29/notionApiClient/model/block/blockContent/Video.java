@@ -6,29 +6,16 @@ import de.flix29.notionApiClient.model.RichText;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
 @ToString
 @EqualsAndHashCode
+@Accessors(chain = true)
 public final class Video implements BlockContent {
     private List<RichText> caption;
     private FileType type;
     private File file;
-
-    public Video caption(List<RichText> caption) {
-        this.caption = caption;
-        return this;
-    }
-
-    public Video type(FileType type) {
-        this.type = type;
-        return this;
-    }
-
-    public Video file(File file) {
-        this.file = file;
-        return this;
-    }
 }

@@ -4,19 +4,16 @@ import de.flix29.notionApiClient.model.block.Block;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
 @ToString
 @EqualsAndHashCode
+@Accessors(chain = true)
 public final class Column implements BlockContent {
     private List<Block> children;
-
-    public Column children(List<Block> children) {
-        this.children = children;
-        return this;
-    }
 
     @Override
     public void setChildren(List<Block> children) {

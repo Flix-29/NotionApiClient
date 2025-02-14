@@ -4,11 +4,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public final class MentionLinkPreview extends MentionObject {
     private String href;
     private String title;
@@ -19,36 +21,6 @@ public final class MentionLinkPreview extends MentionObject {
 
     public MentionLinkPreview(RichText richText) {
         super(richText);
-    }
-
-    public MentionLinkPreview href(String href) {
-        this.href = href;
-        return this;
-    }
-
-    public MentionLinkPreview title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public MentionLinkPreview iconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
-        return this;
-    }
-
-    public MentionLinkPreview description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public MentionLinkPreview linkProvider(String linkProvider) {
-        this.linkProvider = linkProvider;
-        return this;
-    }
-
-    public MentionLinkPreview thumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
-        return this;
     }
 
     @Override

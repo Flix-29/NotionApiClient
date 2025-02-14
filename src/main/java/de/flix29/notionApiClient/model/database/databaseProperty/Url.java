@@ -4,18 +4,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 @Data
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public final class Url extends Property {
     private String url;
-
-    public Url url(String url) {
-        this.url = url;
-        return this;
-    }
 
     @Override
     public PropertyType getType() {

@@ -84,6 +84,9 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <gpg.skip>true</gpg.skip>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.junit.jupiter</groupId>

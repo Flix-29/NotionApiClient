@@ -4,18 +4,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 @Data
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public final class Checkbox extends Property {
     private boolean checked;
-
-    public Checkbox checked(boolean checked) {
-        this.checked = checked;
-        return this;
-    }
 
     @Override
     public PropertyType getType() {

@@ -26,21 +26,21 @@ public class CustomDatabaseDeserializer implements JsonDeserializer<Database> {
             return null;
         }
         return new Database()
-                .id(getUUIDFromJsonElement(jsonObject, "id"))
-                .createdTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
-                .createdBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
-                .lastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
-                .lastEditedBy(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext))
-                .titel(new CustomRichTextDeserializer().deserialize(jsonObject.get("title"), RICH_TEXT_LIST_TYPE, jsonDeserializationContext))
-                .description(new CustomRichTextDeserializer().deserialize(jsonObject.get("description"), RICH_TEXT_LIST_TYPE, jsonDeserializationContext))
-                .inline(getAsBooleanIfPresentAndNotNull(jsonObject, "is_inline"))
-                .icon(new CustomIconDeserializer().deserialize(jsonObject.get("icon"), Icon.class, jsonDeserializationContext))
-                .cover(new CustomFileDeserializer().deserialize(jsonObject.get("cover"), File.class, jsonDeserializationContext))
-                .properties(new CustomDatabasePropertiesDeserializer().deserialize(jsonObject.get("properties"), PROPERTY_LIST_TYPE, jsonDeserializationContext))
-                .parent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
-                .url(getAsStringIfPresentAndNotNull(jsonObject, "url"))
-                .archived(getAsBooleanIfPresentAndNotNull(jsonObject, "archived"))
-                .deleted(getAsBooleanIfPresentAndNotNull(jsonObject, "in_trash"))
-                .publicUrl(getAsStringIfPresentAndNotNull(jsonObject, "public_url"));
+                .setId(getUUIDFromJsonElement(jsonObject, "id"))
+                .setCreatedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
+                .setCreatedBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
+                .setLastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
+                .setLastEditedBy(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext))
+                .setTitel(new CustomRichTextDeserializer().deserialize(jsonObject.get("title"), RICH_TEXT_LIST_TYPE, jsonDeserializationContext))
+                .setDescription(new CustomRichTextDeserializer().deserialize(jsonObject.get("description"), RICH_TEXT_LIST_TYPE, jsonDeserializationContext))
+                .setInline(getAsBooleanIfPresentAndNotNull(jsonObject, "is_inline"))
+                .setIcon(new CustomIconDeserializer().deserialize(jsonObject.get("icon"), Icon.class, jsonDeserializationContext))
+                .setCover(new CustomFileDeserializer().deserialize(jsonObject.get("cover"), File.class, jsonDeserializationContext))
+                .setProperties(new CustomDatabasePropertiesDeserializer().deserialize(jsonObject.get("properties"), PROPERTY_LIST_TYPE, jsonDeserializationContext))
+                .setParent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
+                .setUrl(getAsStringIfPresentAndNotNull(jsonObject, "url"))
+                .setArchived(getAsBooleanIfPresentAndNotNull(jsonObject, "archived"))
+                .setDeleted(getAsBooleanIfPresentAndNotNull(jsonObject, "in_trash"))
+                .setPublicUrl(getAsStringIfPresentAndNotNull(jsonObject, "public_url"));
     }
 }

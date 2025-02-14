@@ -26,17 +26,17 @@ public class CustomBlockDeserializer implements JsonDeserializer<Block> {
         var blockType = BlockType.fromString(getAsStringIfPresentAndNotNull(jsonObject, "type"));
 
         return new Block()
-                .id(getUUIDFromJsonElement(jsonObject, "id"))
-                .parent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
-                .createdTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
-                .lastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
-                .createdBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
-                .lastEditedBy(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext))
-                .hasChildren(getAsBooleanIfPresentAndNotNull(jsonObject, "has_children"))
-                .archived(getAsBooleanIfPresentAndNotNull(jsonObject, "archived"))
-                .deleted(getAsBooleanIfPresentAndNotNull(jsonObject, "in_trash"))
-                .type(blockType)
-                .blockContent(
+                .setId(getUUIDFromJsonElement(jsonObject, "id"))
+                .setParent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
+                .setCreatedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
+                .setLastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
+                .setCreatedBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
+                .setLastEditedBy(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext))
+                .setHasChildren(getAsBooleanIfPresentAndNotNull(jsonObject, "has_children"))
+                .setArchived(getAsBooleanIfPresentAndNotNull(jsonObject, "archived"))
+                .setDeleted(getAsBooleanIfPresentAndNotNull(jsonObject, "in_trash"))
+                .setType(blockType)
+                .setBlockContent(
                         new CustomBlockContentDeserializer()
                                 .deserialize(
                                         jsonObject.get(blockType.getType()),

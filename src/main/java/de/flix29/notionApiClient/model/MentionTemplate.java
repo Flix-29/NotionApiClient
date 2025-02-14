@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.Collections;
 import java.util.Map;
@@ -12,22 +13,13 @@ import java.util.Map;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public final class MentionTemplate extends MentionObject {
     private String date;
     private String user;
 
     public MentionTemplate(RichText richText) {
         super(richText);
-    }
-
-    public MentionTemplate date(String date) {
-        this.date = date;
-        return this;
-    }
-
-    public MentionTemplate user(String user) {
-        this.user = user;
-        return this;
     }
 
     @Override

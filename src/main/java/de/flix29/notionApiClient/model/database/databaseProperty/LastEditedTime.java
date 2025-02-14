@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.time.OffsetDateTime;
 
@@ -11,13 +12,9 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public final class LastEditedTime extends Property {
     private OffsetDateTime lastEditedTime;
-
-    public LastEditedTime lastEditedTime(OffsetDateTime lastEditedTime) {
-        this.lastEditedTime = lastEditedTime;
-        return this;
-    }
 
     @Override
     public PropertyType getType() {

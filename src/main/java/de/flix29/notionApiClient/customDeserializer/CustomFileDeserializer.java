@@ -23,8 +23,8 @@ public class CustomFileDeserializer implements JsonDeserializer<File> {
         var fileType = getAsStringIfPresentAndNotNull(jsonObject, "type");
         var fileObject = jsonObject.getAsJsonObject(fileType);
         return new File()
-                .type(FileType.fromString(fileType))
-                .url(getAsStringIfPresentAndNotNull(fileObject, "url"))
-                .expirationTime(new CustomOffsetDateTimeDeserializer().deserialize(fileObject.get("expiry_time"), OffsetDateTime.class, jsonDeserializationContext));
+                .setType(FileType.fromString(fileType))
+                .setUrl(getAsStringIfPresentAndNotNull(fileObject, "url"))
+                .setExpirationTime(new CustomOffsetDateTimeDeserializer().deserialize(fileObject.get("expiry_time"), OffsetDateTime.class, jsonDeserializationContext));
     }
 }

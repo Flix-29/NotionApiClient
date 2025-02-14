@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.time.OffsetDateTime;
 
@@ -11,6 +12,7 @@ import java.time.OffsetDateTime;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public final class MentionDate extends MentionObject {
     private OffsetDateTime start;
     private OffsetDateTime end;
@@ -18,21 +20,6 @@ public final class MentionDate extends MentionObject {
 
     public MentionDate(RichText richText) {
         super(richText);
-    }
-
-    public MentionDate start(OffsetDateTime start) {
-        this.start = start;
-        return this;
-    }
-
-    public MentionDate end(OffsetDateTime end) {
-        this.end = end;
-        return this;
-    }
-
-    public MentionDate timeZone(String timeZone) {
-        this.timeZone = timeZone;
-        return this;
     }
 
     @Override

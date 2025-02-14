@@ -22,13 +22,13 @@ public class CustomParentDeserializer implements JsonDeserializer<Parent> {
         var jsonObject = jsonElement.getAsJsonObject();
         var parentType = ParentType.fromString(getAsStringIfPresentAndNotNull(jsonObject, "type"));
 
-        var parent = new Parent().type(parentType);
+        var parent = new Parent().setType(parentType);
 
         return switch (parentType) {
-            case DATABASE -> parent.id(getUUIDFromJsonElement(jsonObject, "database_id"));
-            case PAGE -> parent.id(getUUIDFromJsonElement(jsonObject, "page_id"));
-            case WORKSPACE -> parent.workspace(true);
-            case BLOCK -> parent.id(getUUIDFromJsonElement(jsonObject, "block_id"));
+            case DATABASE -> parent.setId(getUUIDFromJsonElement(jsonObject, "database_id"));
+            case PAGE -> parent.setId(getUUIDFromJsonElement(jsonObject, "page_id"));
+            case WORKSPACE -> parent.setWorkspace(true);
+            case BLOCK -> parent.setId(getUUIDFromJsonElement(jsonObject, "block_id"));
         };
     }
 }

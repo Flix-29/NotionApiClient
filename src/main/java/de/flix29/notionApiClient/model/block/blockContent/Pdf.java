@@ -6,29 +6,16 @@ import de.flix29.notionApiClient.model.RichText;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
 @ToString
 @EqualsAndHashCode
+@Accessors(chain = true)
 public final class Pdf implements BlockContent {
     private List<RichText> caption;
     private FileType type;
     private File file;
-
-    public Pdf caption(List<RichText> caption) {
-        this.caption = caption;
-        return this;
-    }
-
-    public Pdf type(FileType type) {
-        this.type = type;
-        return this;
-    }
-
-    public Pdf file(File file) {
-        this.file = file;
-        return this;
-    }
 }

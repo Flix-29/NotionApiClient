@@ -48,26 +48,26 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                         case EMAIL -> new Email();
                         case FILE -> new File();
                         case FORMULA ->
-                                new Formula().expression(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("formula"), "expression"));
+                                new Formula().setExpression(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("formula"), "expression"));
                         case LAST_EDITED_BY -> new LastEditedBy();
                         case LAST_EDITED_TIME -> new LastEditedTime();
                         case MULTI_SELECT ->
-                                new MultiSelect().options(extractSelectItems(jsonObject.getAsJsonObject("multi_select")));
+                                new MultiSelect().setOptions(extractSelectItems(jsonObject.getAsJsonObject("multi_select")));
                         case NUMBER -> {
                             var format = getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("number"), "format");
-                            yield new Number().format(NumberFormat.fromString(format));
+                            yield new Number().setFormat(NumberFormat.fromString(format));
                         }
                         case PEOPLE -> new People();
                         case PHONE_NUMBER -> new PhoneNumber();
                         case RELATION -> {
                             var relationObject = jsonObject.getAsJsonObject("relation");
-                            var relation = new Relation().databaseId(getAsStringIfPresentAndNotNull(relationObject, "database_id"));
+                            var relation = new Relation().setDatabaseId(getAsStringIfPresentAndNotNull(relationObject, "database_id"));
                             var relationType = getAsStringIfPresentAndNotNull(relationObject, "type");
                             if (relationType != null && relationType.equals("dual_property")) {
                                 var dualProperty = relationObject.get("dual_property").getAsJsonObject();
                                 relation
-                                        .syncedPropertyName(getAsStringIfPresentAndNotNull(dualProperty, "synced_property_name"))
-                                        .syncedPropertyId(getAsStringIfPresentAndNotNull(dualProperty, "synced_property_id"));
+                                        .setSyncedPropertyName(getAsStringIfPresentAndNotNull(dualProperty, "synced_property_name"))
+                                        .setSyncedPropertyId(getAsStringIfPresentAndNotNull(dualProperty, "synced_property_id"));
                             }
                             yield relation;
                         }
@@ -75,21 +75,21 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                         case ROLLUP -> {
                             var rollup = jsonObject.getAsJsonObject("rollup");
                             yield new Rollup()
-                                    .relationPropertyName(getAsStringIfPresentAndNotNull(rollup, "relation_property_name"))
-                                    .rollupPropertyName(getAsStringIfPresentAndNotNull(rollup, "rollup_property_name"))
-                                    .relationPropertyId(getAsStringIfPresentAndNotNull(rollup, "relation_property_id"))
-                                    .rollupPropertyId(getAsStringIfPresentAndNotNull(rollup, "rollup_property_id"))
-                                    .function(RollupFunction.fromString(getAsStringIfPresentAndNotNull(rollup, "function")));
+                                    .setRelationPropertyName(getAsStringIfPresentAndNotNull(rollup, "relation_property_name"))
+                                    .setRollupPropertyName(getAsStringIfPresentAndNotNull(rollup, "rollup_property_name"))
+                                    .setRelationPropertyId(getAsStringIfPresentAndNotNull(rollup, "relation_property_id"))
+                                    .setRollupPropertyId(getAsStringIfPresentAndNotNull(rollup, "rollup_property_id"))
+                                    .setFunction(RollupFunction.fromString(getAsStringIfPresentAndNotNull(rollup, "function")));
                         }
                         case SELECT -> new Select()
-                                .options(extractSelectItems(jsonObject.getAsJsonObject("select")));
+                                .setOptions(extractSelectItems(jsonObject.getAsJsonObject("select")));
                         case STATUS -> new Status()
-                                .options(extractStatusItems(jsonObject.getAsJsonObject("status"), "options", false))
-                                .groups(extractStatusItems(jsonObject.getAsJsonObject("status"), "groups", true));
+                                .setOptions(extractStatusItems(jsonObject.getAsJsonObject("status"), "options", false))
+                                .setGroups(extractStatusItems(jsonObject.getAsJsonObject("status"), "groups", true));
                         case TITLE -> new Title();
                         case URL -> new Url();
                     };
-                    property = property.id(id).name(name).description(entry.getKey());
+                    property = property.setId(id).setName(name).setDescription(entry.getKey());
                     output.add(property);
                 });
 
@@ -107,9 +107,9 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                 .map(option -> {
                     var optionObject = option.getAsJsonObject();
                     return new SelectItem()
-                            .id(getAsStringIfPresentAndNotNull(optionObject, "id"))
-                            .name(getAsStringIfPresentAndNotNull(optionObject, "name"))
-                            .color(Color.fromString(getAsStringIfPresentAndNotNull(optionObject, "color")));
+                            .setId(getAsStringIfPresentAndNotNull(optionObject, "id"))
+                            .setName(getAsStringIfPresentAndNotNull(optionObject, "name"))
+                            .setColor(Color.fromString(getAsStringIfPresentAndNotNull(optionObject, "color")));
                 }).toList();
     }
 
@@ -125,10 +125,10 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                 .map(option -> {
                     var optionObject = option.getAsJsonObject();
                     return new StatusItem(isGroup)
-                            .id(getAsStringIfPresentAndNotNull(optionObject, "id"))
-                            .name(getAsStringIfPresentAndNotNull(optionObject, "name"))
-                            .color(Color.fromString(getAsStringIfPresentAndNotNull(optionObject, "color")))
-                            .optionIds(isGroup ? getOptionIds(optionObject) : Collections.emptyList());
+                            .setId(getAsStringIfPresentAndNotNull(optionObject, "id"))
+                            .setName(getAsStringIfPresentAndNotNull(optionObject, "name"))
+                            .setColor(Color.fromString(getAsStringIfPresentAndNotNull(optionObject, "color")))
+                            .setOptionIds(isGroup ? getOptionIds(optionObject) : Collections.emptyList());
                 }).toList();
     }
 

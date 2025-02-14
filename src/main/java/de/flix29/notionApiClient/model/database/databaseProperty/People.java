@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -12,13 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public final class People extends Property {
     private List<User> people;
-
-    public People people(List<User> people) {
-        this.people = people;
-        return this;
-    }
 
     @Override
     public PropertyType getType() {

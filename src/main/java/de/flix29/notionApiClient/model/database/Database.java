@@ -5,6 +5,7 @@ import de.flix29.notionApiClient.model.database.databaseProperty.Property;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Database {
     private UUID id;
     private OffsetDateTime createdTime;
@@ -30,84 +32,4 @@ public class Database {
     private boolean deleted;
     private boolean inline;
     private String publicUrl;
-
-    public Database id(UUID id) {
-        this.id = id;
-        return this;
-    }
-
-    public Database createdTime(OffsetDateTime createdTime) {
-        this.createdTime = createdTime;
-        return this;
-    }
-
-    public Database createdBy(User createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    public Database lastEditedTime(OffsetDateTime lastEditedTime) {
-        this.lastEditedTime = lastEditedTime;
-        return this;
-    }
-
-    public Database lastEditedBy(User lastEditedBy) {
-        this.lastEditedBy = lastEditedBy;
-        return this;
-    }
-
-    public Database titel(List<RichText> titel) {
-        this.titel = titel;
-        return this;
-    }
-
-    public Database description(List<RichText> description) {
-        this.description = description;
-        return this;
-    }
-
-    public Database icon(Icon icon) {
-        this.icon = icon;
-        return this;
-    }
-
-    public Database cover(File cover) {
-        this.cover = cover;
-        return this;
-    }
-
-    public Database properties(List<Property> properties) {
-        this.properties = properties;
-        return this;
-    }
-
-    public Database parent(Parent parent) {
-        this.parent = parent;
-        return this;
-    }
-
-    public Database url(String url) {
-        this.url = url;
-        return this;
-    }
-
-    public Database archived(boolean archived) {
-        this.archived = archived;
-        return this;
-    }
-
-    public Database deleted(boolean deleted) {
-        this.deleted = deleted;
-        return this;
-    }
-
-    public Database inline(boolean inline) {
-        this.inline = inline;
-        return this;
-    }
-
-    public Database publicUrl(String publicUrl) {
-        this.publicUrl = publicUrl;
-        return this;
-    }
 }

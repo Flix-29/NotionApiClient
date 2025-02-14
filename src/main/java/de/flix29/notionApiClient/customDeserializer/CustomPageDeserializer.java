@@ -29,18 +29,18 @@ public class CustomPageDeserializer implements JsonDeserializer<Page> {
             return null;
         }
         return new Page()
-                .id(getAsStringIfPresentAndNotNull(jsonObject, "id"))
-                .createdTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
-                .lastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
-                .createdBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
-                .lastEditedBy(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext))
-                .archived(getAsBooleanIfPresentAndNotNull(jsonObject, "archived"))
-                .deleted(getAsBooleanIfPresentAndNotNull(jsonObject, "in_trash"))
-                .icon(new CustomIconDeserializer().deserialize(jsonObject.get("icon"), Icon.class, jsonDeserializationContext))
-                .cover(new CustomFileDeserializer().deserialize(jsonObject.get("cover"), File.class, jsonDeserializationContext))
-                .properties(new CustomPagePropertiesDeserializer().deserialize(jsonObject.get("properties"), PROPERTY_LIST_TYPE, jsonDeserializationContext))
-                .parent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
-                .url(getAsStringIfPresentAndNotNull(jsonObject, "url"))
-                .publicUrl(getAsStringIfPresentAndNotNull(jsonObject, "public_url"));
+                .setId(getAsStringIfPresentAndNotNull(jsonObject, "id"))
+                .setCreatedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
+                .setLastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
+                .setCreatedBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
+                .setLastEditedBy(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext))
+                .setArchived(getAsBooleanIfPresentAndNotNull(jsonObject, "archived"))
+                .setDeleted(getAsBooleanIfPresentAndNotNull(jsonObject, "in_trash"))
+                .setIcon(new CustomIconDeserializer().deserialize(jsonObject.get("icon"), Icon.class, jsonDeserializationContext))
+                .setCover(new CustomFileDeserializer().deserialize(jsonObject.get("cover"), File.class, jsonDeserializationContext))
+                .setProperties(new CustomPagePropertiesDeserializer().deserialize(jsonObject.get("properties"), PROPERTY_LIST_TYPE, jsonDeserializationContext))
+                .setParent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
+                .setUrl(getAsStringIfPresentAndNotNull(jsonObject, "url"))
+                .setPublicUrl(getAsStringIfPresentAndNotNull(jsonObject, "public_url"));
     }
 }

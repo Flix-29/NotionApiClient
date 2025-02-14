@@ -4,15 +4,12 @@ import de.flix29.notionApiClient.model.Color;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 @Data
 @ToString
 @EqualsAndHashCode
+@Accessors(chain = true)
 public final class TableOfContents implements BlockContent {
     private Color color;
-
-    public TableOfContents color(Color color) {
-        this.color = color;
-        return this;
-    }
 }
