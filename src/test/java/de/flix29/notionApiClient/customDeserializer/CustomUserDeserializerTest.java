@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonParser;
 import de.flix29.notionApiClient.model.*;
+import de.flix29.notionApiClient.testdata.UserTestdata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -42,64 +43,41 @@ class CustomUserDeserializerTest {
 
     private static Stream<Arguments> map_isEmpty() {
         return Stream.of(
-                Arguments.of("src/test/resources/testdataJson/user/User_Person_Empty.json", UserType.PERSON),
-                Arguments.of("src/test/resources/testdataJson/user/User_Bot_Empty.json", UserType.BOT)
+                Arguments.of("src/test/resources/testdataJson/user/User_Person_Empty.json", UserTestdata.peopleEmpty()),
+                Arguments.of("src/test/resources/testdataJson/user/User_Bot_Empty.json", UserTestdata.botEmpty())
         );
     }
 
     @MethodSource
     @ParameterizedTest
-    void map_isEmpty(String pathToFile, UserType userType) throws FileNotFoundException {
+    void map_isEmpty(String pathToFile, User expectedUser) throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader(pathToFile));
         var user = customUserDeserializer.deserialize(jsonElement, Annotations.class, null);
 
         assertThat(user)
-                .isNotNull()
-                .hasFieldOrPropertyWithValue("id", null)
-                .hasFieldOrPropertyWithValue("type", userType)
-                .hasFieldOrPropertyWithValue("name", null)
-                .hasFieldOrPropertyWithValue("avatarUrl", null);
-
-        if (user instanceof People) {
-            assertThat(user)
-                    .hasFieldOrPropertyWithValue("email", null);
-        } else {
-            assertThat(user)
-                    .extracting(bot -> ((Bot) bot).getOwner())
-                    .hasFieldOrPropertyWithValue("type", BotOwnerType.WORKSPACE)
-                    .hasFieldOrPropertyWithValue("workspaces", true);
-        }
+                .usingRecursiveAssertion()
+                .isEqualTo(expectedUser);
     }
 
     private static Stream<Arguments> map_isOk() {
         return Stream.of(
-                Arguments.of("src/test/resources/testdataJson/user/User_Person_AllSet.json", UserType.PERSON),
-                Arguments.of("src/test/resources/testdataJson/user/User_Bot_AllSet.json", UserType.BOT)
+                Arguments.of("src/test/resources/testdataJson/user/User_Person_AllSet.json", UserTestdata.peopleAllSet()),
+                Arguments.of("src/test/resources/testdataJson/user/User_Bot_AllSet.json", UserTestdata.botAllSet())
         );
     }
 
     @MethodSource
     @ParameterizedTest
-    void map_isOk(String pathToFile, UserType userType) throws FileNotFoundException {
+    void map_isOk(String pathToFile, User expectedUser) throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader(pathToFile));
+        var uuid = UUID.fromString(jsonElement.getAsJsonObject().get("id").getAsString());
+        expectedUser.setId(uuid);
         var user = customUserDeserializer.deserialize(jsonElement, Annotations.class, null);
 
-        assertThat(user)
-                .isNotNull()
-                .hasFieldOrPropertyWithValue("id", UUID.fromString("4f97c2c0-7d15-4914-a175-746d27f32e40"))
-                .hasFieldOrPropertyWithValue("type", userType)
-                .hasFieldOrPropertyWithValue("name", "User name")
-                .hasFieldOrPropertyWithValue("avatarUrl", "https://url-to-image.com/image");
 
-        if (user instanceof People) {
-            assertThat(user)
-                    .hasFieldOrPropertyWithValue("email", "user.name@mail.com");
-        } else {
-            assertThat(user)
-                    .extracting(bot -> ((Bot) bot).getOwner())
-                    .hasFieldOrPropertyWithValue("type", BotOwnerType.WORKSPACE)
-                    .hasFieldOrPropertyWithValue("workspaces", true);
-        }
+        assertThat(user)
+                .usingRecursiveAssertion()
+                .isEqualTo(expectedUser);
     }
 
 }

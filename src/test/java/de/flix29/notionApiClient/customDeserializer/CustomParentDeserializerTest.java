@@ -5,7 +5,7 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonParser;
 import de.flix29.notionApiClient.model.Annotations;
 import de.flix29.notionApiClient.model.Parent;
-import de.flix29.notionApiClient.model.ParentType;
+import de.flix29.notionApiClient.testdata.ParentTestdata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,33 +46,31 @@ class CustomParentDeserializerTest {
     @Test
     void map_isEmpty() throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/parent/Parent_Empty.json"));
+        var expectedParent = ParentTestdata.parentEmpty();
         var parent = customParentDeserializer.deserialize(jsonElement, Parent.class, null);
 
         assertThat(parent)
-                .isNotNull()
-                .hasFieldOrPropertyWithValue("type", ParentType.PAGE)
-                .hasFieldOrPropertyWithValue("id", null)
-                .hasFieldOrPropertyWithValue("workspace", false);
+                .usingRecursiveAssertion()
+                .isEqualTo(expectedParent);
     }
 
     private static Stream<Arguments> map_isOk() {
         return Stream.of(
-                Arguments.of("Parent_Page_AllSet.json", ParentType.PAGE, UUID.fromString("07fe2731-6f8f-45f8-817f-9600938ae64c"), false),
-                Arguments.of("Parent_Workspace_AllSet.json", ParentType.WORKSPACE, null, true)
+                Arguments.of("Parent_Page_AllSet.json", ParentTestdata.parentPageAllSet()),
+                Arguments.of("Parent_Workspace_AllSet.json", ParentTestdata.parentWorkspaceAllSet())
         );
     }
 
     @MethodSource
     @ParameterizedTest
-    void map_isOk(String fileName, ParentType parentType, UUID uuid, boolean isWorkspace) throws FileNotFoundException {
+    void map_isOk(String fileName, Parent expectedParent) throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/parent/" + fileName));
+        var uuid = jsonElement.getAsJsonObject().get("page_id");
+        expectedParent.setId(uuid == null ? null : UUID.fromString(uuid.getAsString()));
         var parent = customParentDeserializer.deserialize(jsonElement, Annotations.class, null);
 
         assertThat(parent)
-                .isNotNull()
-                .hasFieldOrPropertyWithValue("type", parentType)
-                .hasFieldOrPropertyWithValue("id", uuid)
-                .hasFieldOrPropertyWithValue("workspace", isWorkspace);
+                .usingRecursiveAssertion()
+                .isEqualTo(expectedParent);
     }
-
 }

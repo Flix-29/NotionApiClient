@@ -2,7 +2,7 @@ package de.flix29.notionApiClient.customDeserializer;
 
 import com.google.gson.*;
 import de.flix29.notionApiClient.model.Annotations;
-import de.flix29.notionApiClient.model.Color;
+import de.flix29.notionApiClient.testdata.AnnotationsTestdata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -42,31 +42,23 @@ class CustomAnnotationsDeserializerTest {
     @Test
     void map_isEmpty() throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/annotations/Annotations_Empty.json"));
+        var expectedAnnotations = AnnotationsTestdata.annotationsEmpty();
         var annotations = customAnnotationsDeserializer.deserialize(jsonElement, Annotations.class, null);
 
         assertThat(annotations)
-                .isNotNull()
-                .hasFieldOrPropertyWithValue("bold", false)
-                .hasFieldOrPropertyWithValue("italic", false)
-                .hasFieldOrPropertyWithValue("strikethrough", false)
-                .hasFieldOrPropertyWithValue("underline", false)
-                .hasFieldOrPropertyWithValue("code", false)
-                .hasFieldOrPropertyWithValue("color", Color.DEFAULT);
+                .usingRecursiveAssertion()
+                .isEqualTo(expectedAnnotations);
     }
 
     @Test
     void map_isOk() throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/annotations/Annotations_AllSet.json"));
+        var expectedAnnotations = AnnotationsTestdata.annotationsAllSet();
         var annotations = customAnnotationsDeserializer.deserialize(jsonElement, Annotations.class, null);
 
         assertThat(annotations)
-                .isNotNull()
-                .hasFieldOrPropertyWithValue("bold", true)
-                .hasFieldOrPropertyWithValue("italic", true)
-                .hasFieldOrPropertyWithValue("strikethrough", true)
-                .hasFieldOrPropertyWithValue("underline", true)
-                .hasFieldOrPropertyWithValue("code", true)
-                .hasFieldOrPropertyWithValue("color", Color.RED);
+                .usingRecursiveAssertion()
+                .isEqualTo(expectedAnnotations);
     }
 
 }
