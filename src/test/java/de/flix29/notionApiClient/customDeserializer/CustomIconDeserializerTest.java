@@ -43,8 +43,8 @@ class CustomIconDeserializerTest {
 
     private static Stream<Arguments> map_isEmpty() {
         return Stream.of(
-                Arguments.of("File_empty", IconTestdata.fileEmpty()),
-                Arguments.of("Emoji_empty", IconTestdata.emojiEmpty())
+                Arguments.of("file_empty", IconTestdata.fileEmpty()),
+                Arguments.of("emoji_empty", IconTestdata.emojiEmpty())
         );
     }
 
