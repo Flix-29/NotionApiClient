@@ -49,7 +49,7 @@ class CustomUserListDeserializerTest {
 
     @Test
     void map_isEmpty() throws FileNotFoundException {
-        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/user/UserList_empty.json"));
+        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/user/UserList_Empty.json"));
         var users = customUserListDeserializer.deserialize(jsonElement, USER_LIST_TYPE, null);
 
         assertThat(users).isEqualTo(Collections.emptyList());
@@ -57,7 +57,7 @@ class CustomUserListDeserializerTest {
 
     @Test
     void map_isOkay() throws FileNotFoundException {
-        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/user/UserList_allSet.json"));
+        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/user/UserList_AllSet.json"));
         var expectedUser = correctIds(jsonElement, UserTestdata.userListAllSet());
         var users = customUserListDeserializer.deserialize(jsonElement, USER_LIST_TYPE, null);
 
