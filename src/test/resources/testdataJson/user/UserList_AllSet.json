@@ -1,0 +1,28 @@
+{
+  "results": [
+    {
+      "object": "user",
+      "id": "4f97c2c0-7d15-4914-a175-746d27f32e40",
+      "name": "User name",
+      "avatar_url": "https://url-to-image.com/image",
+      "type": "person",
+      "person": {
+        "email": "user.name@mail.com"
+      }
+    },
+    {
+      "object" : "user",
+      "id" : "4f97c2c0-7d15-4914-a175-746d27f32e40",
+      "name" : "User name",
+      "avatar_url" : "https://url-to-image.com/image",
+      "type" : "bot",
+      "bot" : {
+        "owner" : {
+          "type" : "workspace",
+          "workspace" : true
+        },
+        "workspace_name" : "Test Notion"
+      }
+    }
+  ]
+}

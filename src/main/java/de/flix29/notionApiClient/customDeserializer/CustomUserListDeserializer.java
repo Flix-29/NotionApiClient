@@ -14,13 +14,13 @@ public class CustomUserListDeserializer implements JsonDeserializer<List<User>> 
             return null;
         }
 
-        var users = jsonElement.getAsJsonObject().getAsJsonArray("results");
+        var users = jsonElement.getAsJsonObject().get("results");
 
         if (users == null || users.isJsonNull()) {
             return null;
         }
 
-        return users.asList().stream()
+        return users.getAsJsonArray().asList().stream()
                 .map(user -> new CustomUserDeserializer().deserialize(user, type, jsonDeserializationContext))
                 .toList();
     }

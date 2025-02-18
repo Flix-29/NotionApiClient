@@ -2,6 +2,7 @@ package de.flix29.notionApiClient.testdata;
 
 import de.flix29.notionApiClient.model.*;
 
+import java.util.List;
 import java.util.UUID;
 
 public class UserTestdata {
@@ -41,5 +42,9 @@ public class UserTestdata {
                 .setId(UUID.randomUUID())
                 .setName("User name")
                 .setAvatarUrl("https://url-to-image.com/image");
+    }
+
+    public static List<User> userListAllSet() {
+        return List.of(peopleAllSet(), botAllSet());
     }
 }
