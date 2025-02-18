@@ -1,15 +1,25 @@
 package de.flix29.notionApiClient.testdata;
 
+import de.flix29.notionApiClient.model.Emoji;
 import de.flix29.notionApiClient.model.File;
 import de.flix29.notionApiClient.model.FileType;
 
 import java.time.OffsetDateTime;
 
-public class FileTestdata {
+public class IconTestdata {
+
+    public static Emoji emojiEmpty() {
+        return new Emoji();
+    }
 
     public static File fileEmpty() {
         return new File()
                 .setType(FileType.FILE);
+    }
+
+    public static Emoji emojiAllSet() {
+        return new Emoji()
+                .setEmoji("😃");
     }
 
     public static File fileExternalAllSet() {
