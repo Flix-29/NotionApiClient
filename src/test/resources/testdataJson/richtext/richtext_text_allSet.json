@@ -1,0 +1,21 @@
+[
+  {
+    "type": "text",
+    "text": {
+      "content": "test",
+      "link": {
+        "url" : "https://www.notion.so"
+      }
+    },
+    "annotations": {
+      "bold": true,
+      "italic": true,
+      "strikethrough": true,
+      "underline": true,
+      "code": true,
+      "color": "red"
+    },
+    "plain_text": "test",
+    "href": "https://www.notion.so"
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "type": "mention",
+    "mention": {
+      "type": "user",
+      "user": {
+        "object": "user",
+        "id": "fddb0a7a-1531-437b-a4d4-8fde89028508",
+        "name": "Felix Hallerbach",
+        "avatar_url": "https://s3-us-west-2.amazonaws.com/public.notion-static.com/fddb0a7a-1531-437b-a4d4-8fde89028508/Screenshot_2024-12-12.42.03.png",
+        "type": "person",
+        "person": {
+          "email": "felix.hallerbach@iu-study.org"
+        }
+      }
+    },
+    "annotations": {
+      "bold": true,
+      "italic": true,
+      "strikethrough": true,
+      "underline": true,
+      "code": true,
+      "color": "red"
+    },
+    "plain_text": "@Name",
+    "href": null
+  }
+]

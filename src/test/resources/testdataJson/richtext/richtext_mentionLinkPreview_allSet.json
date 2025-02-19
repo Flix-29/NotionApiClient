@@ -1,0 +1,24 @@
+[ {
+  "type" : "mention",
+  "mention" : {
+    "type" : "link_mention",
+    "link_mention" : {
+      "href" : "https://www.notion.so",
+      "title" : "Your connected workspace for wiki, docs & projects | Notion",
+      "icon_url" : "https://www.notion.com/front-static/favicon.ico",
+      "description" : "A new tool that blends your everyday work apps into one. It's the all-in-one workspace for you and your team.",
+      "link_provider" : "Notion",
+      "thumbnail_url" : "https://www.notion.com/front-static/meta/default.png"
+    }
+  },
+  "annotations" : {
+    "bold" : true,
+    "italic" : true,
+    "strikethrough" : true,
+    "underline" : true,
+    "code" : true,
+    "color" : "red"
+  },
+  "plain_text" : "https://www.notion.so",
+  "href" : "https://www.notion.so"
+} ]

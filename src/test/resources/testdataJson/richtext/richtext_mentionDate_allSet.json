@@ -1,0 +1,23 @@
+[
+  {
+    "type": "mention",
+    "mention": {
+      "type": "date",
+      "date": {
+        "start": "2025-01-01T00:00:00.000-05:00",
+        "end": "2025-01-02T00:00:00.000-05:00",
+        "time_zone": null
+      }
+    },
+    "annotations": {
+      "bold": true,
+      "italic": true,
+      "strikethrough": true,
+      "underline": true,
+      "code": true,
+      "color": "red"
+    },
+    "plain_text": "2025-01-01T00:00:00.000-05:00 → 2025-01-02T00:00:00.000-05:00",
+    "href": null
+  }
+]

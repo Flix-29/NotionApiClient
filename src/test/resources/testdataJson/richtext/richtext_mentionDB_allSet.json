@@ -1,0 +1,21 @@
+[
+  {
+    "type": "mention",
+    "mention": {
+      "type": "database",
+      "database": {
+        "id": "fddb0a7a-1531-437b-a4d4-8fde89028508"
+      }
+    },
+    "annotations": {
+      "bold": true,
+      "italic": true,
+      "strikethrough": true,
+      "underline": true,
+      "code": true,
+      "color": "red"
+    },
+    "plain_text": "TestDB",
+    "href": "https://www.notion.so/fddb0a7a1531437ba4d48fde89028508"
+  }
+]

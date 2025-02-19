@@ -54,9 +54,9 @@ public class CustomRichTextDeserializer implements JsonDeserializer<List<RichTex
                                 case DATABASE -> new MentionDatabase(richText)
                                         .setId(mention.get("id").getAsString());
                                 case DATE -> new MentionDate(richText)
-                                        .setStart(OffsetDateTime.parse(mention.get("start").getAsString()))
-                                        .setEnd(OffsetDateTime.parse(mention.get("end").getAsString()))
-                                        .setTimeZone(mention.get("time_zone").getAsString());
+                                        .setStart(new CustomOffsetDateTimeDeserializer().deserialize(mention.get("start"), OffsetDateTime.class, jsonDeserializationContext))
+                                        .setEnd(new CustomOffsetDateTimeDeserializer().deserialize(mention.get("end"), OffsetDateTime.class, jsonDeserializationContext))
+                                        .setTimeZone(getAsStringIfPresentAndNotNull(mention, "time_zone"));
                                 case LINK_PREVIEW -> new MentionLinkPreview(richText)
                                         .setHref(getAsStringIfPresentAndNotNull(mention, "href"))
                                         .setTitle(getAsStringIfPresentAndNotNull(mention, "title"))
@@ -74,7 +74,7 @@ public class CustomRichTextDeserializer implements JsonDeserializer<List<RichTex
                             };
                         }
                         case "equation" -> new Equation(richText)
-                                .setEquation(getAsStringIfPresentAndNotNull(jsonObject, "equation"));
+                                .setEquation(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("equation"), "expression"));
                         default -> throw new IllegalStateException("Unexpected texttype value: " + textType);
                     };
                 }).toList();

@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 public final class MentionDate extends MentionObject {
     private OffsetDateTime start;
     private OffsetDateTime end;
-    private String timeZone;
+    private String timeZone; //always null
 
     public MentionDate(RichText richText) {
         super(richText);
