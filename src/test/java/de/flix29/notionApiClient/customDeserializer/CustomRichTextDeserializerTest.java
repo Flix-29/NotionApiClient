@@ -67,7 +67,7 @@ class CustomRichTextDeserializerTest {
     @MethodSource
     @ParameterizedTest
     void map_isOk(String path, List<RichText> expectedRichText) throws FileNotFoundException {
-        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/richtext/richText_" + path + ".json"));
+        var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/richtext/richtext_" + path + ".json"));
         var richText = customRichTextDeserializer.deserialize(jsonElement, RICH_TEXT_LIST_TYPE, null);
 
         assertThat(richText)
