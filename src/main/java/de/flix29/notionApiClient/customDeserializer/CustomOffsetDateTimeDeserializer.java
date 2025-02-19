@@ -4,10 +4,12 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import lombok.extern.java.Log;
 
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 
+@Log
 public class CustomOffsetDateTimeDeserializer implements JsonDeserializer<OffsetDateTime> {
     @Override
     public OffsetDateTime deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
@@ -20,7 +22,7 @@ public class CustomOffsetDateTimeDeserializer implements JsonDeserializer<Offset
         } else if (jsonElement.getAsString().matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")) {
             return OffsetDateTime.parse(jsonElement.getAsString() + "T00:00:00.000+00:00");
         }
+        log.warning("Could not parse OffsetDateTime: " + jsonElement.getAsString());
         return null;
     }
-
 }
