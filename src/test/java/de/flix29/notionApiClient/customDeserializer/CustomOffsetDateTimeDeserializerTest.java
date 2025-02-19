@@ -1,10 +1,14 @@
 package de.flix29.notionApiClient.customDeserializer;
 
-import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.OffsetDateTime;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,15 +28,22 @@ public class CustomOffsetDateTimeDeserializerTest {
         assertThat(result).isNull();
     }
 
-    @Test
-    void map_isOK() {
-        OffsetDateTime now = OffsetDateTime.now();
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("start", now.toString());
-        OffsetDateTime result = customOffsetDateTimeDeserializer.deserialize(jsonObject.get("start"), OffsetDateTime.class, null);
+    private static Stream<Arguments> map_isOK() {
+        return Stream.of(
+                Arguments.of("2025-01-01T12:00:00.000+00:00", OffsetDateTime.parse("2025-01-01T12:00:00.000+00:00")),
+                Arguments.of("2025-01-01T12:00:00.000Z", OffsetDateTime.parse("2025-01-01T12:00:00.000+00:00")),
+                Arguments.of("2025-01-01", OffsetDateTime.parse("2025-01-01T00:00:00.000+00:00"))
+        );
+    }
+
+    @MethodSource
+    @ParameterizedTest
+    void map_isOK(String date, OffsetDateTime expectedDate) {
+        var json = JsonParser.parseString("{\"date\": \"" + date + "\"}").getAsJsonObject();
+        OffsetDateTime result = customOffsetDateTimeDeserializer.deserialize(json.get("date"), OffsetDateTime.class, null);
 
         assertThat(result)
                 .isNotNull()
-                .isEqualTo(now);
+                .isEqualTo(expectedDate);
     }
 }

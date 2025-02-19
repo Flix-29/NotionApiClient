@@ -17,7 +17,7 @@ public class CustomOffsetDateTimeDeserializer implements JsonDeserializer<Offset
             return null;
         }
 
-        if (jsonElement.getAsString().matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}($|([+\\-])[0-9]{2}:[0-9]{2}$)")) {
+        if (jsonElement.getAsString().matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}(Z$|([+\\-])[0-9]{2}:[0-9]{2}$)")) {
             return OffsetDateTime.parse(jsonElement.getAsString());
         } else if (jsonElement.getAsString().matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")) {
             return OffsetDateTime.parse(jsonElement.getAsString() + "T00:00:00.000+00:00");
