@@ -26,7 +26,6 @@ public class CustomAnnotationsDeserializer implements JsonDeserializer<Annotatio
                 .setStrikethrough(getAsBooleanIfPresentAndNotNull(jsonObject, "strikethrough"))
                 .setUnderline(getAsBooleanIfPresentAndNotNull(jsonObject, "underline"))
                 .setCode(getAsBooleanIfPresentAndNotNull(jsonObject, "code"))
-                .setColor(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")))
-                .setBackgroundColor(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")));
+                .setColor(Color.fromString(getAsStringIfPresentAndNotNull(jsonObject, "color")));
     }
 }

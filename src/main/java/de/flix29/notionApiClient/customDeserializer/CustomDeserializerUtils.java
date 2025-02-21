@@ -65,7 +65,7 @@ public class CustomDeserializerUtils {
     }
 
     protected static File getFileFromJsonElement(@NotNull JsonElement jsonElement, @NotNull JsonDeserializationContext jsonDeserializationContext) {
-        if (jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has("file")) {
+        if (jsonElement.isJsonNull() || (!jsonElement.getAsJsonObject().has("file") && !jsonElement.getAsJsonObject().has("external"))) {
             return null;
         }
         return new CustomFileDeserializer().deserialize(jsonElement, File.class, jsonDeserializationContext);

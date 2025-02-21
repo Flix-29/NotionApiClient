@@ -7,8 +7,7 @@ public class AnnotationsTestdata {
 
     public static Annotations annotationsEmpty() {
         return new Annotations()
-                .setColor(Color.DEFAULT)
-                .setBackgroundColor(Color.DEFAULT);
+                .setColor(Color.DEFAULT);
     }
 
     public static Annotations annotationsAllSet() {
@@ -18,7 +17,6 @@ public class AnnotationsTestdata {
                 .setStrikethrough(true)
                 .setUnderline(true)
                 .setCode(true)
-                .setColor(Color.RED)
-                .setBackgroundColor(Color.RED);
+                .setColor(Color.RED);
     }
 }

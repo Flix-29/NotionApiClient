@@ -1,0 +1,28 @@
+{
+  "rich_text": [
+    {
+      "type": "text",
+      "text": {
+        "content": "Notion",
+        "link": null
+      },
+      "annotations": {
+        "bold": true,
+        "italic": true,
+        "strikethrough": true,
+        "underline": true,
+        "code": true,
+        "color": "red"
+      },
+      "plain_text": "Notion",
+      "href": null
+    }
+  ],
+  "icon": {
+    "type": "external",
+    "external": {
+      "url": "https://www.notion.so/icons/exclamation-mark_red.svg"
+    }
+  },
+  "color": "gray_background"
+}

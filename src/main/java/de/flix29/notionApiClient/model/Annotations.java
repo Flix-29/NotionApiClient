@@ -16,5 +16,4 @@ public class Annotations {
     private boolean underline;
     private boolean code;
     private Color color;
-    private Color backgroundColor;
 }

@@ -35,7 +35,7 @@ public class RichTextTestdata {
         return List.of(richTextMentionLinkPreviewAllSet());
     }
 
-    private static Text richTextTextAllSet() {
+    protected static Text richTextTextAllSet() {
         return new Text(richTextAllSet())
                 .setContent("test")
                 .setLink("https://www.notion.so");
@@ -110,7 +110,6 @@ public class RichTextTestdata {
                 .setStrikethrough(true)
                 .setUnderline(true)
                 .setCode(true)
-                .setColor(Color.RED)
-                .setBackgroundColor(Color.RED);
+                .setColor(Color.RED);
     }
 }
