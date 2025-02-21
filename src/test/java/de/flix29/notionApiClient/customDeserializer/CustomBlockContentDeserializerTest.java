@@ -52,7 +52,7 @@ class CustomBlockContentDeserializerTest {
                 Arguments.of("childDB", BlockType.CHILD_DATABASE, BlockContentTestdata.childDatabaseEmpty()),
                 Arguments.of("childPage", BlockType.CHILD_PAGE, BlockContentTestdata.childPageEmpty()),
                 Arguments.of("embed", BlockType.EMBED, BlockContentTestdata.embedEmpty()),
-//                Arguments.of("equation", BlockType.EQUATION, BlockContentTestdata.equationEmpty()),
+                Arguments.of("equation", BlockType.EQUATION, BlockContentTestdata.equationEmpty()),
                 Arguments.of("file", BlockType.FILE, BlockContentTestdata.fileEmpty()),
                 Arguments.of("heading", BlockType.HEADING_1, BlockContentTestdata.headingEmpty(1)),
                 Arguments.of("heading", BlockType.HEADING_2, BlockContentTestdata.headingEmpty(2)),
@@ -91,7 +91,7 @@ class CustomBlockContentDeserializerTest {
                 Arguments.of("childDB", BlockType.CHILD_DATABASE, BlockContentTestdata.childDatabaseAllSet()),
                 Arguments.of("childPage", BlockType.CHILD_PAGE, BlockContentTestdata.childPageAllSet()),
                 Arguments.of("embed", BlockType.EMBED, BlockContentTestdata.embedAllSet()),
-//                Arguments.of("equation", BlockType.EQUATION, BlockContentTestdata.equationAllSet()), TODO
+                Arguments.of("equation", BlockType.EQUATION, BlockContentTestdata.equationAllSet()),
                 Arguments.of("file", BlockType.FILE, BlockContentTestdata.fileAllSet()),
                 Arguments.of("heading", BlockType.HEADING_1, BlockContentTestdata.headingAllSet(1)),
                 Arguments.of("heading", BlockType.HEADING_2, BlockContentTestdata.headingAllSet(2)),

@@ -51,7 +51,7 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
                     .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
                     .setUrl(getStringFromJsonElement(jsonElement, "url"));
             case EQUATION -> new Equation()
-                    .setExpression(getStringFromJsonElement(jsonElement.getAsJsonObject().get("equation"), "expression"));
+                    .setExpression(getStringFromJsonElement(jsonElement, "expression"));
             case FILE -> new File()
                     .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
                     .setFile(getFileFromJsonElement(jsonElement, jsonDeserializationContext))
