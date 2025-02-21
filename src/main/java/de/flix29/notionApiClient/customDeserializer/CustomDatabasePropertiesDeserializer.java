@@ -38,6 +38,7 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                     var propertyType = PropertyType.fromString(getAsStringIfPresentAndNotNull(jsonObject, "type"));
                     var id = getAsStringIfPresentAndNotNull(jsonObject, "id");
                     var name = getAsStringIfPresentAndNotNull(jsonObject, "name");
+                    var description = getAsStringIfPresentAndNotNull(jsonObject, "description");
 
                     var property = switch (propertyType) {
                         case BUTTON -> new Button();
@@ -89,7 +90,7 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                         case TITLE -> new Title();
                         case URL -> new Url();
                     };
-                    property = property.setId(id).setName(name).setDescription(entry.getKey());
+                    property = property.setId(id).setName(name).setDescription(description);
                     output.add(property);
                 });
 
@@ -109,6 +110,7 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                     return new SelectItem()
                             .setId(getAsStringIfPresentAndNotNull(optionObject, "id"))
                             .setName(getAsStringIfPresentAndNotNull(optionObject, "name"))
+                            .setDescription(getAsStringIfPresentAndNotNull(optionObject, "description"))
                             .setColor(Color.fromString(getAsStringIfPresentAndNotNull(optionObject, "color")));
                 }).toList();
     }
@@ -127,6 +129,7 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
                     return new StatusItem(isGroup)
                             .setId(getAsStringIfPresentAndNotNull(optionObject, "id"))
                             .setName(getAsStringIfPresentAndNotNull(optionObject, "name"))
+                            .setDescription(getAsStringIfPresentAndNotNull(optionObject, "description"))
                             .setColor(Color.fromString(getAsStringIfPresentAndNotNull(optionObject, "color")))
                             .setOptionIds(isGroup ? getOptionIds(optionObject) : Collections.emptyList());
                 }).toList();

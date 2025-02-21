@@ -1,0 +1,246 @@
+{
+  "Email": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "email",
+    "email": {}
+  },
+  "Person": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "people",
+    "people": {}
+  },
+  "Last edited by": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "last_edited_by",
+    "last_edited_by": {}
+  },
+  "Phone": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "phone_number",
+    "phone_number": {}
+  },
+  "Checkbox": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "checkbox",
+    "checkbox": {}
+  },
+  "URL": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "url",
+    "url": {}
+  },
+  "Related TestDB": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "relation",
+    "relation": {
+      "database_id": null,
+      "type": "single_property",
+      "single_property": {}
+    }
+  },
+  "Last edited time": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "last_edited_time",
+    "last_edited_time": {}
+  },
+  "Date": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "date",
+    "date": {}
+  },
+  "Rollup": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "rollup",
+    "rollup": {
+      "rollup_property_name": null,
+      "relation_property_name": null,
+      "rollup_property_id": null,
+      "relation_property_id": null,
+      "function": "percent_not_empty"
+    }
+  },
+  "Created time": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "created_time",
+    "created_time": {}
+  },
+  "Button": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "button",
+    "button": {}
+  },
+  "Status": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "status",
+    "status": {
+      "options": [
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        },
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        },
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        }
+      ],
+      "groups": [
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "option_ids": []
+        },
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "option_ids": []
+        },
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "option_ids": []
+        }
+      ]
+    }
+  },
+  "Number": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "number",
+    "number": {
+      "format": "number"
+    }
+  },
+  "Files & media": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "files",
+    "files": {}
+  },
+  "Multi-select": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "multi_select",
+    "multi_select": {
+      "options": [
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        },
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        },
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        }
+      ]
+    }
+  },
+  "Created by": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "created_by",
+    "created_by": {}
+  },
+  "Select": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "select",
+    "select": {
+      "options": [
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        },
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        },
+        {
+          "id": null,
+          "name": null,
+          "color": "default",
+          "description": null
+        }
+      ]
+    }
+  },
+  "Text": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "rich_text",
+    "rich_text": {}
+  },
+  "Formula": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "formula",
+    "formula": {
+      "expression": null
+    }
+  },
+  "Name": {
+    "id": null,
+    "name": null,
+    "description": null,
+    "type": "title",
+    "title": {}
+  }
+}

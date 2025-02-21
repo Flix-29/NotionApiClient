@@ -1,0 +1,252 @@
+{
+  "Email": {
+    "id": "%3AMwQ",
+    "name": "Email",
+    "description": "Email",
+    "type": "email",
+    "email": {}
+  },
+  "Person": {
+    "id": "%3AMwQ",
+    "name": "Person",
+    "description": "Person",
+    "type": "people",
+    "people": {}
+  },
+  "Last edited by": {
+    "id": "%3AMwQ",
+    "name": "Last edited by",
+    "description": "Last edited by",
+    "type": "last_edited_by",
+    "last_edited_by": {}
+  },
+  "Phone": {
+    "id": "%3AMwQ",
+    "name": "Phone",
+    "description": "Phone",
+    "type": "phone_number",
+    "phone_number": {}
+  },
+  "Checkbox": {
+    "id": "%3AMwQ",
+    "name": "Checkbox",
+    "description": "Checkbox",
+    "type": "checkbox",
+    "checkbox": {}
+  },
+  "URL": {
+    "id": "%3AMwQ",
+    "name": "URL",
+    "description": "URL",
+    "type": "url",
+    "url": {}
+  },
+  "Related TestDB": {
+    "id": "%3AMwQ",
+    "name": "Related TestDB",
+    "description": "Related TestDB",
+    "type": "relation",
+    "relation": {
+      "database_id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+      "type": "single_property",
+      "single_property": {}
+    }
+  },
+  "Last edited time": {
+    "id": "%3AMwQ",
+    "name": "Last edited time",
+    "description": "Last edited time",
+    "type": "last_edited_time",
+    "last_edited_time": {}
+  },
+  "Date": {
+    "id": "%3AMwQ",
+    "name": "Date",
+    "description": "Date",
+    "type": "date",
+    "date": {}
+  },
+  "Rollup": {
+    "id": "%3AMwQ",
+    "name": "Rollup",
+    "description": "Rollup",
+    "type": "rollup",
+    "rollup": {
+      "rollup_property_name": "Name",
+      "relation_property_name": "Related TestDB",
+      "rollup_property_id": "title",
+      "relation_property_id": "MvMc",
+      "function": "percent_not_empty"
+    }
+  },
+  "Created time": {
+    "id": "%3AMwQ",
+    "name": "Created time",
+    "description": "Created time",
+    "type": "created_time",
+    "created_time": {}
+  },
+  "Button": {
+    "id": "%3AMwQ",
+    "name": "Button",
+    "description": "Button",
+    "type": "button",
+    "button": {}
+  },
+  "Status": {
+    "id": "%3AMwQ",
+    "name": "Status",
+    "description": "Status",
+    "type": "status",
+    "status": {
+      "options": [
+        {
+          "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+          "name": "Not started",
+          "color": "default",
+          "description": "Not started"
+        },
+        {
+          "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+          "name": "In progress",
+          "color": "blue",
+          "description": "In progress"
+        },
+        {
+          "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+          "name": "Done",
+          "color": "green",
+          "description": "Done"
+        }
+      ],
+      "groups": [
+        {
+          "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+          "name": "To-do",
+          "color": "gray",
+          "option_ids": [
+            "c6e92391-c829-42ea-9ac7-949106ed3916"
+          ]
+        },
+        {
+          "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+          "name": "In progress",
+          "color": "blue",
+          "option_ids": [
+            "c6e92391-c829-42ea-9ac7-949106ed3916"
+          ]
+        },
+        {
+          "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+          "name": "Complete",
+          "color": "green",
+          "option_ids": [
+            "c6e92391-c829-42ea-9ac7-949106ed3916"
+          ]
+        }
+      ]
+    }
+  },
+  "Number": {
+    "id": "%3AMwQ",
+    "name": "Number",
+    "description": "Number",
+    "type": "number",
+    "number": {
+      "format": "number"
+    }
+  },
+  "Files & media": {
+    "id": "%3AMwQ",
+    "name": "Files & media",
+    "description": "Files & media",
+    "type": "files",
+    "files": {}
+  },
+  "Multi-select": {
+    "id": "%3AMwQ",
+    "name": "Multi-select",
+    "description": "Multi-select",
+    "type": "multi_select",
+    "multi_select": {
+      "options": [
+        {
+          "id": "%3AMwQ",
+          "name": "Select3",
+          "color": "orange",
+          "description": "Select3"
+        },
+        {
+          "id": "%3AMwQ",
+          "name": "Select2",
+          "color": "default",
+          "description": "Select2"
+        },
+        {
+          "id": "%3AMwQ",
+          "name": "Select1",
+          "color": "red",
+          "description": "Select1"
+        }
+      ]
+    }
+  },
+  "Created by": {
+    "id": "%3AMwQ",
+    "name": "Created by",
+    "description": "Created by",
+    "type": "created_by",
+    "created_by": {}
+  },
+  "Select": {
+    "id": "%3AMwQ",
+    "name": "Select",
+    "description": "Select",
+    "type": "select",
+    "select": {
+      "options": [
+        {
+          "id": "%3AMwQ",
+          "name": "Select3",
+          "color": "orange",
+          "description": "Select3"
+        },
+        {
+          "id": "%3AMwQ",
+          "name": "Select2",
+          "color": "default",
+          "description": "Select2"
+        },
+        {
+          "id": "%3AMwQ",
+          "name": "Select1",
+          "color": "red",
+          "description": "Select1"
+        }
+      ]
+    }
+  },
+  "Text": {
+    "id": "%3AMwQ",
+    "name": "Text",
+    "description": "Text",
+    "type": "rich_text",
+    "rich_text": {}
+  },
+  "Formula": {
+    "id": "%3AMwQ",
+    "name": "Formula",
+    "description": "Formula",
+    "type": "formula",
+    "formula": {
+      "expression": "if({{notion:block_property:Kjvm:00000000-0000-0000-0000-000000000000:277e10d0-4870-45dd-9b60-8ca05e221089}}, \"ja\", \"nein\")"
+    }
+  },
+  "Name": {
+    "id": "%3AMwQ",
+    "name": "Name",
+    "description": "Name",
+    "type": "title",
+    "title": {}
+  }
+}

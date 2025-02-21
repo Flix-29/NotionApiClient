@@ -16,6 +16,7 @@ public class StatusItem {
     private String id;
     private String name;
     private Color color;
+    private String description;
     private List<String> optionIds;
     private final boolean isGroup;
 }

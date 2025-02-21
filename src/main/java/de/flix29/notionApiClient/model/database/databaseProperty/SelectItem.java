@@ -14,4 +14,5 @@ public class SelectItem {
     private String id;
     private String name;
     private Color color;
+    private String description;
 }
