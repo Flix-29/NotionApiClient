@@ -86,6 +86,7 @@
             </activation>
             <properties>
                 <gpg.skip>true</gpg.skip>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
             </properties>
             <dependencies>
                 <dependency>
