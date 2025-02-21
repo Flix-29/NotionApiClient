@@ -66,7 +66,7 @@ class CustomBlockContentDeserializerTest {
                 Arguments.of("syncedBlock", BlockType.SYNCED_BLOCK, BlockContentTestdata.syncedBlockEmpty()),
                 Arguments.of("table", BlockType.TABLE, BlockContentTestdata.tableEmpty()),
                 Arguments.of("tableOfContents", BlockType.TABLE_OF_CONTENTS, BlockContentTestdata.tableOfContentsEmpty()),
-                Arguments.of("toDo", BlockType.TO_DO, BlockContentTestdata.toDoEmpty()),
+                Arguments.of("todo", BlockType.TO_DO, BlockContentTestdata.toDoEmpty()),
                 Arguments.of("toggle", BlockType.TOGGLE, BlockContentTestdata.toggleEmpty()),
                 Arguments.of("video", BlockType.VIDEO, BlockContentTestdata.videoEmpty())
         );
@@ -105,7 +105,7 @@ class CustomBlockContentDeserializerTest {
                 Arguments.of("syncedBlock", BlockType.SYNCED_BLOCK, BlockContentTestdata.syncedBlockAllSet()),
                 Arguments.of("table", BlockType.TABLE, BlockContentTestdata.tableAllSet()),
                 Arguments.of("tableOfContents", BlockType.TABLE_OF_CONTENTS, BlockContentTestdata.tableOfContentsAllSet()),
-                Arguments.of("toDo", BlockType.TO_DO, BlockContentTestdata.toDoAllSet()),
+                Arguments.of("todo", BlockType.TO_DO, BlockContentTestdata.toDoAllSet()),
                 Arguments.of("toggle", BlockType.TOGGLE, BlockContentTestdata.toggleAllSet()),
                 Arguments.of("video", BlockType.VIDEO, BlockContentTestdata.videoAllSet())
         );
