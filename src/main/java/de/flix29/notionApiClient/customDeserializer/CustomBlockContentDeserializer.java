@@ -64,7 +64,8 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
                     .setFile(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
             case LINK_PREVIEW -> new LinkPreview()
                     .setUrl(getStringFromJsonElement(jsonElement, "url"));
-            case LINK_TO_PAGE, TEMPLATE -> null; //not accessible using api
+            case LINK_TO_PAGE -> null; //not accessible using api
+            case TEMPLATE -> new Template();
             case NUMBERED_LIST_ITEM -> new NumberedListItem()
                     .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
                     .setColor(getColorFromJsonElement(jsonElement));

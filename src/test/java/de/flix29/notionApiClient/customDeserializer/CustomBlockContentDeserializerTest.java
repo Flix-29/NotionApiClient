@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonParser;
 import de.flix29.notionApiClient.model.block.BlockType;
-import de.flix29.notionApiClient.model.block.blockContent.BlockContent;
+import de.flix29.notionApiClient.model.block.blockContent.*;
 import de.flix29.notionApiClient.testdata.BlockContentTestdata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -120,5 +120,28 @@ class CustomBlockContentDeserializerTest {
         assertThat(blockContent)
                 .isNotNull()
                 .isEqualTo(expectedBlockType);
+    }
+
+    private static Stream<Arguments> mapEmptyBlocks_isOk() {
+        return Stream.of(
+                Arguments.of(BlockType.BREADCRUMB, new Breadcrumb()),
+                Arguments.of(BlockType.COLUMN, new Column()),
+                Arguments.of(BlockType.COLUMN_LIST, new ColumnList()),
+                Arguments.of(BlockType.DIVIDER, new Divider()),
+                Arguments.of(BlockType.LINK_TO_PAGE, null),
+                Arguments.of(BlockType.TEMPLATE, new Template()),
+                Arguments.of(BlockType.TABLE_ROW, new TableRow())
+        );
+    }
+
+    @MethodSource
+    @ParameterizedTest
+    void mapEmptyBlocks_isOk(BlockType blockType, BlockContent expectedBlockType) {
+        var jsonElement = JsonParser.parseString("{}");
+        var blockContent = customBlockContentDeserializer.deserialize(jsonElement, BlockContent.class, null, blockType);
+
+        assertThat(blockContent)
+                .isEqualTo(expectedBlockType);
+
     }
 }
