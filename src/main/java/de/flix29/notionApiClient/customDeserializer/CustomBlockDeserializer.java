@@ -5,7 +5,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import de.flix29.notionApiClient.model.Parent;
-import de.flix29.notionApiClient.model.User;
 import de.flix29.notionApiClient.model.block.Block;
 import de.flix29.notionApiClient.model.block.BlockType;
 import de.flix29.notionApiClient.model.block.blockContent.BlockContent;
@@ -30,8 +29,8 @@ public class CustomBlockDeserializer implements JsonDeserializer<Block> {
                 .setParent(new CustomParentDeserializer().deserialize(jsonObject.get("parent"), Parent.class, jsonDeserializationContext))
                 .setCreatedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("created_time"), OffsetDateTime.class, jsonDeserializationContext))
                 .setLastEditedTime(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.get("last_edited_time"), OffsetDateTime.class, jsonDeserializationContext))
-                .setCreatedBy(new CustomUserDeserializer().deserialize(jsonObject.get("created_by"), User.class, jsonDeserializationContext))
-                .setLastEditedBy(new CustomUserDeserializer().deserialize(jsonObject.get("last_edited_by"), User.class, jsonDeserializationContext))
+                .setCreatedBy(getUUIDFromJsonElement(jsonObject.getAsJsonObject("created_by"), "id"))
+                .setLastEditedBy(getUUIDFromJsonElement(jsonObject.getAsJsonObject("last_edited_by"), "id"))
                 .setHasChildren(getAsBooleanIfPresentAndNotNull(jsonObject, "has_children"))
                 .setArchived(getAsBooleanIfPresentAndNotNull(jsonObject, "archived"))
                 .setDeleted(getAsBooleanIfPresentAndNotNull(jsonObject, "in_trash"))

@@ -1,7 +1,6 @@
 package de.flix29.notionApiClient.model.block;
 
 import de.flix29.notionApiClient.model.Parent;
-import de.flix29.notionApiClient.model.User;
 import de.flix29.notionApiClient.model.block.blockContent.BlockContent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +19,8 @@ public class Block {
     private Parent parent;
     private OffsetDateTime createdTime;
     private OffsetDateTime lastEditedTime;
-    private User createdBy;
-    private User lastEditedBy;
+    private UUID createdBy;
+    private UUID lastEditedBy;
     private boolean hasChildren;
     private boolean archived;
     private boolean deleted;

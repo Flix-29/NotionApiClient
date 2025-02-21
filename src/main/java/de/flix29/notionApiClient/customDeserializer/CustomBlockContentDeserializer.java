@@ -93,7 +93,7 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
             case TOGGLE -> new Toggle()
                     .setContent(getRichTextFromJsonElement(jsonElement, "rich_text", jsonDeserializationContext))
                     .setColor(getColorFromJsonElement(jsonElement));
-            case UNSUPPORTED -> throw new UnsupportedOperationException("Unsupported block type");
+            case UNSUPPORTED -> null;
             case VIDEO -> new Video()
                     .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
                     .setType(FileType.fromString(getAsStringIfPresentAndNotNull(jsonElement.getAsJsonObject(), "type")))
