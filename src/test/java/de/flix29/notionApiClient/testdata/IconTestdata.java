@@ -17,6 +17,11 @@ public class IconTestdata {
                 .setType(FileType.FILE);
     }
 
+    public static File fileExternalEmpty() {
+        return new File()
+                .setType(FileType.EXTERNAL);
+    }
+
     public static Emoji emojiAllSet() {
         return new Emoji()
                 .setEmoji("😃");

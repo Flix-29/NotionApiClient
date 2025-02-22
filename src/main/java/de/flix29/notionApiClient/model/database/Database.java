@@ -18,9 +18,9 @@ import java.util.UUID;
 public class Database {
     private UUID id;
     private OffsetDateTime createdTime;
-    private User createdBy;
+    private UUID createdBy;
     private OffsetDateTime lastEditedTime;
-    private User lastEditedBy;
+    private UUID lastEditedBy;
     private List<RichText> titel;
     private List<RichText> description;
     private Icon icon;

@@ -1,0 +1,73 @@
+{
+  "object": "database",
+  "id": null,
+  "cover": {
+    "type": "external",
+    "external": {
+      "url": null
+    }
+  },
+  "icon": {
+    "type": "emoji",
+    "emoji": null
+  },
+  "created_time": null,
+  "created_by": {
+    "object": "user",
+    "id": null
+  },
+  "last_edited_by": {
+    "object": "user",
+    "id": null
+  },
+  "last_edited_time": null,
+  "title": [
+    {
+      "type": "text",
+      "text": {
+        "content": null,
+        "link": null
+      },
+      "annotations": {
+        "bold": false,
+        "italic": false,
+        "strikethrough": false,
+        "underline": false,
+        "code": false,
+        "color": "default"
+      },
+      "plain_text": null,
+      "href": null
+    }
+  ],
+  "description": [
+    {
+      "type": "text",
+      "text": {
+        "content": null,
+        "link": null
+      },
+      "annotations": {
+        "bold": false,
+        "italic": false,
+        "strikethrough": false,
+        "underline": false,
+        "code": false,
+        "color": "default"
+      },
+      "plain_text": null,
+      "href": null
+    }
+  ],
+  "is_inline": false,
+  "properties": {},
+  "parent": {
+    "type": "page_id",
+    "page_id": null
+  },
+  "url": null,
+  "public_url": null,
+  "archived": false,
+  "in_trash": false,
+  "request_id": "3363ffa1-12f6-4076-a75c-2d8e4da61591"
+}

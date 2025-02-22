@@ -15,7 +15,7 @@ public class ParentTestdata {
     public static Parent parentPageAllSet() {
         return new Parent()
                 .setType(ParentType.PAGE)
-                .setId(UUID.randomUUID());
+                .setId(UUID.fromString("3363ffa1-12f6-4076-a75c-2d8e4da61591"));
     }
 
     public static Parent parentWorkspaceAllSet() {

@@ -41,6 +41,12 @@ public class RichTextTestdata {
                 .setLink("https://www.notion.so");
     }
 
+    protected static Text richTextTextEmpty() {
+        return new Text(richTextEmpty())
+                .setContent(null)
+                .setLink(null);
+    }
+
     private static Equation richTextEquationAllSet() {
         var richText = richTextAllSet()
                 .setPlainText("e=mc^2")
@@ -103,6 +109,13 @@ public class RichTextTestdata {
                 .setHref("https://www.notion.so");
     }
 
+    private static RichText richTextEmpty() {
+        return new RichText()
+                .setPlainText(null)
+                .setAnnotations(annotationsEmpty())
+                .setHref(null);
+    }
+
     private static Annotations annotationsAllSet() {
         return new Annotations()
                 .setBold(true)
@@ -111,5 +124,15 @@ public class RichTextTestdata {
                 .setUnderline(true)
                 .setCode(true)
                 .setColor(Color.RED);
+    }
+
+    private static Annotations annotationsEmpty() {
+        return new Annotations()
+                .setBold(false)
+                .setItalic(false)
+                .setStrikethrough(false)
+                .setUnderline(false)
+                .setCode(false)
+                .setColor(Color.DEFAULT);
     }
 }

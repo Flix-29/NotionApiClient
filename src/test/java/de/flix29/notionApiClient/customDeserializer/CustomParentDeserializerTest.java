@@ -14,7 +14,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,8 +64,6 @@ class CustomParentDeserializerTest {
     @ParameterizedTest
     void map_isOk(String fileName, Parent expectedParent) throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/parent/" + fileName));
-        var uuid = jsonElement.getAsJsonObject().get("page_id");
-        expectedParent.setId(uuid == null ? null : UUID.fromString(uuid.getAsString()));
         var parent = customParentDeserializer.deserialize(jsonElement, Annotations.class, null);
 
         assertThat(parent)
