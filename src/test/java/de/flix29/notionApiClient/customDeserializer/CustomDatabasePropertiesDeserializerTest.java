@@ -36,18 +36,18 @@ class CustomDatabasePropertiesDeserializerTest {
     @MethodSource
     @ParameterizedTest
     void map_isNull(JsonElement jsonElement) {
-        var blockContent = customDatabasePropertiesDeserializer.deserialize(jsonElement, PROPERTY_LIST_TYPE, null);
+        var databaseProperties = customDatabasePropertiesDeserializer.deserialize(jsonElement, PROPERTY_LIST_TYPE, null);
 
-        assertThat(blockContent)
+        assertThat(databaseProperties)
                 .isNull();
     }
 
     @Test
     void map_isEmpty() throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/databaseContent/allProperties_empty.json"));
-        var blockContent = customDatabasePropertiesDeserializer.deserialize(jsonElement, PROPERTY_LIST_TYPE, null);
+        var databaseProperties = customDatabasePropertiesDeserializer.deserialize(jsonElement, PROPERTY_LIST_TYPE, null);
 
-        assertThat(blockContent)
+        assertThat(databaseProperties)
                 .usingRecursiveComparison()
                 .ignoringCollectionOrder()
                 .isEqualTo(DatabaseContentTestdata.emptyProperties());
@@ -56,9 +56,9 @@ class CustomDatabasePropertiesDeserializerTest {
     @Test
     void map_isOk() throws FileNotFoundException {
         var jsonElement = JsonParser.parseReader(new FileReader("src/test/resources/testdataJson/databaseContent/allProperties_allSet.json"));
-        var blockContent = customDatabasePropertiesDeserializer.deserialize(jsonElement, PROPERTY_LIST_TYPE, null);
+        var databaseProperties = customDatabasePropertiesDeserializer.deserialize(jsonElement, PROPERTY_LIST_TYPE, null);
 
-        assertThat(blockContent)
+        assertThat(databaseProperties)
                 .usingRecursiveComparison()
                 .ignoringCollectionOrder()
                 .isEqualTo(DatabaseContentTestdata.allProperties());
