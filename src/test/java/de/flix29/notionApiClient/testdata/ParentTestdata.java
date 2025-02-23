@@ -23,4 +23,15 @@ public class ParentTestdata {
                 .setType(ParentType.WORKSPACE)
                 .setWorkspace(true);
     }
+
+    public static Parent parentDatabaseAllSet() {
+        return new Parent()
+                .setType(ParentType.DATABASE)
+                .setId(UUID.fromString("c6e92391-c829-42ea-9ac7-949106ed3916"));
+    }
+
+    public static Parent parentDatabaseEmpty() {
+        return new Parent()
+                .setType(ParentType.DATABASE);
+    }
 }

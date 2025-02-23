@@ -1,0 +1,26 @@
+{
+  "object": "page",
+  "id": null,
+  "created_time": null,
+  "last_edited_time": null,
+  "created_by": {
+    "object": "user",
+    "id": null
+  },
+  "last_edited_by": {
+    "object": "user",
+    "id": null
+  },
+  "cover": null,
+  "icon": null,
+  "parent": {
+    "type": "database_id",
+    "database_id": null
+  },
+  "archived": false,
+  "in_trash": false,
+  "properties": {},
+  "url": null,
+  "public_url": null,
+  "request_id": null
+}

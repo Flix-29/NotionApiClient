@@ -36,6 +36,17 @@ public class UserTestdata {
                 .setType(userType);
     }
 
+    protected static User userJustID() {
+        return new User()
+                .setType(UserType.UNKNOWN)
+                .setId(UUID.fromString("c6e92391-c829-42ea-9ac7-949106ed3916"));
+    }
+
+    protected static User userEmpty() {
+        return new User()
+                .setType(UserType.UNKNOWN);
+    }
+
     private static User userAllSet(UserType userType) {
         return new User()
                 .setType(userType)

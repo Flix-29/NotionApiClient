@@ -1,0 +1,34 @@
+{
+  "object": "page",
+  "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+  "created_time": "2025-01-01T12:00:00.000Z",
+  "last_edited_time": "2025-01-01T12:00:00.000Z",
+  "created_by": {
+    "object": "user",
+    "id": "c6e92391-c829-42ea-9ac7-949106ed3916"
+  },
+  "last_edited_by": {
+    "object": "user",
+    "id": "c6e92391-c829-42ea-9ac7-949106ed3916"
+  },
+  "cover" : {
+    "type" : "external",
+    "external" : {
+      "url" : "https://www.notion.so/images/page-cover/woodcuts_2.jpg"
+    }
+  },
+  "icon" : {
+    "type" : "emoji",
+    "emoji" : "😃"
+  },
+  "parent": {
+    "type": "database_id",
+    "database_id": "c6e92391-c829-42ea-9ac7-949106ed3916"
+  },
+  "archived": true,
+  "in_trash": true,
+  "properties": {},
+  "url": "https://www.notion.so",
+  "public_url": "https://www.notion.so",
+  "request_id": "b5541c21-cd33-4aa8-b3a6-ee67acdc7c7d"
+}
