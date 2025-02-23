@@ -21,7 +21,6 @@ public class CustomDatabasePropertiesDeserializer implements JsonDeserializer<Li
             return null;
         }
 
-        //TODO: check description
         var output = new ArrayList<Property>();
         var entries = jsonElement.getAsJsonObject().entrySet();
         if (entries == null || entries.isEmpty()) {
