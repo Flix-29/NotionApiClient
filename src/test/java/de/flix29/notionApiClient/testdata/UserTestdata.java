@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class UserTestdata {
 
-    public static People peopleEmpty() {
+    protected static People peopleEmpty() {
         return new People(userEmpty(UserType.PERSON));
     }
 
@@ -55,7 +55,7 @@ public class UserTestdata {
                 .setAvatarUrl("https://url-to-image.com/image");
     }
 
-    public static List<User> userListAllSet() {
+    protected static List<User> userListAllSet() {
         return List.of(peopleAllSet(), botAllSet());
     }
 }

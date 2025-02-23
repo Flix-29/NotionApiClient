@@ -17,7 +17,7 @@ public class IconTestdata {
                 .setType(FileType.FILE);
     }
 
-    public static File fileExternalEmpty() {
+    protected static File fileExternalEmpty() {
         return new File()
                 .setType(FileType.EXTERNAL);
     }
