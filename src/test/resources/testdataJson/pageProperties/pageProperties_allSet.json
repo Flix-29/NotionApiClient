@@ -1,0 +1,220 @@
+{
+  "Email": {
+    "id": "%3AMwQ",
+    "type": "email",
+    "email": "notion@mail.com"
+  },
+  "Person": {
+    "id": "%3AMwQ",
+    "type": "people",
+    "people": [
+      {
+        "object": "user",
+        "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+        "name": "User name",
+        "avatar_url": "https://url-to-image.com/image",
+        "type": "person",
+        "person": {
+          "email": "user.name@mail.com"
+        }
+      }
+    ]
+  },
+  "Last edited by": {
+    "id": "%3AMwQ",
+    "type": "last_edited_by",
+    "last_edited_by": {
+      "object": "user",
+      "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+      "name": "User name",
+      "avatar_url": "https://url-to-image.com/image",
+      "type": "person",
+      "person": {
+        "email": "user.name@mail.com"
+      }
+    }
+  },
+  "Phone": {
+    "id": "%3AMwQ",
+    "type": "phone_number",
+    "phone_number": "+123 456789"
+  },
+  "Checkbox": {
+    "id": "%3AMwQ",
+    "type": "checkbox",
+    "checkbox": true
+  },
+  "URL": {
+    "id": "%3AMwQ",
+    "type": "url",
+    "url": "www.notion.so"
+  },
+  "Related TestDB": {
+    "id": "%3AMwQ",
+    "type": "relation",
+    "relation": [
+      {
+        "id": "c6e92391-c829-42ea-9ac7-949106ed3916"
+      }
+    ],
+    "has_more": false
+  },
+  "Last edited time": {
+    "id": "%3AMwQ",
+    "type": "last_edited_time",
+    "last_edited_time": "2025-01-01T12:00:00.000Z"
+  },
+  "Date": {
+    "id": "%3AMwQ",
+    "type": "date",
+    "date": {
+      "start": "2025-01-01T12:00:00.000Z",
+      "end": "2025-01-01T12:00:00.000Z",
+      "time_zone": "Europe/Berlin"
+    }
+  },
+  "Rollup": {
+    "id": "%3AMwQ",
+    "type": "rollup",
+    "rollup": {
+      "type": "number",
+      "number": 1,
+      "function": "percent_not_empty"
+    }
+  },
+  "Created time": {
+    "id": "%3AMwQ",
+    "type": "created_time",
+    "created_time": "2025-01-01T12:00:00.000Z"
+  },
+  "Button": {
+    "id": "%3AMwQ",
+    "type": "button",
+    "button": {}
+  },
+  "Status": {
+    "id": "%3AMwQ",
+    "type": "status",
+    "status": {
+      "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+      "name": "In progress",
+      "color": "blue"
+    }
+  },
+  "Number": {
+    "id": "%3AMwQ",
+    "type": "number",
+    "number": 10
+  },
+  "Files & media": {
+    "id": "%3AMwQ",
+    "type": "files",
+    "files": [
+      {
+        "name": "Files & media",
+        "type": "file",
+        "file": {
+          "url": "https://www.notion.so",
+          "expiry_time": "2025-01-01T12:00:00.000Z"
+        }
+      }
+    ]
+  },
+  "Multi-select": {
+    "id": "%3AMwQ",
+    "type": "multi_select",
+    "multi_select": [
+      {
+        "id": "%3AMwQ",
+        "name": "Select3",
+        "color": "orange"
+      },
+      {
+        "id": "%3AMwQ",
+        "name": "Select1",
+        "color": "red"
+      }
+    ]
+  },
+  "Created by": {
+    "id": "%3AMwQ",
+    "type": "created_by",
+    "created_by": {
+      "object": "user",
+      "id": "c6e92391-c829-42ea-9ac7-949106ed3916",
+      "name": "User name",
+      "avatar_url": "https://url-to-image.com/image",
+      "type": "person",
+      "person": {
+        "email": "user.name@mail.com"
+      }
+    }
+  },
+  "Select": {
+    "id": "%3AMwQ",
+    "type": "select",
+    "select": {
+      "id": "%3AMwQ",
+      "name": "Select3",
+      "color": "orange"
+    }
+  },
+  "Text": {
+    "id": "%3AMwQ",
+    "type": "rich_text",
+    "rich_text": [
+      {
+        "type": "text",
+        "text": {
+          "content": "test",
+          "link": {
+            "url": "https://www.notion.so"
+          }
+        },
+        "annotations": {
+          "bold": true,
+          "italic": true,
+          "strikethrough": true,
+          "underline": true,
+          "code": true,
+          "color": "red"
+        },
+        "plain_text": "test",
+        "href": "https://www.notion.so"
+      }
+    ]
+  },
+  "Formula": {
+    "id": "%3AMwQ",
+    "type": "formula",
+    "formula": {
+      "type": "string",
+      "string": "nein"
+    }
+  },
+  "Name": {
+    "id": "%3AMwQ",
+    "type": "title",
+    "title": [
+      {
+        "type": "text",
+        "text": {
+          "content": "test",
+          "link": {
+            "url": "https://www.notion.so"
+          }
+        },
+        "annotations": {
+          "bold": true,
+          "italic": true,
+          "strikethrough": true,
+          "underline": true,
+          "code": true,
+          "color": "red"
+        },
+        "plain_text": "test",
+        "href": "https://www.notion.so"
+      }
+    ]
+  }
+}

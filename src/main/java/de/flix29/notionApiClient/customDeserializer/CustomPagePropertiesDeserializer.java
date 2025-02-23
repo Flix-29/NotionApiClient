@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.*;
+import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.RICH_TEXT_LIST_TYPE;
 
 public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<Property>> {
     @Override
@@ -47,7 +48,7 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                         case DATE -> new Date()
                                 .setStart(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.getAsJsonObject("date").get("start"), OffsetDateTime.class, jsonDeserializationContext))
                                 .setEnd(new CustomOffsetDateTimeDeserializer().deserialize(jsonObject.getAsJsonObject("date").get("end"), OffsetDateTime.class, jsonDeserializationContext))
-                                .setTimezone(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("date"), "timezone"));
+                                .setTimezone(getAsStringIfPresentAndNotNull(jsonObject.getAsJsonObject("date"), "time_zone"));
                         case EMAIL -> new Email()
                                 .setEmail(getAsStringIfPresentAndNotNull(jsonObject, "email"));
                         case FILE -> new File()
@@ -63,16 +64,17 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                             if (valueType == null) {
                                 yield null;
                             }
-                            yield switch (valueType) {
-                                case "string" ->
-                                        new Formula().setStringValue(getAsStringIfPresentAndNotNull(formulaObject, "string"));
-                                case "number" ->
-                                        new Formula().setNumberValue(getAsDoubleIfPresentAndNotNull(formulaObject, "number"));
-                                case "boolean" ->
-                                        new Formula().setBooleanValue(getAsBooleanIfPresentAndNotNull(formulaObject, "boolean"));
-                                case "date" ->
-                                        new Formula().setDateValue(new CustomOffsetDateTimeDeserializer().deserialize(formulaObject.get("date"), OffsetDateTime.class, jsonDeserializationContext));
-                                default -> throw new IllegalStateException("Unexpected value: " + valueType);
+                            var formulaType = FormulaType.fromString(valueType);
+                            var formula = new Formula().setType(formulaType);
+                            yield switch (formulaType) {
+                                case STRING ->
+                                        formula.setStringValue(getAsStringIfPresentAndNotNull(formulaObject, "string"));
+                                case NUMBER ->
+                                        formula.setNumberValue(getAsDoubleIfPresentAndNotNull(formulaObject, "number"));
+                                case BOOLEAN ->
+                                        formula.setBooleanValue(getAsBooleanIfPresentAndNotNull(formulaObject, "boolean"));
+                                case DATE ->
+                                        formula.setDateValue(new CustomOffsetDateTimeDeserializer().deserialize(formulaObject.get("date"), OffsetDateTime.class, jsonDeserializationContext));
                             };
                         }
                         case LAST_EDITED_BY -> new LastEditedBy()
@@ -97,7 +99,7 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                         case PHONE_NUMBER ->
                                 new PhoneNumber().setPhoneNumber(getAsStringIfPresentAndNotNull(jsonObject, "phone_number"));
                         case RELATION -> {
-                            if (jsonObject.getAsJsonObject("relation") == null || jsonObject.getAsJsonObject("relation").isJsonNull()) {
+                            if (jsonObject.getAsJsonArray("relation") == null || jsonObject.getAsJsonArray("relation").isJsonNull()) {
                                 yield null;
                             }
                             yield new Relation()
@@ -109,9 +111,21 @@ public class CustomPagePropertiesDeserializer implements JsonDeserializer<List<P
                         }
                         case RICH_TEXT -> new RichText().setContent(
                                 new CustomRichTextDeserializer()
-                                        .deserialize(jsonObject.getAsJsonObject("results"), de.flix29.notionApiClient.model.RichText.class, jsonDeserializationContext)
+                                        .deserialize(jsonObject.getAsJsonArray("rich_text"), RICH_TEXT_LIST_TYPE, jsonDeserializationContext)
                         );
-                        case ROLLUP -> new Rollup(); //TODO
+                        case ROLLUP -> {
+                            var rollup = jsonObject.getAsJsonObject("rollup");
+                            var rollupType = RollupType.fromString(getAsStringIfPresentAndNotNull(rollup, "type"));
+
+                            var rollupObject = new Rollup()
+                                    .setFunction(RollupFunction.fromString(getAsStringIfPresentAndNotNull(rollup, "function")))
+                                    .setType(rollupType);
+
+                            if (rollupType != RollupType.UNSUPPORTED && rollupType != RollupType.INCOMPLETE) {
+                                rollupObject.setValue(getAsStringIfPresentAndNotNull(rollup, rollupType.getType()));
+                            }
+                            yield rollupObject;
+                        }
                         case SELECT -> new Select()
                                 .setSelected(extractSelectItem(jsonObject.getAsJsonObject("select")));
                         case STATUS -> new Status()

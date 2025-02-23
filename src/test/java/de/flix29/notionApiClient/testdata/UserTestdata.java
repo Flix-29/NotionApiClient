@@ -39,7 +39,7 @@ public class UserTestdata {
     private static User userAllSet(UserType userType) {
         return new User()
                 .setType(userType)
-                .setId(UUID.randomUUID())
+                .setId(UUID.fromString("c6e92391-c829-42ea-9ac7-949106ed3916"))
                 .setName("User name")
                 .setAvatarUrl("https://url-to-image.com/image");
     }

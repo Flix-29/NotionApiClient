@@ -102,7 +102,7 @@ public class RichTextTestdata {
                 .setThumbnailUrl("https://www.notion.com/front-static/meta/default.png");
     }
 
-    private static RichText richTextAllSet() {
+    protected static RichText richTextAllSet() {
         return new RichText()
                 .setPlainText("test")
                 .setAnnotations(annotationsAllSet())

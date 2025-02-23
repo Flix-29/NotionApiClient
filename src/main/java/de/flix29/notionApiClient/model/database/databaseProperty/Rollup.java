@@ -17,6 +17,8 @@ public final class Rollup extends Property {
     private String rollupPropertyId;
     private String rollupPropertyName;
     private RollupFunction function;
+    private RollupType type;
+    private String value;
 
     @Override
     public PropertyType getType() {

@@ -1,0 +1,211 @@
+{
+  "Email": {
+    "id": null,
+    "type": "email",
+    "email": null
+  },
+  "Person": {
+    "id": null,
+    "type": "people",
+    "people": [
+      {
+        "object": "user",
+        "id": null,
+        "name": null,
+        "avatar_url": null,
+        "type": "person",
+        "person": {
+          "email": null
+        }
+      }
+    ]
+  },
+  "Last edited by": {
+    "id": null,
+    "type": "last_edited_by",
+    "last_edited_by": {
+      "object": "user",
+      "id": null,
+      "name": null,
+      "avatar_url": null,
+      "type": "person",
+      "person": {
+        "email": null
+      }
+    }
+  },
+  "Phone": {
+    "id": null,
+    "type": "phone_number",
+    "phone_number": null
+  },
+  "Checkbox": {
+    "id": null,
+    "type": "checkbox",
+    "checkbox": false
+  },
+  "URL": {
+    "id": null,
+    "type": "url",
+    "url": null
+  },
+  "Related TestDB": {
+    "id": null,
+    "type": "relation",
+    "relation": [],
+    "has_more": false
+  },
+  "Last edited time": {
+    "id": null,
+    "type": "last_edited_time",
+    "last_edited_time": null
+  },
+  "Date": {
+    "id": null,
+    "type": "date",
+    "date": {
+      "start": null,
+      "end": null,
+      "time_zone": null
+    }
+  },
+  "Rollup": {
+    "id": null,
+    "type": "rollup",
+    "rollup": {
+      "type": "unsupported",
+      "unsupported": {},
+      "function": null
+    }
+  },
+  "Created time": {
+    "id": null,
+    "type": "created_time",
+    "created_time": null
+  },
+  "Button": {
+    "id": null,
+    "type": "button",
+    "button": {}
+  },
+  "Status": {
+    "id": null,
+    "type": "status",
+    "status": {
+      "id": null,
+      "name": null,
+      "color": "default"
+    }
+  },
+  "Number": {
+    "id": null,
+    "type": "number",
+    "number": null
+  },
+  "Files & media": {
+    "id": null,
+    "type": "files",
+    "files": [
+      {
+        "name": null,
+        "type": "file",
+        "file": {
+          "url": null,
+          "expiry_time": null
+        }
+      }
+    ]
+  },
+  "Multi-select": {
+    "id": null,
+    "type": "multi_select",
+    "multi_select": [
+      {
+        "id": null,
+        "name": null,
+        "color": "default"
+      }
+    ]
+  },
+  "Created by": {
+    "id": null,
+    "type": "created_by",
+    "created_by": {
+      "object": "user",
+      "id": null,
+      "name": null,
+      "avatar_url": null,
+      "type": "person",
+      "person": {
+        "email": null
+      }
+    }
+  },
+  "Select": {
+    "id": null,
+    "type": "select",
+    "select": {
+      "id": null,
+      "name": null,
+      "color": "default"
+    }
+  },
+  "Text": {
+    "id": null,
+    "type": "rich_text",
+    "rich_text": [
+      {
+        "type": "text",
+        "text": {
+          "content": null,
+          "link": {
+            "url": null
+          }
+        },
+        "annotations": {
+          "bold": false,
+          "italic": false,
+          "strikethrough": false,
+          "underline": false,
+          "code": false,
+          "color": "default"
+        },
+        "plain_text": null,
+        "href": null
+      }
+    ]
+  },
+  "Formula": {
+    "id": null,
+    "type": "formula",
+    "formula": {
+      "type": "string",
+      "string": null
+    }
+  },
+  "Name": {
+    "id": null,
+    "type": "title",
+    "title": [
+      {
+        "type": "text",
+        "text": {
+          "content": null,
+          "link": {
+            "url": null
+          }
+        },
+        "annotations": {
+          "bold": false,
+          "italic": false,
+          "strikethrough": false,
+          "underline": false,
+          "code": false,
+          "color": "default"
+        },
+        "plain_text": null,
+        "href": null
+      }
+    ]
+  }
+}

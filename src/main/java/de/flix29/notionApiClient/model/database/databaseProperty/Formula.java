@@ -15,6 +15,7 @@ import java.time.OffsetDateTime;
 @Accessors(chain = true)
 public final class Formula extends Property {
     private String expression;
+    private FormulaType type;
     private String stringValue;
     private Double numberValue;
     private Boolean booleanValue;
