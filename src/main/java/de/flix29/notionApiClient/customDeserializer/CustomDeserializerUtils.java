@@ -57,14 +57,14 @@ public class CustomDeserializerUtils {
         return Color.fromString(jsonElement.getAsJsonObject().get("color").getAsString());
     }
 
-    protected static List<RichText> getRichTextFromJsonElement(@NotNull JsonElement jsonElement, @NotNull String rich_text, @NotNull JsonDeserializationContext jsonDeserializationContext) {
+    protected static List<RichText> getRichTextFromJsonElement(@NotNull JsonElement jsonElement, @NotNull String rich_text, JsonDeserializationContext jsonDeserializationContext) {
         if (jsonElement.isJsonNull() || !jsonElement.getAsJsonObject().has(rich_text)) {
             return null;
         }
         return new CustomRichTextDeserializer().deserialize(jsonElement.getAsJsonObject().get(rich_text), RICH_TEXT_LIST_TYPE, jsonDeserializationContext);
     }
 
-    protected static File getFileFromJsonElement(@NotNull JsonElement jsonElement, @NotNull JsonDeserializationContext jsonDeserializationContext) {
+    protected static File getFileFromJsonElement(@NotNull JsonElement jsonElement, JsonDeserializationContext jsonDeserializationContext) {
         if (jsonElement.isJsonNull() || (!jsonElement.getAsJsonObject().has("file") && !jsonElement.getAsJsonObject().has("external"))) {
             return null;
         }
