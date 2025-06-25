@@ -20,7 +20,8 @@ public final class Paragraph implements BlockContent {
     private List<Block> children;
 
     @Override
-    public void setChildren(List<Block> children) {
+    public Paragraph setChildren(List<Block> children) {
         this.children = children;
+        return this;
     }
 }

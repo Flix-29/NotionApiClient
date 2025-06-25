@@ -8,7 +8,7 @@ public sealed interface BlockContent permits Bookmark, Breadcrumb, BulletListIte
         Code, Column, ColumnList, Divider, Embed, Equation, File, Heading, Image, LinkPreview, Mention, NumberedListItem,
         Paragraph, Pdf, Quote, SyncedBlock, Table, TableRow, TableOfContents, Template, ToDo, Toggle, Video {
 
-    default void setChildren(List<Block> children) {
+    default BlockContent setChildren(List<Block> children) {
         throw new UnsupportedOperationException("Not supported for this block content type");
     }
 }

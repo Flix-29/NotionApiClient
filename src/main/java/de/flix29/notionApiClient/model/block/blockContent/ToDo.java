@@ -21,7 +21,8 @@ public final class ToDo implements BlockContent {
     private List<Block> children;
 
     @Override
-    public void setChildren(List<Block> children) {
+    public ToDo setChildren(List<Block> children) {
         this.children = children;
+        return this;
     }
 }

@@ -20,7 +20,8 @@ public final class NumberedListItem implements BlockContent {
     private List<Block> children;
 
     @Override
-    public void setChildren(List<Block> children) {
+    public NumberedListItem setChildren(List<Block> children) {
         this.children = children;
+        return this;
     }
 }

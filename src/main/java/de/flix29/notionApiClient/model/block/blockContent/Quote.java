@@ -20,7 +20,8 @@ public final class Quote implements BlockContent {
     private List<Block> children;
 
     @Override
-    public void setChildren(List<Block> children) {
+    public Quote setChildren(List<Block> children) {
         this.children = children;
+        return this;
     }
 }

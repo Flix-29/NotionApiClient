@@ -16,7 +16,8 @@ public final class Column implements BlockContent {
     private List<Block> children;
 
     @Override
-    public void setChildren(List<Block> children) {
+    public Column setChildren(List<Block> children) {
         this.children = children;
+        return this;
     }
 }

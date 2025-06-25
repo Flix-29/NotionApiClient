@@ -17,7 +17,8 @@ public final class SyncedBlock implements BlockContent {
     private List<Block> children;
 
     @Override
-    public void setChildren(List<Block> children) {
+    public SyncedBlock setChildren(List<Block> children) {
         this.children = children;
+        return this;
     }
 }
