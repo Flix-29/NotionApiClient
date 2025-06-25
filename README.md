@@ -19,7 +19,7 @@ After you have created your integration, you can import the `NotionApiClient` vi
 <dependency>
     <groupId>de.flix29</groupId>
     <artifactId>notion-api-client</artifactId>
-    <version>0.2.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -39,7 +39,7 @@ NotionClient notionClient = new NotionClient("your-token");
 Then, you can use the methods provided in the `NotionClient` class to interact with the Notion API.
 
 ## Supported Endpoints
-Currently, only the `Get` endpoints are supported. These are the following:
+Currently, mainly the `Get` endpoints are supported. These are the following:
 
 ### Database
 
@@ -54,6 +54,7 @@ Currently, only the `Get` endpoints are supported. These are the following:
 
 - `GET` <a href="https://developers.notion.com/reference/retrieve-a-block">Retrieve a Block</a>
 - `GET` <a href="https://developers.notion.com/reference/get-block-children">Retrieve a Block children</a>
+- `DELETE` <a href="https://developers.notion.com/reference/delete-a-block">Delete a Block</a>
 
 ### Users
 
