@@ -13,7 +13,7 @@ First, you need to create a Notion integration.
 4. Copy the `Internal Integration Token` and save it in a safe place.
 5. Share the integration with your workspace and add it to the Sites or Databases you want the Api to have access to.
 
-After you have created your integration, you can import the `NotionApiClient` via maven or gradle.
+After you have created your integration, you can import the `NotionApiClient` via Maven or Gradle.
 ### Maven
 ```xml
 <dependency>
@@ -25,7 +25,7 @@ After you have created your integration, you can import the `NotionApiClient` vi
 
 ### Gradle
 ```groovy
-implementation 'de.flix29:notion-api-client:0.2.0'
+implementation 'de.flix29:notion-api-client:1.0.0'
 ```
 
 ### Usage
