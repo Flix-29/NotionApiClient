@@ -64,8 +64,7 @@ public class NotionClient {
         this.requestBuilder = HttpRequest.newBuilder()
                 .header("Authorization", apikey)
                 .header("Notion-Version", NOTION_VERSION)
-                .header("Content-Type", "application/json")
-                .method("GET", HttpRequest.BodyPublishers.noBody());
+                .header("Content-Type", "application/json");
     }
 
     /**
@@ -80,7 +79,7 @@ public class NotionClient {
     public Database getDatabase(String databaseId) throws IOException, InterruptedException {
         log.info("Requesting database with id: " + databaseId);
         var databaseUri = buildUri(NOTION_DATABASE_URL, databaseId);
-        var builder = requestBuilder.uri(URI.create(databaseUri)).build();
+        var builder = getRequestBuilder().uri(URI.create(databaseUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
@@ -102,7 +101,7 @@ public class NotionClient {
     public Block getBlock(String blockId) throws IOException, InterruptedException {
         log.info("Requesting block with id: " + blockId);
         var blockUri = buildUri(NOTION_BLOCK_URL, blockId);
-        var builder = requestBuilder.uri(URI.create(blockUri)).build();
+        var builder = getRequestBuilder().uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
@@ -124,7 +123,7 @@ public class NotionClient {
     public List<Block> getBlockChildren(String blockId) throws IOException, InterruptedException {
         log.info("Requesting block children of block with id: " + blockId);
         var blockUri = buildUri(NOTION_BLOCK_CHILDREN_URL, blockId);
-        var builder = requestBuilder.uri(URI.create(blockUri)).build();
+        var builder = getRequestBuilder().uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
@@ -146,7 +145,7 @@ public class NotionClient {
     public List<Block> getBlockChildrenRecursive(String blockId) throws IOException, InterruptedException {
         log.info("Requesting block children recursively of block with id: " + blockId);
         var blockUri = buildUri(NOTION_BLOCK_CHILDREN_URL, blockId);
-        var builder = requestBuilder.uri(URI.create(blockUri)).build();
+        var builder = getRequestBuilder().uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
@@ -165,6 +164,28 @@ public class NotionClient {
     }
 
     /**
+     * Delete a block by its id.<br>
+     * See <a href="https://developers.notion.com/reference/delete-a-block">API-Reference</a> for more information.
+     *
+     * @param blockId The id of the block
+     * @return The deleted {@link Block}
+     * @throws IOException if the request fails
+     * @throws InterruptedException if the request fails
+     */
+    public Block deleteBlock(String blockId) throws IOException, InterruptedException {
+        log.info("Deleting block with id: " + blockId);
+        var blockUri = buildUri(NOTION_BLOCK_URL, blockId);
+        var builder = getDeleteRequestBuilder().uri(URI.create(blockUri)).build();
+        var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
+
+        return parseFromJson(response.body(), TypeToken.get(Block.class));
+    }
+
+    /**
      * Get the properties of a page by its id.<br>
      * See <a href="https://developers.notion.com/reference/retrieve-a-page">API-Reference</a> for more information.
      *
@@ -176,7 +197,7 @@ public class NotionClient {
     public Page getPageProperties(String pageId) throws IOException, InterruptedException {
         log.info("Requesting page properties of page with id: " + pageId);
         var pageUri = buildUri(NOTION_PAGE_URL, pageId);
-        var builder = requestBuilder.uri(URI.create(pageUri)).build();
+        var builder = getRequestBuilder().uri(URI.create(pageUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
@@ -217,7 +238,7 @@ public class NotionClient {
      */
     public List<User> listAllUsers() throws IOException, InterruptedException {
         log.info("Requesting all users");
-        var builder = requestBuilder.uri(URI.create(NOTION_USERS_URL)).build();
+        var builder = getRequestBuilder().uri(URI.create(NOTION_USERS_URL)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
@@ -238,7 +259,7 @@ public class NotionClient {
     public User getUser(String userId) throws IOException, InterruptedException {
         log.info("Requesting user with id: " + userId);
         var userUri = NOTION_USERS_URL + "/" + userId;
-        var builder = requestBuilder.uri(URI.create(userUri)).build();
+        var builder = getRequestBuilder().uri(URI.create(userUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
@@ -258,13 +279,31 @@ public class NotionClient {
     public User getCurrentUser() throws IOException, InterruptedException {
         log.info("Requesting current user");
         var userUri = NOTION_USERS_URL + "/me";
-        var builder = requestBuilder.uri(URI.create(userUri)).build();
+        var builder = getRequestBuilder().uri(URI.create(userUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
             throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
         }
         return parseFromJson(response.body(), TypeToken.get(User.class));
+    }
+
+    /**
+     * Returns the RequestBuilder configured for a 'GET' request.
+     *
+     * @return The {@link HttpRequest.Builder} for the Notion API
+     */
+    private HttpRequest.Builder getRequestBuilder() {
+        return requestBuilder.GET();
+    }
+
+    /**
+     * Returns the RequestBuilder configured for a 'POST' request.
+     *
+     * @return The {@link HttpRequest.Builder} for the Notion API
+     */
+    private HttpRequest.Builder getDeleteRequestBuilder() {
+        return requestBuilder.DELETE();
     }
 
     /**
