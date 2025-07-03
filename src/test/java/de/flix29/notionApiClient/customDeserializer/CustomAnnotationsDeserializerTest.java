@@ -1,6 +1,8 @@
 package de.flix29.notionApiClient.customDeserializer;
 
-import com.google.gson.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonParser;
 import de.flix29.notionApiClient.model.Annotations;
 import de.flix29.notionApiClient.testdata.AnnotationsTestdata;
 import org.junit.jupiter.api.BeforeEach;

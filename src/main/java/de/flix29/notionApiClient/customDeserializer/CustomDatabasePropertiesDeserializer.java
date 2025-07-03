@@ -4,7 +4,6 @@ import com.google.gson.*;
 import de.flix29.notionApiClient.model.Color;
 import de.flix29.notionApiClient.model.database.databaseProperty.*;
 import de.flix29.notionApiClient.model.database.databaseProperty.Number;
-import de.flix29.notionApiClient.model.database.databaseProperty.NumberFormat;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

@@ -1,6 +1,9 @@
 package de.flix29.notionApiClient.customDeserializer;
 
-import com.google.gson.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import de.flix29.notionApiClient.model.User;
 
 import java.lang.reflect.Type;

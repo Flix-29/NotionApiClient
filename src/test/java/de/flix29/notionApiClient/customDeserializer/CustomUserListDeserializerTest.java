@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.USER_LIST_TYPE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CustomUserListDeserializerTest {
 

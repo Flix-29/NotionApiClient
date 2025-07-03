@@ -1,6 +1,9 @@
 package de.flix29.notionApiClient.model.database;
 
-import de.flix29.notionApiClient.model.*;
+import de.flix29.notionApiClient.model.File;
+import de.flix29.notionApiClient.model.Icon;
+import de.flix29.notionApiClient.model.Parent;
+import de.flix29.notionApiClient.model.RichText;
 import de.flix29.notionApiClient.model.database.databaseProperty.Property;
 import lombok.AllArgsConstructor;
 import lombok.Data;
