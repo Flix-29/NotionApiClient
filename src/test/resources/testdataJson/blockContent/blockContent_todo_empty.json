@@ -1,21 +1,23 @@
 {
-  "rich_text" : [ {
-    "type" : "text",
-    "text" : {
-      "content" : null,
-      "link" : null
-    },
-    "annotations" : {
-      "bold" : false,
-      "italic" : false,
-      "strikethrough" : false,
-      "underline" : false,
-      "code" : false,
-      "color" : "default"
-    },
-    "plain_text" : null,
-    "href" : null
-  } ],
-  "checked" : false,
-  "color" : "default"
+  "rich_text": [
+    {
+      "type": "text",
+      "text": {
+        "content": null,
+        "link": null
+      },
+      "annotations": {
+        "bold": false,
+        "italic": false,
+        "strikethrough": false,
+        "underline": false,
+        "code": false,
+        "color": "default"
+      },
+      "plain_text": null,
+      "href": null
+    }
+  ],
+  "checked": false,
+  "color": "default"
 }

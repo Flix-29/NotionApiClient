@@ -1,21 +1,23 @@
 {
-  "rich_text" : [ {
-    "type" : "text",
-    "text" : {
-      "content" : "Notion",
-      "link" : null
-    },
-    "annotations" : {
-      "bold" : true,
-      "italic" : true,
-      "strikethrough" : true,
-      "underline" : true,
-      "code" : true,
-      "color" : "red"
-    },
-    "plain_text" : "Notion",
-    "href" : null
-  } ],
-  "is_toggleable" : true,
-  "color" : "red"
+  "rich_text": [
+    {
+      "type": "text",
+      "text": {
+        "content": "Notion",
+        "link": null
+      },
+      "annotations": {
+        "bold": true,
+        "italic": true,
+        "strikethrough": true,
+        "underline": true,
+        "code": true,
+        "color": "red"
+      },
+      "plain_text": "Notion",
+      "href": null
+    }
+  ],
+  "is_toggleable": true,
+  "color": "red"
 }

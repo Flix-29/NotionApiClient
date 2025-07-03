@@ -14,7 +14,9 @@ First, you need to create a Notion integration.
 5. Share the integration with your workspace and add it to the Sites or Databases you want the Api to have access to.
 
 After you have created your integration, you can import the `NotionApiClient` via Maven or Gradle.
+
 ### Maven
+
 ```xml
 <dependency>
     <groupId>de.flix29</groupId>
@@ -24,11 +26,13 @@ After you have created your integration, you can import the `NotionApiClient` vi
 ```
 
 ### Gradle
+
 ```groovy
 implementation 'de.flix29:notion-api-client:1.0.0'
 ```
 
 ### Usage
+
 You need to create a `NotionClient` object and pass the `Internal Integration Token` to the constructor.
 
 ```java
@@ -36,9 +40,11 @@ import de.flix29.notionApiClient.NotionClient;
 
 NotionClient notionClient = new NotionClient("your-token");
 ```
+
 Then, you can use the methods provided in the `NotionClient` class to interact with the Notion API.
 
 ## Supported Endpoints
+
 Currently, mainly the `Get` endpoints are supported. These are the following:
 
 ### Database

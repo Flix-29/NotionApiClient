@@ -1,23 +1,25 @@
 {
-  "caption" : [ {
-    "type" : "text",
-    "text" : {
-      "content" : "Notion",
-      "link" : null
-    },
-    "annotations" : {
-      "bold" : true,
-      "italic" : true,
-      "strikethrough" : true,
-      "underline" : true,
-      "code" : true,
-      "color" : "red"
-    },
-    "plain_text" : "Notion",
-    "href" : null
-  } ],
-  "type" : "external",
-  "external" : {
-    "url" : "https://link-to-video.com"
+  "caption": [
+    {
+      "type": "text",
+      "text": {
+        "content": "Notion",
+        "link": null
+      },
+      "annotations": {
+        "bold": true,
+        "italic": true,
+        "strikethrough": true,
+        "underline": true,
+        "code": true,
+        "color": "red"
+      },
+      "plain_text": "Notion",
+      "href": null
+    }
+  ],
+  "type": "external",
+  "external": {
+    "url": "https://link-to-video.com"
   }
 }

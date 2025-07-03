@@ -1,25 +1,27 @@
 {
-  "caption" : [ {
-    "type" : "text",
-    "text" : {
-      "content" : null,
-      "link" : null
-    },
-    "annotations" : {
-      "bold" : false,
-      "italic" : false,
-      "strikethrough" : false,
-      "underline" : false,
-      "code" : false,
-      "color" : "default"
-    },
-    "plain_text" : null,
-    "href" : null
-  } ],
-  "type" : "file",
-  "file" : {
-    "url" : null,
-    "expiry_time" : null
+  "caption": [
+    {
+      "type": "text",
+      "text": {
+        "content": null,
+        "link": null
+      },
+      "annotations": {
+        "bold": false,
+        "italic": false,
+        "strikethrough": false,
+        "underline": false,
+        "code": false,
+        "color": "default"
+      },
+      "plain_text": null,
+      "href": null
+    }
+  ],
+  "type": "file",
+  "file": {
+    "url": null,
+    "expiry_time": null
   },
-  "name" : null
+  "name": null
 }

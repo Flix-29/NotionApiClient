@@ -11,15 +11,15 @@
     "object": "user",
     "id": "c6e92391-c829-42ea-9ac7-949106ed3916"
   },
-  "cover" : {
-    "type" : "external",
-    "external" : {
-      "url" : "https://www.notion.so/images/page-cover/woodcuts_2.jpg"
+  "cover": {
+    "type": "external",
+    "external": {
+      "url": "https://www.notion.so/images/page-cover/woodcuts_2.jpg"
     }
   },
-  "icon" : {
-    "type" : "emoji",
-    "emoji" : "😃"
+  "icon": {
+    "type": "emoji",
+    "emoji": "😃"
   },
   "parent": {
     "type": "database_id",
