@@ -2,13 +2,15 @@ package de.flix29.notionApiClient;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import de.flix29.notionApiClient.customDeserializer.*;
 import de.flix29.notionApiClient.model.User;
 import de.flix29.notionApiClient.model.block.Block;
+import de.flix29.notionApiClient.model.block.blockContent.BlockContent;
 import de.flix29.notionApiClient.model.database.Database;
-import de.flix29.notionApiClient.model.page.Page;
 import de.flix29.notionApiClient.model.database.databaseProperty.Property;
+import de.flix29.notionApiClient.model.page.Page;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,8 +21,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.BLOCK_LIST_TYPE;
-import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.USER_LIST_TYPE;
+import static de.flix29.notionApiClient.customDeserializer.CustomModelTypes.*;
 
 /**
  * NotionClient is a simple Java client for the Notion API.<br>
@@ -36,6 +37,7 @@ public class NotionClient {
             .registerTypeAdapter(Database.class, new CustomDatabaseDeserializer())
             .registerTypeAdapter(Block.class, new CustomBlockDeserializer())
             .registerTypeAdapter(BLOCK_LIST_TYPE, new CustomBlockListDeserializer())
+            .registerTypeAdapter(BLOCK_CONTENT_LIST_TYPE, new CustomBlockContentListSerializer())
             .registerTypeAdapter(User.class, new CustomUserDeserializer())
             .registerTypeAdapter(USER_LIST_TYPE, new CustomUserListDeserializer())
             .registerTypeAdapter(Page.class, new CustomPageDeserializer())
@@ -73,7 +75,7 @@ public class NotionClient {
      *
      * @param databaseId The id of the database
      * @return The {@link Database} with the given id
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public Database getDatabase(String databaseId) throws IOException, InterruptedException {
@@ -95,7 +97,7 @@ public class NotionClient {
      *
      * @param blockId The id of the block
      * @return The {@link Block} with the given id
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public Block getBlock(String blockId) throws IOException, InterruptedException {
@@ -117,7 +119,7 @@ public class NotionClient {
      *
      * @param blockId The id of the block
      * @return The children of the block with the given id, represented as a list of {@link Block}
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public List<Block> getBlockChildren(String blockId) throws IOException, InterruptedException {
@@ -139,7 +141,7 @@ public class NotionClient {
      *
      * @param blockId The id of the block
      * @return The children of the block with the given id and all its children, represented as a list of {@link Block}
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public List<Block> getBlockChildrenRecursive(String blockId) throws IOException, InterruptedException {
@@ -164,18 +166,62 @@ public class NotionClient {
     }
 
     /**
+     * Append children to a block.<br>
+     * See <a href="https://developers.notion.com/reference/patch-block-children">API-Reference</a> for more information.
+     *
+     * @param blockId  The id of the block
+     * @param children The list of {@link BlockContent} to append
+     * @return The updated list of {@link Block} after appending the children
+     * @throws IOException          if the request fails
+     * @throws InterruptedException if the request fails
+     */
+    public List<Block> appendBlockChildren(String blockId, List<BlockContent> children) throws IOException, InterruptedException {
+        return appendBlockChildren(blockId, null, children);
+    }
+
+    /**
+     * Append children to a block.<br>
+     * See <a href="https://developers.notion.com/reference/patch-block-children">API-Reference</a> for more information.
+     *
+     * @param blockId  The id of the block
+     * @param after    The id of the block after which the children should be appended. If null or empty, the children will be appended at the end of the block's children.
+     * @param children The list of {@link BlockContent} to append
+     * @return The updated list of {@link Block} after appending the children
+     * @throws IOException          if the request fails
+     * @throws InterruptedException if the request fails
+     */
+    public List<Block> appendBlockChildren(String blockId, String after, List<BlockContent> children) throws IOException, InterruptedException {
+        log.info("Appending children to block with id: " + blockId);
+        var blockUri = buildUri(NOTION_BLOCK_CHILDREN_URL, blockId);
+
+        var requestBody = new JsonObject();
+        requestBody.add("children", gson.toJsonTree(children, BLOCK_CONTENT_LIST_TYPE));
+        if (after != null && !after.isEmpty()) {
+            requestBody.addProperty("after", after);
+        }
+        var builder = patchRequestBuilder(requestBody.toString()).uri(URI.create(blockUri)).build();
+        var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            throw new IOException("Notion response error: " + response.statusCode() + " - " + response.body());
+        }
+
+        return (List<Block>) parseFromJson(response.body(), TypeToken.get(BLOCK_LIST_TYPE));
+    }
+
+    /**
      * Delete a block by its id.<br>
      * See <a href="https://developers.notion.com/reference/delete-a-block">API-Reference</a> for more information.
      *
      * @param blockId The id of the block
      * @return The deleted {@link Block}
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public Block deleteBlock(String blockId) throws IOException, InterruptedException {
         log.info("Deleting block with id: " + blockId);
         var blockUri = buildUri(NOTION_BLOCK_URL, blockId);
-        var builder = getDeleteRequestBuilder().uri(URI.create(blockUri)).build();
+        var builder = deleteRequestBuilder().uri(URI.create(blockUri)).build();
         var response = HttpClient.newHttpClient().send(builder, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
@@ -191,7 +237,7 @@ public class NotionClient {
      *
      * @param pageId The id of the page
      * @return The properties of the {@link Page} with the given id
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public Page getPageProperties(String pageId) throws IOException, InterruptedException {
@@ -211,10 +257,10 @@ public class NotionClient {
      * Get a property of a page by its id.<br>
      * See <a href="https://developers.notion.com/reference/retrieve-a-page-property">API-Reference</a> for more information.
      *
-     * @param pageId The id of the page
+     * @param pageId     The id of the page
      * @param propertyId The id of the property
      * @return The {@link Property} with the given id of the page with the given id
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public Property getPageProperty(String pageId, String propertyId) throws IOException, InterruptedException {
@@ -233,7 +279,7 @@ public class NotionClient {
      * See <a href="https://developers.notion.com/reference/get-users">API-Reference</a> for more information.
      *
      * @return A list of all {@link User} in the workspace
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public List<User> listAllUsers() throws IOException, InterruptedException {
@@ -253,7 +299,7 @@ public class NotionClient {
      *
      * @param userId The id of the user
      * @return The {@link User} with the given id
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public User getUser(String userId) throws IOException, InterruptedException {
@@ -273,7 +319,7 @@ public class NotionClient {
      * See <a href="https://developers.notion.com/reference/get-self">API-Reference</a> for more information.
      *
      * @return The current {@link User}
-     * @throws IOException if the request fails
+     * @throws IOException          if the request fails
      * @throws InterruptedException if the request fails
      */
     public User getCurrentUser() throws IOException, InterruptedException {
@@ -300,9 +346,19 @@ public class NotionClient {
     /**
      * Returns the RequestBuilder configured for a 'POST' request.
      *
+     * @param requestBody The body of the request as a JSON string
      * @return The {@link HttpRequest.Builder} for the Notion API
      */
-    private HttpRequest.Builder getDeleteRequestBuilder() {
+    private HttpRequest.Builder patchRequestBuilder(@NotNull String requestBody) {
+        return requestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofString(requestBody));
+    }
+
+    /**
+     * Returns the RequestBuilder configured for a 'DELETE' request.
+     *
+     * @return The {@link HttpRequest.Builder} for the Notion API
+     */
+    private HttpRequest.Builder deleteRequestBuilder() {
         return requestBuilder.DELETE();
     }
 
@@ -310,7 +366,7 @@ public class NotionClient {
      * Build the URI for the request.
      *
      * @param url The base URL
-     * @param id The id to replace in the URL
+     * @param id  The id to be replaced in the URL
      * @return The URI for the request
      */
     private String buildUri(@NotNull String url, @NotNull String id) {
@@ -320,9 +376,9 @@ public class NotionClient {
     /**
      * Parse a JSON string to a Java object using the {@link com.google.gson.Gson} library.
      *
-     * @param json The JSON string
+     * @param json        The JSON string
      * @param targetClass The target class
-     * @param <T> The type of the target class
+     * @param <T>         The type of the target class
      * @return The Java object
      */
     private <T> T parseFromJson(@NotNull String json, @NotNull TypeToken<T> targetClass) {

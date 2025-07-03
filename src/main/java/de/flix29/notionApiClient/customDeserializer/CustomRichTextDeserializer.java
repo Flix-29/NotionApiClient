@@ -1,9 +1,6 @@
 package de.flix29.notionApiClient.customDeserializer;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
+import com.google.gson.*;
 import de.flix29.notionApiClient.model.*;
 
 import java.lang.reflect.Type;
@@ -12,7 +9,7 @@ import java.util.List;
 
 import static de.flix29.notionApiClient.customDeserializer.CustomDeserializerUtils.getAsStringIfPresentAndNotNull;
 
-public class CustomRichTextDeserializer implements JsonDeserializer<List<RichText>> {
+public class CustomRichTextDeserializer implements JsonDeserializer<List<RichText>>, JsonSerializer<List<RichText>> {
     @Override
     public List<RichText> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         if (jsonElement == null || jsonElement.isJsonNull()) {
@@ -78,5 +75,28 @@ public class CustomRichTextDeserializer implements JsonDeserializer<List<RichTex
                         default -> throw new IllegalStateException("Unexpected texttype value: " + textType);
                     };
                 }).toList();
+    }
+
+    @Override
+    public JsonElement serialize(List<RichText> richTextList, Type type, JsonSerializationContext jsonSerializationContext) {
+        if (richTextList == null || richTextList.isEmpty()) {
+            return JsonNull.INSTANCE;
+        }
+
+        var output = new JsonArray();
+        richTextList.forEach(richText -> {
+            JsonObject element = new JsonObject();
+            element.add("type", new JsonPrimitive("text"));
+            element.add("text", new JsonObject());
+            element.getAsJsonObject("text").add("content", new JsonPrimitive(richText.getPlainText()));
+            if (richText.getHref() != null) {
+                element.getAsJsonObject("text").add("link", new JsonObject());
+                element.getAsJsonObject("text").getAsJsonObject("link").add("url", new JsonPrimitive(richText.getHref()));
+            }
+            output.add(element);
+        });
+        var object = new JsonObject();
+        object.add("rich_text", output);
+        return object.getAsJsonObject();
     }
 }
