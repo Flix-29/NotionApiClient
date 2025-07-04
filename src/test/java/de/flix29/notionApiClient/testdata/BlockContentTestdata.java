@@ -23,9 +23,7 @@ public class BlockContentTestdata {
         return new Video()
                 .setCaption(richTextTextEmpty())
                 .setType(FileType.EXTERNAL)
-                .setFile(new de.flix29.notionApiClient.model.File()
-                        .setType(FileType.EXTERNAL)
-                        .setUrl(null));
+                .setFile(modelFileExternalEmpty());
     }
 
     public static Toggle toggleAllSet() {
@@ -260,6 +258,20 @@ public class BlockContentTestdata {
                 .setUrl("https://notion.so");
     }
 
+    public static Audio audioAllSet() {
+        return new Audio()
+                .setFile(new de.flix29.notionApiClient.model.File()
+                        .setType(FileType.EXTERNAL)
+                        .setUrl("https://link-to-audio.com")
+                        .setExpirationTime(OffsetDateTime.parse("2025-01-01T12:00:00Z"))
+                );
+    }
+
+    public static  Audio audioEmpty() {
+        return new Audio()
+                .setFile(modelFileExternalEmpty());
+    }
+
     public static Bookmark bookmarkEmpty() {
         return new Bookmark()
                 .setCaption(richTextTextEmpty());
@@ -290,9 +302,7 @@ public class BlockContentTestdata {
     }
 
     private static Icon iconEmpty() {
-        return new de.flix29.notionApiClient.model.File()
-                .setType(FileType.EXTERNAL)
-                .setUrl(null);
+        return modelFileExternalEmpty();
     }
 
     private static de.flix29.notionApiClient.model.File modelFileAllSet() {
@@ -305,6 +315,13 @@ public class BlockContentTestdata {
     private static de.flix29.notionApiClient.model.File modelFileEmpty() {
         return new de.flix29.notionApiClient.model.File()
                 .setType(FileType.FILE)
+                .setUrl(null)
+                .setExpirationTime(null);
+    }
+
+    private static de.flix29.notionApiClient.model.File modelFileExternalEmpty() {
+        return new de.flix29.notionApiClient.model.File()
+                .setType(FileType.EXTERNAL)
                 .setUrl(null)
                 .setExpirationTime(null);
     }

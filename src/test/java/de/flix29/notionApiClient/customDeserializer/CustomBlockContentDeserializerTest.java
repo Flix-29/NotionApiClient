@@ -46,6 +46,7 @@ class CustomBlockContentDeserializerTest {
 
     private static Stream<Arguments> map_isEmpty() {
         return Stream.of(
+                Arguments.of("audio", BlockType.AUDIO, BlockContentTestdata.audioEmpty()),
                 Arguments.of("bookmark", BlockType.BOOKMARK, BlockContentTestdata.bookmarkEmpty()),
                 Arguments.of("bulletList", BlockType.BULLETED_LIST_ITEM, BlockContentTestdata.bulletedListItemEmpty()),
                 Arguments.of("callout", BlockType.CALLOUT, BlockContentTestdata.calloutEmpty()),
@@ -85,6 +86,7 @@ class CustomBlockContentDeserializerTest {
 
     private static Stream<Arguments> myp_isOk() {
         return Stream.of(
+                Arguments.of("audio", BlockType.AUDIO, BlockContentTestdata.audioAllSet()),
                 Arguments.of("bookmark", BlockType.BOOKMARK, BlockContentTestdata.bookmarkAllSet()),
                 Arguments.of("bulletList", BlockType.BULLETED_LIST_ITEM, BlockContentTestdata.bulletedListItemAllSet()),
                 Arguments.of("callout", BlockType.CALLOUT, BlockContentTestdata.calloutAllSet()),

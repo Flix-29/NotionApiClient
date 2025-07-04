@@ -29,6 +29,8 @@ public class CustomBlockContentDeserializer implements JsonDeserializer<BlockCon
     @Override
     public BlockContent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         return switch (blockType) {
+            case AUDIO -> new Audio()
+                    .setFile(getFileFromJsonElement(jsonElement, jsonDeserializationContext));
             case BOOKMARK -> new Bookmark()
                     .setCaption(getRichTextFromJsonElement(jsonElement, "caption", jsonDeserializationContext))
                     .setUrl(getStringFromJsonElement(jsonElement, "url"));
