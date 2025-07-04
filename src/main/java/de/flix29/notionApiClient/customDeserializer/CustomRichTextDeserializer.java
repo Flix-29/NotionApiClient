@@ -86,12 +86,14 @@ public class CustomRichTextDeserializer implements JsonDeserializer<List<RichTex
         var output = new JsonArray();
         richTextList.forEach(richText -> {
             JsonObject element = new JsonObject();
-            element.add("type", new JsonPrimitive("text"));
+            element.addProperty("type", "text");
             element.add("text", new JsonObject());
-            element.getAsJsonObject("text").add("content", new JsonPrimitive(richText.getPlainText()));
+            element.getAsJsonObject("text")
+                    .addProperty("content", richText.getPlainText());
             if (richText.getHref() != null) {
                 element.getAsJsonObject("text").add("link", new JsonObject());
-                element.getAsJsonObject("text").getAsJsonObject("link").add("url", new JsonPrimitive(richText.getHref()));
+                element.getAsJsonObject("text").getAsJsonObject("link")
+                        .addProperty("url", richText.getHref());
             }
             output.add(element);
         });

@@ -20,7 +20,7 @@ public class CustomBlockContentListSerializer implements JsonSerializer<List<Blo
         var output = new JsonArray();
         blockContentList.forEach(blockContent -> {
             JsonObject element = new JsonObject();
-            element.add("object", new JsonPrimitive("block"));
+            element.addProperty("object", "block");
             switch (blockContent) {
 //            case Bookmark bookmark -> serializeBookmark(bookmark, jsonSerializationContext);
 //            case Breadcrumb breadcrumb -> serializeBreadcrumb(breadcrumb, jsonSerializationContext);
@@ -40,7 +40,7 @@ public class CustomBlockContentListSerializer implements JsonSerializer<List<Blo
 //            case Template template -> serializeTemplate(template, jsonSerializationContext);
 //            case NumberedListItem numberedListItem -> serializeNumberedListItem(numberedListItem, jsonSerializationContext);
                 case Paragraph paragraph -> {
-                    element.add("type", new JsonPrimitive(paragraph.getClass().getSimpleName().toLowerCase()));
+                    element.addProperty("type", paragraph.getClass().getSimpleName().toLowerCase());
                     element.add(BlockType.fromBlockContentClass(paragraph.getClass()).getType().toLowerCase(), new CustomRichTextDeserializer().serialize(paragraph.getContent(), RichText.class, jsonSerializationContext));
                 }
 //            case Pdf pdf -> serializePdf(pdf, jsonSerializationContext);
