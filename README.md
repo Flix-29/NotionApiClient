@@ -21,14 +21,14 @@ After you have created your integration, you can import the `NotionApiClient` vi
 <dependency>
     <groupId>de.flix29</groupId>
     <artifactId>notion-api-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'de.flix29:notion-api-client:1.0.0'
+implementation 'de.flix29:notion-api-client:1.1.0'
 ```
 
 ### Usage
